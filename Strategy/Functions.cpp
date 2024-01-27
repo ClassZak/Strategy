@@ -1,6 +1,59 @@
 #ifndef FUNCTIONS_CPP
 #define FUNCTIONS_CPP
 #include "Functions.h"
+
+
+std::wstring ReadUtf8File(const char* filename)
+{
+	// Открываем файл в бинарном режиме
+	std::ifstream file(filename, std::ios::binary);
+	// Читаем содержимое файла в строку
+	std::string content(std::istreambuf_iterator<char>(file), {});
+	// Получаем длину строки в символах Unicode
+	int len = MultiByteToWideChar(CP_UTF8, 0, content.c_str(), content.size(), NULL, 0);
+	// Выделяем память под массив символов Unicode
+	wchar_t* buffer = new wchar_t[len];
+	// Преобразуем строку в UTF-8 в строку Unicode
+	MultiByteToWideChar(CP_UTF8, 0, content.c_str(), content.size(), buffer, len);
+	// Получаем длину строки в символах(обрезаем строку)
+	int len2 = WideCharToMultiByte(CP_ACP, 0, buffer, len, NULL, 0, NULL, NULL);
+
+	std::wstring result(buffer, len2);
+	delete[] buffer;
+	return result;
+}
+std::wstring ClearFromRSymbols(std::wstring& string)
+{
+	std::wstring resStr;
+	std::wstring currStr;
+	std::size_t currentPos = 0, nextPos=0;
+	while (nextPos != std::wstring::npos)
+	{
+		nextPos = string.find(L'\r', currentPos+1);
+		currStr = string.substr(currentPos, nextPos-currentPos);
+		resStr += currStr;
+		currentPos = string.find(L'\r', nextPos)+1;
+	}
+	return resStr;
+}
+std::vector<std::wstring> WStringToVector(std::wstring& fullText)
+{
+	std::wstring cleanString = ClearFromRSymbols(fullText), currStr;
+	std::vector<std::wstring> result;
+	std::size_t currentPos = 0;
+	while (currentPos != std::wstring::npos)
+	{
+		currStr = cleanString.substr(currentPos, cleanString.find(L'\n', currentPos) - currentPos);
+		result.push_back(currStr);
+		currentPos = cleanString.find(L'\n', currentPos+1);
+		if (currentPos++ == std::wstring::npos)
+			break;
+	}
+	return result;
+}
+
+
+
 long long StringToLongLong(const std::string& str, const bool continuously)
 {
 	bool negative = false;

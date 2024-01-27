@@ -1,0 +1,83 @@
+# Panose.txt
+# -*- encoding: ASCII -*-
+
+*** Panose Settings for Kurinto v2.197 [Lite]
+
+This file lists the Panose setting for each font in this "Lite" flavor of the
+release package:
+
+* Primary Fonts
+
+Text
+  Kurinto Text				 2-0-5-3-6-0-0-2-0-4
+  Kurinto Text Italic			 2-0-5-3-6-0-0-2-0-4
+  Kurinto Text Bold			 2-0-8-3-6-0-0-2-0-4
+  Kurinto Text Bold Italic		 2-0-8-3-6-0-0-2-0-4
+  Kurinto Text Core			 2-0-5-3-6-0-0-2-0-4
+  Kurinto Text Core Italic		 2-0-5-3-6-0-0-2-0-4
+  Kurinto Text Core Bold		 2-0-8-3-6-0-0-2-0-4
+  Kurinto Text Core Bold Italic 	 2-0-8-3-6-0-0-2-0-4
+  Kurinto Text Aux			 2-0-5-3-6-0-0-2-0-4
+  Kurinto Text Aux Italic		 2-0-5-3-6-0-0-2-0-4
+  Kurinto Text Aux Bold 		 2-0-8-3-6-0-0-2-0-4
+  Kurinto Text Aux Bold Italic		 2-0-8-3-6-0-0-2-0-4
+
+Book
+  Kurinto Book				 2-2-5-0-0-0-0-0-0-0
+  Kurinto Book Italic			 2-2-5-0-0-0-0-0-0-0
+  Kurinto Book Bold			 2-2-8-0-0-0-0-0-0-0
+  Kurinto Book Bold Italic		 2-2-8-0-0-0-0-0-0-0
+  Kurinto Book Core			 2-2-5-0-0-0-0-0-0-0
+  Kurinto Book Core Italic		 2-2-5-0-0-0-0-0-0-0
+  Kurinto Book Core Bold		 2-2-8-0-0-0-0-0-0-0
+  Kurinto Book Core Bold Italic 	 2-2-8-0-0-0-0-0-0-0
+  Kurinto Book Aux			 2-2-5-0-0-0-0-0-0-0
+  Kurinto Book Aux Italic		 2-2-5-0-0-0-0-0-0-0
+  Kurinto Book Aux Bold 		 2-2-8-0-0-0-0-0-0-0
+  Kurinto Book Aux Bold Italic		 2-2-8-0-0-0-0-0-0-0
+
+Sans
+  Kurinto Sans				 2-11-5-2-4-5-4-2-2-4
+  Kurinto Sans Italic			 2-11-5-2-4-5-4-2-2-4
+  Kurinto Sans Bold			 2-11-8-2-4-5-4-2-2-4
+  Kurinto Sans Bold Italic		 2-11-8-2-4-5-4-2-2-4
+  Kurinto Sans Core			 2-11-5-2-4-5-4-2-2-4
+  Kurinto Sans Core Italic		 2-11-5-2-4-5-4-2-2-4
+  Kurinto Sans Core Bold		 2-11-8-2-4-5-4-2-2-4
+  Kurinto Sans Core Bold Italic 	 2-11-8-2-4-5-4-2-2-4
+  Kurinto Sans Aux			 2-11-5-2-4-5-4-2-2-4
+  Kurinto Sans Aux Italic		 2-11-5-2-4-5-4-2-2-4
+  Kurinto Sans Aux Bold 		 2-11-8-2-4-5-4-2-2-4
+  Kurinto Sans Aux Bold Italic		 2-11-8-2-4-5-4-2-2-4
+
+Seri
+  Kurinto Seri				 2-0-5-3-0-0-0-0-0-0
+  Kurinto Seri Italic			 2-0-5-3-0-0-0-0-0-0
+  Kurinto Seri Bold			 2-0-8-3-0-0-0-0-0-0
+  Kurinto Seri Bold Italic		 2-0-8-3-0-0-0-0-0-0
+  Kurinto Seri Core			 2-0-5-3-0-0-0-0-0-0
+  Kurinto Seri Core Italic		 2-0-5-3-0-0-0-0-0-0
+  Kurinto Seri Core Bold		 2-0-8-3-0-0-0-0-0-0
+  Kurinto Seri Core Bold Italic 	 2-0-8-3-0-0-0-0-0-0
+  Kurinto Seri Aux			 2-0-5-3-0-0-0-0-0-0
+  Kurinto Seri Aux Italic		 2-0-5-3-0-0-0-0-0-0
+  Kurinto Seri Aux Bold 		 2-0-8-3-0-0-0-0-0-0
+  Kurinto Seri Aux Bold Italic		 2-0-8-3-0-0-0-0-0-0
+
+Mono
+  Kurinto Mono				 2-11-5-4-4-5-4-2-2-4
+  Kurinto Mono Italic			 2-11-5-4-4-5-4-2-2-4
+  Kurinto Mono Bold			 2-11-8-4-4-5-4-2-2-4
+  Kurinto Mono Bold Italic		 2-11-8-4-4-5-4-2-2-4
+  Kurinto Mono Narrow			 2-11-5-6-4-5-4-2-2-4
+  Kurinto Mono Narrow Italic		 2-11-5-6-4-5-4-2-2-4
+  Kurinto Mono Narrow Bold		 2-11-8-6-4-5-4-2-2-4
+  Kurinto Mono Narrow Bold Italic	 2-11-8-6-4-5-4-2-2-4
+  Kurinto Mono Core			 2-11-5-4-4-5-4-2-2-4
+  Kurinto Mono Core Italic		 2-11-5-4-4-5-4-2-2-4
+  Kurinto Mono Core Bold		 2-11-8-4-4-5-4-2-2-4
+  Kurinto Mono Core Bold Italic 	 2-11-8-4-4-5-4-2-2-4
+  Kurinto Mono Aux			 2-11-5-4-4-5-4-2-2-4
+  Kurinto Mono Aux Italic		 2-11-5-4-4-5-4-2-2-4
+  Kurinto Mono Aux Bold 		 2-11-8-4-4-5-4-2-2-4
+  Kurinto Mono Aux Bold Italic		 2-11-8-4-4-5-4-2-2-4

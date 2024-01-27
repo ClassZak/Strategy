@@ -13,7 +13,11 @@
 #endif
 
 #include <iostream>
+#include <Windows.h>
 ////////////////////
+std::wstring ClearFromRSymbols(std::wstring& string);
+std::wstring ReadUtf8File(const char* filename);
+std::vector<std::wstring> WStringToVector(std::wstring& fullText);
 
 long long StringToLongLong(const std::string& str, const bool continuously = false);
 long long StringToLongLong(const std::wstring& str, const bool continuously = false);
