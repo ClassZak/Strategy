@@ -1,10 +1,10 @@
-#ifndef GLOBAL_H
-#define GLOBAL_H
+#pragma once
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/View.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/System/String.hpp>
+#include <Windows.h>
 #include <exception>
 #include <iostream>
 #include <string>
@@ -16,7 +16,8 @@
 #include <map>
 #include <algorithm>
 #include <list>
-#include <locale>
+#include <locale.h>
+#include <codecvt>
 
 
 #define SavedSettings "data/InterfaceSettings.txt"
@@ -35,8 +36,8 @@
 #include "ButtonWithImage.h"
 #include "OverlayPanel.h"
 #include "StandartSoldier.h"
-
-#include "Functions.h"*/
+*/
+#include "Functions.h"
 #include "Object.h"
 struct Global
 {
@@ -52,10 +53,10 @@ struct Global
 			Count
 		};
 
-		static unsigned int FindTypeIndex(const std::string& str);
-		static void LoadObjects(std::list<Object*>& objectList, const char* filename = Objects);
-		static void SaveObjects(std::list<Object*>& objectList, const char* filename = Objects);
-		static const std::string ObjectClasses[ObjectContext::ObjectType::Count];
+		static unsigned int FindTypeIndex(const std::wstring& str);
+		static void LoadObjects(std::list<Object>& objectList, const char* filename = Objects);
+		static void SaveObjects(std::list<Object>& objectList, const char* filename = Objects);
+		static const std::wstring ObjectClasses[ObjectContext::ObjectType::Count];
 	};
 	//Settings
 	struct SettinsContext
@@ -95,7 +96,7 @@ struct Global
 	{
 		static void ResetKeys()
 		{
-			for (int i = -1; i < Global::ReleasedKeys::KeyCount; ++i)
+			for (int i = 0; i < Global::ReleasedKeys::KeyCount; ++i)
 			{
 				Global::ReleasedKeys::Released[i] = false;
 				Global::ReleasedKeys::Pressed[i] = false;
@@ -116,14 +117,14 @@ struct Global
 		}
 		static void SetPressed(const int key, const bool press)
 		{
-			if (key >= -1 and key < Global::ReleasedKeys::KeyCount)
+			if (key > -1 and key < Global::ReleasedKeys::KeyCount)
 				Global::ReleasedKeys::Pressed[key] = press;
 			else
 				throw std::exception();
 		}
 		static void SetReleased(const int key, const bool releas)
 		{
-			if (key >= -1 and key < Global::ReleasedKeys::KeyCount)
+			if (key > -1 and key < Global::ReleasedKeys::KeyCount)
 				Global::ReleasedKeys::Released[key] = releas;
 			else
 				throw std::exception();
@@ -131,14 +132,14 @@ struct Global
 
 		static bool GetPressed(const int key)
 		{
-			if (key >= -1 and key < Global::ReleasedKeys::KeyCount)
+			if (key > -1 and key < Global::ReleasedKeys::KeyCount)
 				return Global::ReleasedKeys::Pressed[key];
 			else
 				throw std::exception();
 		}
 		static bool GetReleased(const int key)
 		{
-			if (key >= -1 and key < Global::ReleasedKeys::KeyCount)
+			if (key > -1 and key < Global::ReleasedKeys::KeyCount)
 				return Global::ReleasedKeys::Released[key];
 			else
 				throw std::exception();
@@ -288,6 +289,7 @@ struct Global
 		SAVING,
 		LOADING
 	};
+
 	static const unsigned short WINDOW_WIDTH = 800;
 	static const unsigned short WINDOW_HEIGHT = 600;
 	static const unsigned short MAX_FRAME;
@@ -316,4 +318,3 @@ struct Global
 
 	static sf::Font font;
 };
-#endif

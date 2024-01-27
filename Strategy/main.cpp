@@ -21,13 +21,8 @@ int main()
 
     sf::Clock loadingClock;
     sf::Text clockText;
-    sf::Font font;
-    font.loadFromFile("resources/Fonts/consola.ttf");
-    clockText.setFont(font);
-    clockText.setPosition(100, 100);
 
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Red);
+    Global::font.loadFromFile("resources/Fonts/consola.ttf");
     
     while (window.isOpen())
     {
@@ -39,7 +34,6 @@ int main()
         }
 
         window.clear();
-        window.draw(shape);
         window.display();
     }
 
