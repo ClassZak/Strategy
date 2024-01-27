@@ -66,4 +66,4 @@ const sf::View Global::standartView = sf::View
 );
 
 
-sf::Font Global::font = sf::Font();
+sf::Font Global::font = []()->sf::Font {sf::Font font; font.loadFromFile("resources/Fonts/ARIALUNI.TTF"); return font; }();

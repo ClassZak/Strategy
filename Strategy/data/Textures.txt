@@ -1,0 +1,5 @@
+StandartSoldier resources/Sprites/Unit.png
+ButtonWithImage resources/gui/BackToGame.png
+ButtonWithImage resources/gui/MainMenu.png
+ButtonWithImage resources/gui/Settings.png
+ButtonWithImage resources/gui/Saving.png

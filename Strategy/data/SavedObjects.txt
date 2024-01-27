@@ -1,0 +1,14 @@
+StandartSoldier
+72	64	0	10000	4650
+StandartSoldier
+90	64	0	10000	5466
+StandartSoldier
+180	64	0	10000	4250
+StandartSoldier
+198	64	0	10000	1004
+StandartSoldier
+216	64	0	10000	2593
+StandartSoldier
+234	64	0	10000	2361
+StandartSoldier
+252	64	0	10000	10000

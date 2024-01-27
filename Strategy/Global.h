@@ -21,7 +21,7 @@
 
 
 #define SavedSettings "data/InterfaceSettings.txt"
-#define Objects "data/Objects.txt"
+#define OBJECTS_PATH "data/Objects.txt"
 #define Textures "data/Textures.txt"
 #define SavedObjects "data/SavedObjects.txt"
 #define LocalizationPath "data/Localization.txt"
@@ -54,8 +54,8 @@ struct Global
 		};
 
 		static unsigned int FindTypeIndex(const std::wstring& str);
-		static void LoadObjects(std::list<Object>& objectList, const char* filename = Objects);
-		static void SaveObjects(std::list<Object>& objectList, const char* filename = Objects);
+		static void LoadObjects(std::list<Object>& objectList, const char* filename = OBJECTS_PATH);
+		static void SaveObjects(std::list<Object>& objectList, const char* filename = OBJECTS_PATH);
 		static const std::wstring ObjectClasses[ObjectContext::ObjectType::Count];
 	};
 	//Settings
