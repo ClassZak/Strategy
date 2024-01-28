@@ -147,7 +147,9 @@
   <ItemGroup>
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Global.cpp" />
+    <ClCompile Include="Localizator.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectContext.cpp" />
   </ItemGroup>
   <ItemGroup>

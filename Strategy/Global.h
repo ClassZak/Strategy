@@ -24,7 +24,7 @@
 #define OBJECTS_PATH "data/Objects.txt"
 #define Textures "data/Textures.txt"
 #define SavedObjects "data/SavedObjects.txt"
-#define LocalizationPath "data/Localization.txt"
+#define LOCALIZATION_PATH "data/Localization.txt"
 #ifndef MAX_UNSIGNED_LONG_LONG
 #define MAX_UNSIGNED_LONG_LONG 18446744073709551615
 #endif
@@ -72,22 +72,22 @@ struct Global
 	{
 		static void LoadImages(const char* filename = Textures);
 		static void InitTextures();
-		static const std::map<std::string, std::vector<sf::Texture>>& GetTextures();
-		static const std::map<std::string, std::vector<sf::Image>>& GetImages();
+		static const std::map<std::wstring, std::vector<sf::Texture>>& GetTextures();
+		static const std::map<std::wstring, std::vector<sf::Image>>& GetImages();
 	private:
-		static std::map<std::string, std::vector<sf::Texture>>textures;
-		static std::map<std::string, std::vector<sf::Image>>images;
+		static std::map<std::wstring, std::vector<sf::Texture>>textures;
+		static std::map<std::wstring, std::vector<sf::Image>>images;
 	};
 	//Localization
 	struct Localizator
 	{
 	public:
-		static void LoadLocaledText(const char* filename = LocalizationPath);
-		static const std::map<std::string, std::vector<sf::String>>& GetLocalization();
-		static std::map<std::string, std::vector<sf::String>> Localization;
+		static void LoadLocaledText(const char* filename = LOCALIZATION_PATH);
+		static const std::map<std::wstring, std::vector<sf::String>>& GetLocalization();
+		static std::map<std::wstring, std::vector<sf::String>> Localization;
 	private:
-		static std::vector<sf::String> STLStringsToSF(const std::vector<std::string>& lines);
-		static std::vector<std::string> FindLocaledVectors_Names(std::vector<std::string>& lines);
+		static std::vector<sf::String> STLStringsToSF(const std::vector<std::wstring>& lines);
+		static std::vector<std::wstring> FindLocaledVectors_Names(std::vector<std::wstring>& lines);
 	};
 
 

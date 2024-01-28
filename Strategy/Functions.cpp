@@ -7,14 +7,16 @@ std::wstring ReadUtf8File(const char* filename)
 {
 	// Открываем файл в бинарном режиме
 	std::ifstream file(filename, std::ios::binary);
+	if (!file.is_open())
+		throw std::runtime_error("Failed to find file");
 	// Читаем содержимое файла в строку
 	std::string content(std::istreambuf_iterator<char>(file), {});
 	// Получаем длину строки в символах Unicode
-	int len = MultiByteToWideChar(CP_UTF8, 0, content.c_str(), content.size(), NULL, 0);
+	int len = MultiByteToWideChar(CP_UTF8, 0, content.c_str(), (int)content.size(), NULL, 0);
 	// Выделяем память под массив символов Unicode
 	wchar_t* buffer = new wchar_t[len];
 	// Преобразуем строку в UTF-8 в строку Unicode
-	MultiByteToWideChar(CP_UTF8, 0, content.c_str(), content.size(), buffer, len);
+	MultiByteToWideChar(CP_UTF8, 0, content.c_str(), (int)content.size(), buffer, len);
 	// Получаем длину строки в символах(обрезаем строку)
 	int len2 = WideCharToMultiByte(CP_ACP, 0, buffer, len, NULL, 0, NULL, NULL);
 
@@ -331,7 +333,7 @@ sf::Texture* GetFullBackground
 	{
 		for (unsigned x = 0; x < HOR_REPEATS; ++x)
 		{
-			title.setPosition(x * title.getTextureRect().width, y * title.getTextureRect().height);
+			title.setPosition(float(x * title.getTextureRect().width), float(y * title.getTextureRect().height));
 			renderTexture.draw(title);
 			renderTexture.display();
 		}

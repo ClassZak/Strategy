@@ -28,14 +28,25 @@ int main()
     setlocale(LC_ALL, "Russian");
     sf::RenderWindow window(sf::VideoMode(Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT), L"Стратегия", sf::Style::Default);
 
+    Global::Localizator::LoadLocaledText();
+
     sf::Clock loadingClock;
     sf::Text t;
     t.setFont(Global::font);
 
-    std::wstring wstr = ReadUtf8File(OBJECTS_PATH);
-    std::vector<std::wstring> lines = WStringToVector(wstr);
-    for (std::vector<std::wstring>::iterator it = lines.begin(); it != lines.end(); ++it)
-        std::wcout << L'\t' << *it << std::endl;
+    std::wstring wstr;
+    for
+    (
+        std::map<std::wstring, std::vector<sf::String>>::iterator it = Global::Localizator::Localization.begin();
+        it != Global::Localizator::Localization.end();
+        ++it
+    )
+    {
+        wstr += it->first + L'\n';
+        for (std::vector<sf::String>::iterator it_ = it->second.begin(); it_ != it->second.end(); ++it_)
+            wstr += L'\t'+it_->toWideString() + L'\n';
+            
+    }
 
     t.setString(sf::String(wstr));
     

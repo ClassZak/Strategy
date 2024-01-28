@@ -12,33 +12,35 @@ const std::wstring Global::ObjectContext::ObjectClasses[Global::ObjectContext::C
 
 void Global::ObjectContext::LoadObjects(std::list<Object>& objectList, const char* filename)
 {
-	std::wfstream file(filename);
-	if (!file.is_open())
-		throw std::runtime_error("Failed to find file of objects");
+	std::vector<std::wstring> lines;
+	{
+		std::wstring fullText = ReadUtf8File(filename);
+		lines = WStringToVector(fullText);
+	}
+	
 
 	bool objectTypeFound = false;
 	unsigned int objectsCount = 1;
 	int objectType = -1;
 
 
-	std::wstring curr;
-	while(std::getline(file, curr))
+	for(std::vector<std::wstring>::iterator it=lines.begin();it!=lines.end();++it)
 	{
-		if (STLStringIsEmpty(curr))
+		if (STLStringIsEmpty(*it))
 			continue;
 
 		if (!objectTypeFound)
 		{
-			std::vector<std::wstring> words = FindWords(curr);
+			std::vector<std::wstring> words = FindWords(*it);
 			if (words.size() == 0)
 				continue;
 			if (words.size() > 2)
 			{
-				std::cout << "Error during find correct type of object" << std::endl;
+				throw std::runtime_error("Error during find correct type of object");
 				return;
 			}
 			if (words.size() == 2)
-				objectsCount = StringToLongLong(words[1], true);
+				objectsCount = (unsigned)StringToLongLong(words[1], true);
 			else
 				objectsCount = 1;
 
@@ -46,61 +48,62 @@ void Global::ObjectContext::LoadObjects(std::list<Object>& objectList, const cha
 
 			if (objectType == -1)
 			{
-				std::wcout << L"This types is not in correct list" << std::endl << L"curr=" << curr << std::endl;
+				std::wcout << L"This types is not in correct list" << std::endl << L"curr=" << *it << std::endl;
+				throw std::runtime_error("Failed to find correct type index");
 				return;
 			}
 			objectTypeFound = true;
 		}
 		else
 		{
-			std::vector<std::wstring> params = FindWords(curr);
+			std::vector<std::wstring> params = FindWords(*it);
 			std::vector<long long> numberParams = StringVectorToLongLong(params, true);
 			/*switch (objectType)
 			{
-			case Loader::BUTTON:
-			{
-				Button* b = new Button();
-				if (params.size() != 4)
+				case Loader::BUTTON:
 				{
-					std::cout << "Error during find correct params for object" << std::endl;
-					delete b;
+					Button* b = new Button();
+					if (params.size() != 4)
+					{
+						std::cout << "Error during find correct params for object" << std::endl;
+						delete b;
+						return objects;
+					}
+
+					sf::Vector2f coordinates(StringToLongLong(params[0]), StringToLongLong(params[1]));
+					b->SetCoordinates(coordinates);
+					objects.push_back(b);
+					break;
+				}
+				case Loader::STANDARTSOLDIER:
+				{
+					StandartSoldier* s = new StandartSoldier
+					(
+						numberParams[0] + Global::LEFT_EDGE_LENGTH,
+						numberParams[1],
+						Global::TexturesContext::GetTextures()["StandartSoldier"][numberParams[2]].getSize().x,
+						Global::TexturesContext::GetTextures()["StandartSoldier"][numberParams[2]].getSize().y,
+						&Global::TexturesContext::GetTextures()["StandartSoldier"][numberParams[2]]
+					);
+					if (numberParams.size() == 4)
+					{
+						s->hp = numberParams[3];
+					}
+					if (numberParams.size() == 5)
+					{
+						s->maxHp = numberParams[3];
+						s->hp = numberParams[4];
+					}
+
+					objects.push_back(s);
+					break;
+				}
+				default:
+				{
+					std::cout << "Unknown object type" << std::endl;
 					return objects;
+					break;
 				}
-
-				sf::Vector2f coordinates(StringToLongLong(params[0]), StringToLongLong(params[1]));
-				b->SetCoordinates(coordinates);
-				objects.push_back(b);
-				break;
-			}
-			case Loader::STANDARTSOLDIER:
-			{
-				StandartSoldier* s = new StandartSoldier
-				(
-					numberParams[0] + Global::LEFT_EDGE_LENGTH,
-					numberParams[1],
-					Global::TexturesContext::GetTextures()["StandartSoldier"][numberParams[2]].getSize().x,
-					Global::TexturesContext::GetTextures()["StandartSoldier"][numberParams[2]].getSize().y,
-					&Global::TexturesContext::GetTextures()["StandartSoldier"][numberParams[2]]
-				);
-				if (numberParams.size() == 4)
-				{
-					s->hp = numberParams[3];
-				}
-				if (numberParams.size() == 5)
-				{
-					s->maxHp = numberParams[3];
-					s->hp = numberParams[4];
-				}
-
-				objects.push_back(s);
-				break;
-			}
-			default:
-			{
-				std::cout << "Unknown object type" << std::endl;
-				return objects;
-				break;
-			}
 			}*/
 
 			--objectsCount;
@@ -108,8 +111,6 @@ void Global::ObjectContext::LoadObjects(std::list<Object>& objectList, const cha
 				objectTypeFound = false;
 		}
 	}
-	file.close();
-
 }
 void Global::ObjectContext::SaveObjects(std::list<Object>& objectList, const char* filename)
 {

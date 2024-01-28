@@ -49,12 +49,12 @@ class GameObject : public Object
 {
 public:
 	GameObject();
-	GameObject(int x, int y, int w, int h, const sf::Texture* texture);
+	GameObject(int x, int y, int w, int h, sf::Texture* texture);
 	GameObject(int x, int y, int w, int h);
 	virtual~GameObject();
 
 	void SetCoordinates(const sf::Vector2f& pos);
-	void SetTexture(const sf::Texture* texture);
+	void SetTexture(sf::Texture* texture);
 	void SetSprite(const sf::Sprite& sprite);
 	void SetSize(const sf::Vector2f& size);
 
