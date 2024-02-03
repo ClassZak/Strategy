@@ -16,7 +16,7 @@ class Object
 public:
 	Object();
 	~Object();
-	virtual void Draw(const sf::RenderWindow& window) = 0;
+	virtual void Draw(sf::RenderWindow& window) = 0;
 };
 
 
@@ -26,7 +26,7 @@ class GUIObject : public Object
 public:
 	GUIObject();
 	virtual ~GUIObject();
-	virtual void Draw(const sf::RenderWindow& window) = 0;
+	virtual void Draw(sf::RenderWindow& window) = 0;
 };
 class PlacedGUIObject : public GUIObject
 {
@@ -35,7 +35,7 @@ public:
 	virtual~PlacedGUIObject();
 	PlacedGUIObject(int x, int y, int w, int h);
 
-	virtual void Draw(const sf::RenderWindow& window) = 0;
+	virtual void Draw(sf::RenderWindow& window) = 0;
 	void SetCoordinates(const sf::Vector2f& pos);
 	sf::Vector2f GetCoordinates()const;
 	void SetSize(const sf::Vector2f& size);

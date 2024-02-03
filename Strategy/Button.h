@@ -21,7 +21,7 @@ public:
 	sf::Vector2f GetSize()const;
 	
 	
-	void Draw(const sf::RenderWindow& window) override;
+	void Draw(sf::RenderWindow& window) override;
 	
 	
 	bool IsPressed();

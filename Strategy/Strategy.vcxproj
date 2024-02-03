@@ -145,12 +145,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ButtonFunctions.cpp" />
+    <ClCompile Include="ButtonWithImage.cpp" />
     <ClCompile Include="Functions.cpp" />
+    <ClCompile Include="GameFunctions.cpp" />
     <ClCompile Include="Global.cpp" />
+    <ClCompile Include="InputField.cpp" />
     <ClCompile Include="Localizator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectContext.cpp" />
+    <ClCompile Include="OverlayPanel.cpp" />
+    <ClCompile Include="RoomsFunctions.cpp" />
+    <ClCompile Include="Selector.cpp" />
+    <ClCompile Include="StandartSoldier.cpp" />
+    <ClCompile Include="StateButton.cpp" />
+    <ClCompile Include="TexturesContext.cpp" />
+    <ClCompile Include="Unit.cpp" />
+    <ClCompile Include="ViewFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
@@ -160,7 +173,6 @@
     <ClInclude Include="Global.h" />
     <ClInclude Include="InputField.h" />
     <ClInclude Include="Loader.h" />
-    <ClInclude Include="Localizator.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="OverlayPanel.h" />
     <ClInclude Include="resource.h" />

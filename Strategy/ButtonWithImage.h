@@ -28,7 +28,7 @@ public:
 	
 	
 //Button interface
-	void Draw(const sf::RenderWindow& window);
+	void Draw(sf::RenderWindow& window);
 	
 	
 	bool IsPressed();
@@ -53,8 +53,8 @@ public:
 	bool IsClicked();
 	
 //Image and text settings
-	void SetTextPos(const sf::Vector2f& pos) const;
-	void SetImagePos(const sf::Vector2f& pos)const;
+	void SetTextPos(const sf::Vector2f& pos);
+	void SetImagePos(const sf::Vector2f& pos);
 	const sf::Vector2f& GetTextPos()const;
 	const sf::Vector2f& GetImagePos()const;
 	

@@ -67,3 +67,11 @@ const sf::View Global::standartView = sf::View
 
 
 sf::Font Global::font = []()->sf::Font {sf::Font font; font.loadFromFile("resources/Fonts/ARIALUNI.TTF"); return font; }();
+
+
+
+
+const unsigned short Global::MAX_FRAME = 10;
+const float Global::zoom = 0.7;
+const float Global::viewDelta = 1.2;
+

@@ -9,7 +9,7 @@ public:
 	OverlayPanel();
 	~OverlayPanel()override;
 	
-	void Draw(const sf::RenderWindow& window)override;
+	void Draw(sf::RenderWindow& window)override;
 	
 
 	
@@ -26,10 +26,5 @@ public:
 	
 	sf::RectangleShape* fields;
 	unsigned int rectangles;
-	
-	
-	
-	friend std::istream& operator>>(std::istream& in,OverlayPanel& ob);
-	friend std::ostream& operator<<(std::ostream& out,const OverlayPanel& ob);	
 };
 #endif

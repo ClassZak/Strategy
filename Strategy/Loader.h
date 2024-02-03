@@ -32,7 +32,7 @@
 #include "Global.h"
 #include "Functions.h"
 
-unsigned long long PowerTen(const unsigned short n=1);
+unsigned long long PowerTen(const unsigned short n);
 struct Loader
 {
 	enum ObjectType

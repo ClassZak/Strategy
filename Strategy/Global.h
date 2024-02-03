@@ -22,7 +22,7 @@
 
 #define SavedSettings "data/InterfaceSettings.txt"
 #define OBJECTS_PATH "data/Objects.txt"
-#define Textures "data/Textures.txt"
+#define TEXTURES_PATH "data/Textures.txt"
 #define SavedObjects "data/SavedObjects.txt"
 #define LOCALIZATION_PATH "data/Localization.txt"
 #ifndef MAX_UNSIGNED_LONG_LONG
@@ -70,7 +70,7 @@ struct Global
 	//Textures
 	struct TexturesContext
 	{
-		static void LoadImages(const char* filename = Textures);
+		static void LoadImages(const char* filename = TEXTURES_PATH);
 		static void InitTextures();
 		static const std::map<std::wstring, std::vector<sf::Texture>>& GetTextures();
 		static const std::map<std::wstring, std::vector<sf::Image>>& GetImages();

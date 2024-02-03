@@ -12,7 +12,7 @@ public:
 	InputField(int x,int y,int w,int h,const sf::String& textString);
 	InputField(int x,int y,int w,int h);
 	~InputField()override;
-	void Draw(const sf::RenderWindow& window)override;
+	void Draw(sf::RenderWindow& window)override;
 	
 	
 	void PollEvent(const sf::Event& event,const sf::RenderWindow& window,const sf::Vector2f& pos);

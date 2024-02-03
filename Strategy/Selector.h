@@ -18,7 +18,7 @@ public:
 		SOLDIERS
 	};
 	
-	void draw(const sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window);
 	void pollEvent
 	(
 		sf::Event& event,

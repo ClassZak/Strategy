@@ -6,12 +6,12 @@ class Unit : public GameObject
 {
 public:
 	Unit();
-	Unit(int x,int y,int w,int h,const sf::Texture* texture);
+	Unit(int x,int y,int w,int h, sf::Texture* texture);
 	Unit(int x,int y,int w,int h);
 	virtual~Unit();
 	
 	void SetCoordinates(const sf::Vector2f& pos);
-	void SetTexture(const sf::Texture* texture);
+	void SetTexture(sf::Texture* texture);
 	void SetSprite(const sf::Sprite& sprite);
 	void SetHp(const unsigned int hp);
 	void SetMaxHp(const unsigned int maxHp);
@@ -29,7 +29,7 @@ public:
 	
 	
 	
-	virtual void Draw(const sf::RenderWindow& window)=0;
+	virtual void Draw(sf::RenderWindow& window)=0;
 	void Update
 	(
 		sf::RenderWindow& window,
@@ -50,7 +50,7 @@ public:
 	friend std::istream& operator>>(std::istream& in,Unit& ob);
 	friend std::ostream& operator<<(std::ostream& out,const Unit& ob);
 protected:
-	void DrawHp(const sf::RenderWindow& window);
+	void DrawHp(sf::RenderWindow& window);
 	unsigned int hp;
 	unsigned int maxHp;
 	bool live;

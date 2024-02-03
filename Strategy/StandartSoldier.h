@@ -9,12 +9,12 @@ friend Loader;
 friend Saver;
 public:
 	StandartSoldier();
-	StandartSoldier(int x,int y,int w,int h,const sf::Texture* texture);
+	StandartSoldier(int x,int y,int w,int h,sf::Texture* texture);
 	StandartSoldier(int x,int y,int w,int h);
 	~StandartSoldier()override;
 	
 	void SetCoordinates(const sf::Vector2f& pos);
-	void SetTexture(const sf::Texture* texture);
+	void SetTexture(sf::Texture* texture);
 	void SetSprite(const sf::Sprite& sprite);
 	void SetHp(const unsigned int hp);
 	void SetMaxHp(const unsigned int maxHp);
@@ -28,7 +28,7 @@ public:
 	sf::Vector2f GetSize()const;
 	
 	
-	void Draw(const sf::RenderWindow& window)override;
+	void Draw(sf::RenderWindow& window)override;
 	void Update
 	(
 		sf::RenderWindow& window,
@@ -50,6 +50,6 @@ public:
 	
 	
 protected:
-	void DrawHp(const sf::RenderWindow& window);
+	void DrawHp(sf::RenderWindow& window);
 };
 #endif
