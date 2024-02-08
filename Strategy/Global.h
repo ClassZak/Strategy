@@ -20,16 +20,23 @@
 #include <codecvt>
 
 
-#define SavedSettings "data/InterfaceSettings.txt"
+#define INTERFACE_SETTINGS "data/InterfaceSettings.txt"
 #define OBJECTS_PATH "data/Objects.txt"
 #define TEXTURES_PATH "data/Textures.txt"
-#define SavedObjects "data/SavedObjects.txt"
+#define SAVED_OBJECTS_PATH "data/SavedObjects.txt"
 #define LOCALIZATION_PATH "data/Localization.txt"
 #ifndef MAX_UNSIGNED_LONG_LONG
 #define MAX_UNSIGNED_LONG_LONG 18446744073709551615
 #endif
 #ifndef MAX_UNSIGNED_INT
 #define MAX_UNSIGNED_INT 4294967295
+#endif
+
+#ifndef FOREGROUND_DEFAULT
+#define FOREGROUND_DEFAULT FOREGROUND_INTENSITY-1
+#endif
+#ifndef FOREGROUND_YELLOW
+#define FOREGROUND_YELLOW 0xE
 #endif
 
 /*
@@ -61,7 +68,7 @@ struct Global
 	//Settings
 	struct SettinsContext
 	{
-		static std::map<std::string, float> LoadGlobalVariables(const char* filename = SavedSettings);
+		static std::map<std::string, float> LoadGlobalVariables(const char* filename = INTERFACE_SETTINGS);
 		static const std::map<std::string, float>& GetGlobalVariables();
 	private:
 		static std::size_t LoadVariablesCount();
@@ -275,7 +282,7 @@ struct Global
 			lMousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 		}
 	};
-
+	static void ContentLoading();
 
 
 
@@ -317,4 +324,5 @@ struct Global
 	static const float viewDelta;
 
 	static sf::Font font;
+	static HANDLE consoleOutHandle;
 };

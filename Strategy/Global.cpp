@@ -1,7 +1,7 @@
 #pragma once
 #include "Global.h"
 
-
+HANDLE Global::consoleOutHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 bool Global::focus = true;
 bool Global::focusLost = false;
 bool Global::playing = true;
@@ -74,4 +74,8 @@ sf::Font Global::font = []()->sf::Font {sf::Font font; font.loadFromFile("resour
 const unsigned short Global::MAX_FRAME = 10;
 const float Global::zoom = 0.7;
 const float Global::viewDelta = 1.2;
+
+void Global::ContentLoading()
+{
+}
 

@@ -179,21 +179,6 @@ std::size_t getLastLinePos(const std::wstring& wString)
 }
 
 
-bool STLStringIsEmpty(const std::string& string)
-{
-	if (string.empty())
-		return true;
-
-	bool isempty = true;
-
-	for (unsigned long long i = 0; i < string.length(); ++i)
-		if (!((string[i] == ' ') or (string[i] == '\t') or (string[i] == '\n')))
-		{
-			isempty = false;
-			break;
-		}
-	return isempty;
-}
 bool STLStringIsEmpty(const std::wstring& string)
 {
 	if (string.empty())
@@ -202,65 +187,12 @@ bool STLStringIsEmpty(const std::wstring& string)
 	bool isempty = true;
 
 	for (unsigned long long i = 0; i < string.length(); ++i)
-		if (!((string[i] == L' ') or (string[i] == L'\t') or (string[i] == L'\n')))
+		if (!((string[i] == L' ') or (string[i] == L'\t') or (string[i] == L'\n') or (string[i]==L'\r')))
 		{
 			isempty = false;
 			break;
 		}
 	return isempty;
-}
-std::vector<std::string> FindWords(const std::string& currInputString)
-{
-	std::vector <std::string> inputWords;
-	std::string currWord;
-
-	if (STLStringIsEmpty(currInputString))
-		return inputWords;
-
-	std::size_t fPos = 0, sPos;
-
-	std::size_t spacepos = currInputString.find(' ', 0);
-	std::size_t tabpos = currInputString.find('\t', 0);
-
-	if (spacepos == MAX_UNSIGNED_INT)
-		sPos = tabpos;
-	else
-		sPos = spacepos;
-
-	while ((sPos != std::string::npos) and (sPos != -1))
-	{
-		currWord = currInputString.substr(fPos, sPos - fPos);
-		inputWords.push_back(currWord);
-		fPos = sPos + 1;
-
-		while
-			(
-				((currInputString[fPos] == ' ') or (currInputString[fPos] == '\t')) and
-				((fPos) < currInputString.size() - 1)
-				)
-			fPos++;
-		if (fPos >= currInputString.size() - 1)
-			break;
-
-
-		spacepos = currInputString.find(' ', fPos);
-		tabpos = currInputString.find('\t', fPos);
-
-
-		if (spacepos == MAX_UNSIGNED_INT)
-			sPos = tabpos;
-		else
-			sPos = spacepos;
-	}
-
-	sPos = currInputString.size() - 1;
-	if (fPos <= currInputString.size() - 1)
-	{
-		currWord = currInputString.substr(fPos, sPos - fPos + 1);
-		inputWords.push_back(currWord);
-	}
-
-	return inputWords;
 }
 std::vector<std::wstring> FindWords(const std::wstring& currInputString)
 {

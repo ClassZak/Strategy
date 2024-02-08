@@ -29,12 +29,10 @@ std::vector<long long>StringVectorToLongLong
 std::wstring getStringExceptSymbols(std::wstring wString, wchar_t ch);
 std::size_t getLastLinePos(const std::wstring& wString);
 
-bool STLStringIsEmpty(const std::string& string);
+
 bool STLStringIsEmpty(const std::wstring& string);
-std::vector<std::string> FindWords(const std::string& currInputString);
 std::vector<std::wstring> FindWords(const std::wstring& currInputString);
 std::vector<std::string> LoadSTLStringsInVector(const char* filename);
-std::vector<std::wstring> LoadWideSTLStringsInVector(const char* filename);
 
 
 sf::Texture* GetFullBackground
