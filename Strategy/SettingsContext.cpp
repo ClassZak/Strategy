@@ -141,6 +141,24 @@ void Global::SettinsContext::LoadGlobalVariables(const char* filename)
 		throw;
 	}
 }
+void Global::SettinsContext::SaveSettings(const char* filename)
+{
+	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_YELLOW);
+	std::wcout << L"Saving settings" << std::endl;
+	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_DEFAULT);
+
+	std::wofstream file(filename);
+	if (!file.is_open())
+		throw std::runtime_error(std::string("Failed to find file") + std::string(filename));
+	for
+	(
+		auto it = Global::SettinsContext::GetGlobalVariables().begin();
+		it != Global::SettinsContext::GetGlobalVariables().end();
+		++it
+	)
+	file << it->first << L"\t=\t" << it->second << std::endl;
+}
+
 const std::map<std::wstring, double>& Global::SettinsContext::GetGlobalVariables()
 {
 	return Global::SettinsContext::Settings;

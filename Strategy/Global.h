@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <strstream>
 #include <string>
 #include <windows.h>
 #include <vector>
@@ -20,7 +21,8 @@
 #include <codecvt>
 
 
-#define INTERFACE_SETTINGS "data/InterfaceSettings.txt"
+#define DEFAULT_SETTINGS_PATH "data/DefaultSettings.txt"
+#define SETTINGS_PATH "data/Settings.txt"
 #define OBJECTS_PATH "data/Objects.txt"
 #define TEXTURES_PATH "data/Textures.txt"
 #define SAVED_OBJECTS_PATH "data/SavedObjects.txt"
@@ -68,7 +70,8 @@ struct Global
 	//Settings
 	struct SettinsContext
 	{
-		static void LoadGlobalVariables(const char* filename = INTERFACE_SETTINGS);
+		static void LoadGlobalVariables(const char* filename = DEFAULT_SETTINGS_PATH);
+		static void SaveSettings(const char* filename = SETTINGS_PATH);
 		static const std::map<std::wstring, double>& GetGlobalVariables();
 	private:
 		static std::map<std::wstring, double> Settings;

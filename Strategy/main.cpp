@@ -33,6 +33,8 @@ int main()
         return EXIT_FAILURE;
     }
 
+    Global::SettinsContext::SaveSettings();
+
     sf::RenderWindow window
     (sf::VideoMode(Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT), L"Стратегия", sf::Style::Titlebar | sf::Style::Close);
     

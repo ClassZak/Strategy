@@ -19,11 +19,8 @@ std::wstring ClearFromRSymbols(std::wstring& string);
 std::wstring ReadUtf8File(const char* filename);
 std::vector<std::wstring> WStringToVector(std::wstring& fullText);
 
-long long StringToLongLong(const std::string& str, const bool continuously = false);
 long long StringToLongLong(const std::wstring& str, const bool continuously = false);
 unsigned long long PowerTen(const unsigned short n = 1);
-std::vector<long long>StringVectorToLongLong
-(const std::vector<std::string>& strings, const bool constinuosly = false);
 std::vector<long long>StringVectorToLongLong
 (const std::vector<std::wstring>& strings, const bool constinuosly = false);
 std::wstring getStringExceptSymbols(std::wstring wString, wchar_t ch);

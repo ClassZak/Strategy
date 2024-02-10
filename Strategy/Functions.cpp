@@ -8,7 +8,7 @@ std::wstring ReadUtf8File(const char* filename)
 	// Открываем файл в бинарном режиме
 	std::ifstream file(filename, std::ios::binary);
 	if (!file.is_open())
-		throw std::runtime_error("Failed to find file");
+		throw std::runtime_error(std::string("Failed to find file")+std::string(filename));
 	// Читаем содержимое файла в строку
 	std::string content(std::istreambuf_iterator<char>(file), {});
 	// Получаем длину строки в символах Unicode
@@ -56,32 +56,6 @@ std::vector<std::wstring> WStringToVector(std::wstring& fullText)
 
 
 
-long long StringToLongLong(const std::string& str, const bool continuously)
-{
-	bool negative = false;
-	long long number = 0;
-	for (std::size_t i = 0; i < str.size(); ++i)
-	{
-		if (str[i] >= '0' and str[i] <= '9')
-		{
-			number *= 10;
-			number += int(str[i] - '0');
-		}
-		else
-		{
-			if (!negative and str[i] == '-')
-				negative = true;
-			else
-				if (continuously)
-					break;
-		}
-	}
-
-	if (negative)
-		number *= -1;
-
-	return number;
-}
 long long StringToLongLong(const std::wstring& str, const bool continuously)
 {
 	bool negative = false;
@@ -116,19 +90,6 @@ unsigned long long PowerTen(const unsigned short n)
 		return 10;
 	else
 		return PowerTen(n - 1) * 10;
-}
-std::vector<long long>StringVectorToLongLong
-(const std::vector<std::string>& strings, const bool constinuosly)
-{
-	long long currNumber;
-	std::vector<long long>numbers;
-	numbers.reserve(strings.size());
-	for (std::vector<std::string>::const_iterator i = strings.begin(); i != strings.end(); ++i)
-	{
-		currNumber = StringToLongLong(*i, constinuosly);
-		numbers.push_back(currNumber);
-	}
-	return numbers;
 }
 std::vector<long long>StringVectorToLongLong
 (const std::vector<std::wstring>& strings, const bool constinuosly)

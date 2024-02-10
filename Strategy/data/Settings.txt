@@ -1,27 +1,5 @@
-8
-WINDOW_WIDTH=	860
-WINDOW_HEIGHT=	540
-MAX_FRAME=	3
-MAIN_BUTTONS=	6
-
-LEFT_EDGE_LENGTH=	88
-DOWN_EDGE_LENGTH=	32
-
-
-viewDelta=	0.75
-zoom=		0.8
-
-
-
-
-LOCALE
-
-buttonLabels=
-{
-Новая игра
-Продолжить
-Загрузить игру
-Сохранить игру
-Настройки
-Выход
-}
+MAX_FRAME	=	1
+WINDOW_HEIGHT	=	540
+WINDOW_WIDTH	=	860
+viewDelta	=	0.75
+zoom	=	0.95

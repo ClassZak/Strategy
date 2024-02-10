@@ -1,3 +1,0 @@
-2
-viewDelta=	0.75
-zoom=		0.95
