@@ -148,7 +148,12 @@ void Global::Localizator::LoadLocaledText(const char* filename)
 		SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_DEFAULT);
 		//////////////////////////////////////////////
 		std::map<std::wstring, std::vector<sf::String>> FinalLocaledText;
-		for (std::map<std::wstring, std::vector<std::wstring>>::iterator it = LocaledText.begin(); it != LocaledText.end(); ++it)
+		for
+		(
+			std::map<std::wstring, std::vector<std::wstring>>::iterator it = LocaledText.begin();
+			it != LocaledText.end();
+			++it
+		)
 		{
 			FinalLocaledText[it->first] = Global::Localizator::STLStringsToSF(it->second);
 		}

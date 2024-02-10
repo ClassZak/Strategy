@@ -71,7 +71,6 @@ struct Global
 		static void LoadGlobalVariables(const char* filename = INTERFACE_SETTINGS);
 		static const std::map<std::wstring, double>& GetGlobalVariables();
 	private:
-		static std::size_t LoadVariablesCount();
 		static std::map<std::wstring, double> Settings;
 	};
 	//Textures
@@ -282,7 +281,7 @@ struct Global
 			lMousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 		}
 	};
-	static void ContentLoading();
+	static INT ContentLoading();
 
 
 
@@ -297,9 +296,9 @@ struct Global
 		LOADING
 	};
 
-	static const unsigned short WINDOW_WIDTH = 800;
-	static const unsigned short WINDOW_HEIGHT = 600;
-	static const unsigned short MAX_FRAME;
+	static UINT16 WINDOW_WIDTH;
+	static UINT16 WINDOW_HEIGHT;
+	static UINT16 MAX_FRAME;
 	static const unsigned short MAIN_BUTTONS;
 
 	static const unsigned short LEFT_EDGE_LENGTH;
@@ -320,8 +319,8 @@ struct Global
 	static unsigned short scrolledUpTimes;
 	static unsigned short scrolledDownTimes;
 
-	static const float zoom;
-	static const float viewDelta;
+	static double zoom;
+	static double viewDelta;
 
 	static sf::Font font;
 	static HANDLE consoleOutHandle;

@@ -49,8 +49,8 @@ int MainMenu(sf::RenderWindow& window)
 		CheckMainButtons(MainButtons);
 
 
-		float frame = Global::MAX_FRAME;
-		float time = clock.getElapsedTime().asMicroseconds() / 1000000;
+		double frame = Global::MAX_FRAME;
+		double time = (double)clock.getElapsedTime().asMicroseconds() / 1000000;
 		frame += time;
 
 
@@ -97,7 +97,7 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>& objects)
 		pBackgroundTexture = new sf::Texture;
 		*pBackgroundTexture = backgroundTexture;
 	}
-	background.setOrigin(background.getTextureRect().width / 2, background.getTextureRect().height / 2);
+	background.setOrigin((float)(background.getTextureRect().width / 2), (float)(background.getTextureRect().height / 2));
 
 	//GUI objects and interface
 	const sf::Vector2f buttonSizes(32, 32);
@@ -158,7 +158,7 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>& objects)
 	if (!Global::gameStarted)
 	{
 		Global::view.reset(sf::FloatRect(0, 0, Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT));
-		Global::view.setCenter(Global::WINDOW_WIDTH / 2, Global::WINDOW_HEIGHT / 2);
+		Global::view.setCenter((float)Global::WINDOW_WIDTH / 2, (float)Global::WINDOW_HEIGHT / 2);
 	}
 	window.setView(Global::view);
 
@@ -220,8 +220,8 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>& objects)
 		CheckInGameButtons(GUIObjects);
 
 
-		float frame = Global::MAX_FRAME;
-		float time = clock.getElapsedTime().asMicroseconds() / 100000;
+		double frame = Global::MAX_FRAME;
+		double time = (double)clock.getElapsedTime().asMicroseconds() / 100000;
 		frame += time;
 
 
@@ -234,9 +234,9 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>& objects)
 
 			background.setPosition
 			(
-				(long long)(Global::view.getCenter().x / backgroundTexture.getSize().x) *
+				(double)(long long)(Global::view.getCenter().x / backgroundTexture.getSize().x) *
 				backgroundTexture.getSize().x,
-				(long long)(Global::view.getCenter().y / backgroundTexture.getSize().y) *
+				(double)(long long)(Global::view.getCenter().y / backgroundTexture.getSize().y) *
 				backgroundTexture.getSize().y
 			);
 
@@ -342,8 +342,8 @@ int SettingsMenu(sf::RenderWindow& window)
 		//CheckSettingsButtons(GUIObjects);
 		CheckSettingsButtons(buttonsList);
 
-		float frame = Global::MAX_FRAME;
-		float time = clock.getElapsedTime().asMicroseconds() / 1000000;
+		double frame = Global::MAX_FRAME;
+		double time = (double)clock.getElapsedTime().asMicroseconds() / 1000000;
 		frame += time;
 
 

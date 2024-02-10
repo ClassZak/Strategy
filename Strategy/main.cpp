@@ -26,25 +26,19 @@
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    sf::RenderWindow window(sf::VideoMode(Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT), L"Стратегия", sf::Style::Default);
-    
-    try
+
+    if (!SUCCEEDED(Global::ContentLoading()))
     {
-        Global::Localizator::LoadLocaledText();
-        Global::TexturesContext::LoadImages();
-        Global::TexturesContext::InitTextures();
-        Global::SettinsContext::LoadGlobalVariables();
-    }
-    catch (const std::exception& ex)
-    {
-        HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-        std::wcout << L"Исключение в главной функции!" << std::endl;
-        SetConsoleTextAttribute(consoleHandle, FOREGROUND_RED);
-        std::cerr << ex.what() << std::endl;
-        SetConsoleTextAttribute(consoleHandle, FOREGROUND_INTENSITY - 1);
         system("pause");
-        return -1;
+        return EXIT_FAILURE;
     }
+
+    sf::RenderWindow window
+    (sf::VideoMode(Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT), L"Стратегия", sf::Style::Titlebar | sf::Style::Close);
+    
+    
+        
+
     sf::RenderTexture textureRender;
     if (!textureRender.create(Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT))
     {

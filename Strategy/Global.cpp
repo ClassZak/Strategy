@@ -69,13 +69,41 @@ const sf::View Global::standartView = sf::View
 sf::Font Global::font = []()->sf::Font {sf::Font font; font.loadFromFile("resources/Fonts/ARIALUNI.TTF"); return font; }();
 
 
+UINT16 Global::WINDOW_WIDTH=600;
+UINT16 Global::WINDOW_HEIGHT=480;
 
+UINT16 Global::MAX_FRAME = 1;
+double Global::zoom = 0.7;
+double Global::viewDelta = 1.2;
 
-const unsigned short Global::MAX_FRAME = 10;
-const float Global::zoom = 0.7;
-const float Global::viewDelta = 1.2;
-
-void Global::ContentLoading()
+INT Global::ContentLoading()
 {
-}
+	try
+	{
+		Global::Localizator::LoadLocaledText();
+		Global::TexturesContext::LoadImages();
+		Global::TexturesContext::InitTextures();
+		Global::SettinsContext::LoadGlobalVariables();
+	
 
+
+		Global::WINDOW_WIDTH = (UINT16)Global::SettinsContext::GetGlobalVariables().find(L"WINDOW_WIDTH")->second;
+		Global::WINDOW_HEIGHT = (UINT16)Global::SettinsContext::GetGlobalVariables().find(L"WINDOW_HEIGHT")->second;
+
+		Global::MAX_FRAME = (UINT16)Global::SettinsContext::GetGlobalVariables().find(L"MAX_FRAME")->second;
+		Global::zoom = Global::SettinsContext::GetGlobalVariables().find(L"zoom")->second;
+		Global::viewDelta = Global::SettinsContext::GetGlobalVariables().find(L"viewDelta")->second;
+
+		return EXIT_SUCCESS;
+	}
+	catch (const std::exception& ex)
+	{
+		HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+		std::wcout << L"Исключение в главной функции!" << std::endl;
+		SetConsoleTextAttribute(consoleHandle, FOREGROUND_RED);
+		std::cerr << ex.what() << std::endl;
+		SetConsoleTextAttribute(consoleHandle, FOREGROUND_INTENSITY - 1);
+		system("pause");
+		return EXIT_FAILURE;
+	}
+}
