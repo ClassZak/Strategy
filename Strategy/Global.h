@@ -68,11 +68,11 @@ struct Global
 	//Settings
 	struct SettinsContext
 	{
-		static std::map<std::string, float> LoadGlobalVariables(const char* filename = INTERFACE_SETTINGS);
-		static const std::map<std::string, float>& GetGlobalVariables();
+		static void LoadGlobalVariables(const char* filename = INTERFACE_SETTINGS);
+		static const std::map<std::wstring, double>& GetGlobalVariables();
 	private:
 		static std::size_t LoadVariablesCount();
-		static std::map<std::string, float> Settings;
+		static std::map<std::wstring, double> Settings;
 	};
 	//Textures
 	struct TexturesContext

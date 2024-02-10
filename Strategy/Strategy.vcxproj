@@ -161,6 +161,7 @@
     <ClCompile Include="OverlayPanel.cpp" />
     <ClCompile Include="RoomsFunctions.cpp" />
     <ClCompile Include="Selector.cpp" />
+    <ClCompile Include="SettingsContext.cpp" />
     <ClCompile Include="StandartSoldier.cpp" />
     <ClCompile Include="StateButton.cpp" />
     <ClCompile Include="TexturesContext.cpp" />

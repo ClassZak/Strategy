@@ -33,6 +33,7 @@ int main()
         Global::Localizator::LoadLocaledText();
         Global::TexturesContext::LoadImages();
         Global::TexturesContext::InitTextures();
+        Global::SettinsContext::LoadGlobalVariables();
     }
     catch (const std::exception& ex)
     {
