@@ -1,12 +1,9 @@
 #ifndef STANDART_SOLDIER_H
 #define STANDART_SOLDIER_H
 #include "Unit.h"
-struct Loader;
-class Saver;
+#include "Global.h"
 class StandartSoldier : public Unit
 {
-friend Loader;
-friend Saver;
 public:
 	StandartSoldier();
 	StandartSoldier(int x,int y,int w,int h,sf::Texture* texture);

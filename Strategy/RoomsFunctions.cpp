@@ -8,12 +8,14 @@ int MainMenu(sf::RenderWindow& window)
 	sf::Clock clock;
 	sf::Vector2f buttonDimensions(200, 40);
 	std::vector<Button>MainButtons = CreateMainButtons
-	(Global::font, buttonDimensions, (std::vector<sf::String>&)Global::Localizator::GetLocalization().find(L"buttonLabels")->second);
+	(
+		Global::font, buttonDimensions,
+		(std::vector<sf::String>&)Global::Localizator::GetLocalization().find(L"buttonLabels")->second
+	);
 
 	while (window.isOpen() and Global::playing and Global::room == Global::MENU)
 	{
 		sf::Event event;
-
 		sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
 
@@ -45,15 +47,11 @@ int MainMenu(sf::RenderWindow& window)
 					continue;
 				}
 		}
-
 		CheckMainButtons(MainButtons);
-
 
 		double frame = Global::MAX_FRAME;
 		double time = (double)clock.getElapsedTime().asMicroseconds() / 1000000;
 		frame += time;
-
-
 
 		window.clear(MENU_BACKGROUND_COLOR);
 		if (frame >= Global::MAX_FRAME)
@@ -69,7 +67,7 @@ int MainMenu(sf::RenderWindow& window)
 
 
 
-int GameField(sf::RenderWindow& window, std::list<GameObject*>& objects)
+int GameField(sf::RenderWindow& window, std::list<GameObject*>* objects)
 {
 	//Start settings
 	sf::Clock clock;
@@ -188,12 +186,12 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>& objects)
 
 				window.setView(Global::standartView);
 				sf::Vector2f GUIMousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-				ObjectPollEvent(window, event, GUIObjects);
+				ObjectPollEvent(window, event, &GUIObjects);
 
 				window.setView(Global::view);
 
 
-				selector.pollEvent(event, window, globalMousePos, GUIMousePos, objects);
+				selector.pollEvent(event, window, globalMousePos, GUIMousePos, *objects);
 			}
 
 			if (event.type == sf::Event::LostFocus)
@@ -209,7 +207,7 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>& objects)
 						ObjectPollEvent(window, event, objects);
 
 					window.setView(Global::standartView);
-					ObjectPollEvent(window, event, GUIObjects);
+					ObjectPollEvent(window, event, &GUIObjects);
 					window.setView(Global::view);
 					continue;
 				}
@@ -217,7 +215,7 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>& objects)
 			if (Global::focus)
 				ChangeViewScale(event, Global::view, window, globalMousePos);
 		}
-		CheckInGameButtons(GUIObjects);
+		CheckInGameButtons(&GUIObjects);
 
 
 		double frame = Global::MAX_FRAME;
@@ -247,8 +245,8 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>& objects)
 			if (Global::focus)
 				MoveView(Global::view, window, event, GUIObjects);
 
-			ObjectUpdate(window, objects);
-			Drawing(window, objects);
+			ObjectUpdate(window, *objects);
+			Drawing(window, *objects);
 			selector.draw(window);
 
 
@@ -315,13 +313,13 @@ int SettingsMenu(sf::RenderWindow& window)
 
 
 			if (Global::focus)
-				ObjectPollEvent(window, event, GUIObjects);
+				ObjectPollEvent(window, event, &GUIObjects);
 
 
 			if (event.type == sf::Event::LostFocus)
 			{
 				Global::focus = false;
-				ObjectPollEvent(window, event, GUIObjects);
+				ObjectPollEvent(window, event, &GUIObjects);
 			}
 			else
 				if (event.type == sf::Event::MouseButtonPressed)
@@ -330,7 +328,7 @@ int SettingsMenu(sf::RenderWindow& window)
 						break;
 
 					Global::focus = true;
-					ObjectPollEvent(window, event, GUIObjects);
+					ObjectPollEvent(window, event, &GUIObjects);
 					continue;
 				}
 			if (event.type == sf::Event::KeyPressed)

@@ -41,11 +41,11 @@
 #define FOREGROUND_YELLOW 0xE
 #endif
 
-/*
+
 #include "ButtonWithImage.h"
 #include "OverlayPanel.h"
 #include "StandartSoldier.h"
-*/
+
 #include "Functions.h"
 #include "Object.h"
 struct Global
@@ -55,6 +55,7 @@ struct Global
 	{
 		enum ObjectType
 		{
+			UNKNOWN,
 			BUTTON,
 			BUTTONWITHIMAGE,
 			OVERLAYPANEL,
@@ -62,9 +63,9 @@ struct Global
 			Count
 		};
 
-		static unsigned int FindTypeIndex(const std::wstring& str);
-		static void LoadObjects(std::list<Object>& objectList, const char* filename = OBJECTS_PATH);
-		static void SaveObjects(std::list<Object>& objectList, const char* filename = OBJECTS_PATH);
+		static ObjectType FindTypeIndex(const std::wstring& str);
+		static void LoadObjects(std::list<Object*>* objectList, const char* filename = OBJECTS_PATH);
+		static void SaveObjects(std::list<Object*>* objectList, const char* filename = OBJECTS_PATH);
 		static const std::wstring ObjectClasses[ObjectContext::ObjectType::Count];
 	};
 	//Settings
@@ -81,7 +82,7 @@ struct Global
 	{
 		static void LoadImages(const char* filename = TEXTURES_PATH);
 		static void InitTextures();
-		static const std::map<std::wstring, std::vector<sf::Texture>>& GetTextures();
+		static std::map<std::wstring, std::vector<sf::Texture>>& GetTextures();
 		static const std::map<std::wstring, std::vector<sf::Image>>& GetImages();
 	private:
 		static std::map<std::wstring, std::vector<sf::Texture>>textures;
@@ -316,7 +317,7 @@ struct Global
 	static Room room;
 
 	static sf::View view;
-	static const sf::View standartView;
+	static sf::View standartView;
 
 	static const unsigned short maxScrolledTimes;
 	static unsigned short scrolledUpTimes;

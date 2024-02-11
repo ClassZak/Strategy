@@ -65,7 +65,7 @@ long long StringToLongLong(const std::wstring& str, const bool continuously)
 		if (str[i] >= '0' and str[i] <= '9')
 		{
 			number *= 10;
-			number += int(str[i] - '0');
+			number += UCHAR(str[i] - '0');
 		}
 		else
 		{
@@ -165,10 +165,10 @@ std::vector<std::wstring> FindWords(const std::wstring& currInputString)
 
 	std::size_t fPos = 0, sPos;
 
-	std::size_t spacepos = currInputString.find(' ', 0);
-	std::size_t tabpos = currInputString.find('\t', 0);
+	std::size_t spacepos = currInputString.find(L' ', 0);
+	std::size_t tabpos = currInputString.find(L'\t', 0);
 
-	if (spacepos == MAX_UNSIGNED_INT)
+	if (spacepos == std::wstring::npos)
 		sPos = tabpos;
 	else
 		sPos = spacepos;
@@ -181,7 +181,7 @@ std::vector<std::wstring> FindWords(const std::wstring& currInputString)
 
 		while
 			(
-				((currInputString[fPos] == ' ') or (currInputString[fPos] == '\t')) and
+				((currInputString[fPos] == L' ') or (currInputString[fPos] == L'\t')) and
 				((fPos) < currInputString.size() - 1)
 				)
 			fPos++;
@@ -189,11 +189,11 @@ std::vector<std::wstring> FindWords(const std::wstring& currInputString)
 			break;
 
 
-		spacepos = currInputString.find(' ', fPos);
-		tabpos = currInputString.find('\t', fPos);
+		spacepos = currInputString.find(L' ', fPos);
+		tabpos = currInputString.find(L'\t', fPos);
 
 
-		if (spacepos == MAX_UNSIGNED_INT)
+		if (spacepos == std::wstring::npos)
 			sPos = tabpos;
 		else
 			sPos = spacepos;

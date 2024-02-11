@@ -70,14 +70,14 @@ void Drawing(sf::RenderWindow& window,std::list<T*,std::allocator<T*>> &objects)
     }
 }
 template<typename T>
-void ObjectPollEvent(sf::RenderWindow& window,sf::Event& event,std::list<T*,std::allocator<T*>> &objects)
+void ObjectPollEvent(sf::RenderWindow& window,sf::Event& event,std::list<T*,std::allocator<T*>>* objects)
 {
 	sf::Vector2f mouse_pos=window.mapPixelToCoords(sf::Mouse::getPosition(window));
 	std::list<GameObject*>GameObjects;
 	if(typeid(T).name()!=typeid(GameObject).name())
-	GameObjects=ChooseGameObjects(objects);
+	GameObjects=ChooseGameObjects(*objects);
 	
-	for(auto it=objects.begin();it!=objects.end();++it)
+	for(auto it=objects->begin();it!=objects->end();++it)
 	{
 		if(ButtonWithImage* buttonWithImage=dynamic_cast<ButtonWithImage*>(*it))
 		buttonWithImage->PollEvent(event,window,mouse_pos);
@@ -102,7 +102,7 @@ void CheckSettingsButtons(std::list<Button*>& buttonsList);
 #endif
 void ObjectUpdate(sf::RenderWindow& window,std::list<GameObject*>& objects);
 void CheckMainButtons(std::vector<Button>& MainButtons);
-void CheckInGameButtons(std::list<GUIObject*>& GUIObjects);
+void CheckInGameButtons(std::list<GUIObject*>* GUIObjects);
 int MainMenu(sf::RenderWindow& window);
 int GameField(sf::RenderWindow& window,std::list<GameObject*>& objects);
 int SettingsMenu(sf::RenderWindow& window);
@@ -114,7 +114,7 @@ int SaveObjects(std::list<T*,std::allocator<T*>>& objects)
 	std::cout<<objectsCount<<" objects saved"<<std::endl<<
 	"Saving time:"<<savingTime.getElapsedTime().asSeconds()<<" sec."<<std::endl;
 }
-int LoadObjects(std::list<Object*>& objects,const char* filename=SavedObjects);
+int LoadObjects(std::list<Object*>* objects, const char* filename = SavedObjects);
 
 
 std::vector<Button> CreateMainButtons

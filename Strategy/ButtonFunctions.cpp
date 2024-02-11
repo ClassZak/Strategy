@@ -54,10 +54,10 @@ void CheckMainButtons(std::vector<Button>& MainButtons)
 
 
 
-void CheckInGameButtons(std::list<GUIObject*>& GUIObjects)
+void CheckInGameButtons(std::list<GUIObject*>* GUIObjects)
 {
 	std::size_t number=0;
-	for(std::list<GUIObject*>::iterator i=GUIObjects.begin();i!=GUIObjects.end();++i)
+	for(std::list<GUIObject*>::iterator i=GUIObjects->begin();i!=GUIObjects->end();++i)
 	{
 		if(PlacedGUIObject* gui=dynamic_cast<PlacedGUIObject*>(*i))
 		{

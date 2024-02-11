@@ -3,6 +3,7 @@
 
 const std::wstring Global::ObjectContext::ObjectClasses[Global::ObjectContext::Count] =
 {
+	L"",
 	L"Button",
 	L"ButtonWithImage",
 	L"OverlayPanel",
@@ -10,7 +11,7 @@ const std::wstring Global::ObjectContext::ObjectClasses[Global::ObjectContext::C
 };
 
 
-void Global::ObjectContext::LoadObjects(std::list<Object>& objectList, const char* filename)
+void Global::ObjectContext::LoadObjects(std::list<Object*>* objectList, const char* filename)
 {
 	std::vector<std::wstring> lines;
 	{
@@ -21,7 +22,7 @@ void Global::ObjectContext::LoadObjects(std::list<Object>& objectList, const cha
 
 	bool objectTypeFound = false;
 	unsigned int objectsCount = 1;
-	int objectType = -1;
+	Global::ObjectContext::ObjectType objectType = Global::ObjectContext::UNKNOWN;
 
 
 	for(std::vector<std::wstring>::iterator it=lines.begin();it!=lines.end();++it)
@@ -46,7 +47,7 @@ void Global::ObjectContext::LoadObjects(std::list<Object>& objectList, const cha
 
 			objectType = Global::ObjectContext::FindTypeIndex(words[0]);
 
-			if (objectType == -1)
+			if (objectType == Global::ObjectContext::UNKNOWN)
 			{
 				std::wcout << L"This types is not in correct list" << std::endl << L"curr=" << *it << std::endl;
 				throw std::runtime_error("Failed to find correct type index");
@@ -58,6 +59,37 @@ void Global::ObjectContext::LoadObjects(std::list<Object>& objectList, const cha
 		{
 			std::vector<std::wstring> params = FindWords(*it);
 			std::vector<long long> numberParams = StringVectorToLongLong(params, true);
+			switch (objectType)
+			{
+				case Global::ObjectContext::STANDARTSOLDIER:
+				{
+					sf::Texture* rTexture=
+						&Global::TexturesContext::GetTextures().find(L"StandartSoldier")->second.at(numberParams[2]);
+					StandartSoldier* s = new StandartSoldier
+					(
+						numberParams[0] + Global::LEFT_EDGE_LENGTH,
+						numberParams[1],
+						rTexture->getSize().x,
+						rTexture->getSize().y,
+						rTexture
+					);
+					
+					if (numberParams.size() == 4)
+					{
+						s->SetHp(numberParams[3]);
+					}
+					if (numberParams.size() == 5)
+					{
+						s->SetMaxHp(numberParams[3]);
+						s->SetHp(numberParams[4]);
+					}
+
+					objectList->push_back((Object*)s);
+					break;
+				}
+				default:
+					break;
+			}
 			/*switch (objectType)
 			{
 				case Loader::BUTTON:
@@ -112,21 +144,21 @@ void Global::ObjectContext::LoadObjects(std::list<Object>& objectList, const cha
 		}
 	}
 }
-void Global::ObjectContext::SaveObjects(std::list<Object>& objectList, const char* filename)
+void Global::ObjectContext::SaveObjects(std::list<Object*>* objectList, const char* filename)
 {
 
 }
 
 
 
-unsigned int Global::ObjectContext::FindTypeIndex(const std::wstring& str)
+Global::ObjectContext::ObjectType Global::ObjectContext::FindTypeIndex(const std::wstring& str)
 {
-	unsigned int index = 0;
+	Global::ObjectContext::ObjectType index = Global::ObjectContext::ObjectType::UNKNOWN;
 	if (str[str.length() - 1] != L'\n')
 	{
 		while (str != Global::ObjectContext::ObjectClasses[index])
 		{
-			++index;
+			index = (Global::ObjectContext::ObjectType)((int)(index + 1));
 			if (index > Global::ObjectContext::ObjectType::Count - 1)
 				break;
 		}
@@ -138,7 +170,7 @@ unsigned int Global::ObjectContext::FindTypeIndex(const std::wstring& str)
 
 		while (strbuff != Global::ObjectContext::ObjectClasses[index])
 		{
-			++index;
+			index=(Global::ObjectContext::ObjectType)((int)(index+1));
 			if (index > Global::ObjectContext::ObjectType::Count - 1)
 				break;
 		}
@@ -147,7 +179,7 @@ unsigned int Global::ObjectContext::FindTypeIndex(const std::wstring& str)
 	if (index == Global::ObjectContext::ObjectType::Count)
 	{
 		std::cout << "Types of Object not found" << std::endl;
-		index = -1;
+		index = Global::ObjectContext::UNKNOWN;
 	}
 	return index;
 }

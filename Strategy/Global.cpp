@@ -59,7 +59,7 @@ sf::View Global::view = sf::View
 	sf::Vector2f(Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT)
 );
 
-const sf::View Global::standartView = sf::View
+sf::View Global::standartView = sf::View
 (
 	sf::Vector2f(Global::WINDOW_WIDTH / 2, Global::WINDOW_HEIGHT / 2),
 	sf::Vector2f(Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT)

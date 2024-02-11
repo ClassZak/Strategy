@@ -11,7 +11,7 @@ const std::map<std::wstring,std::vector<sf::Image>>& Global::TexturesContext::Ge
 {
 	return Global::TexturesContext::images;
 }
-const std::map<std::wstring,std::vector<sf::Texture>>& Global::TexturesContext::GetTextures()
+std::map<std::wstring,std::vector<sf::Texture>>& Global::TexturesContext::GetTextures()
 {
 	return Global::TexturesContext::textures;
 }

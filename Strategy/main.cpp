@@ -14,6 +14,7 @@
 
 #include "Global.h" 
 #include "Functions.h"
+#include "GameFunctions.h"
 
 
 #include <locale>
@@ -26,83 +27,44 @@
 int main()
 {
     setlocale(LC_ALL, "Russian");
+    std::list<Object*>* objects = new std::list<Object*>;
+
 
     if (!SUCCEEDED(Global::ContentLoading()))
     {
         system("pause");
         return EXIT_FAILURE;
     }
+    Global::ObjectContext::LoadObjects(objects);
 
-    Global::SettinsContext::SaveSettings();
 
     sf::RenderWindow window
     (sf::VideoMode(Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT), L"Стратегия", sf::Style::Titlebar | sf::Style::Close);
-    
-    
-        
-
-    sf::RenderTexture textureRender;
-    if (!textureRender.create(Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT))
-    {
-        system("pause");
-        return -1;
-    }
-
-    sf::Sprite currSprite;
-    textureRender.clear(sf::Color::White);
-    UINT currWidth = 0, currHeight = 0, maxHeight = 0;
-    for
-    (
-        std::map<std::wstring, std::vector<sf::Texture>>::const_iterator 
-        it = Global::TexturesContext::GetTextures().begin();
-        it != Global::TexturesContext::GetTextures().end();
-        ++it
-    )
-        for (std::vector<sf::Texture>::const_iterator it_ = it->second.begin(); it_ != it->second.end(); ++it_)
-        {
-            currSprite.setTexture(*it_,true);
-            currSprite.setPosition((float)currWidth, (float)currHeight);
-            currWidth += currSprite.getTextureRect().width;
-            if (maxHeight > (UINT)currSprite.getTextureRect().height)
-                maxHeight = currSprite.getTextureRect().height;
-            if (currWidth > Global::WINDOW_WIDTH)
-            {
-                currWidth = 0;
-                currHeight += maxHeight;
-                maxHeight = 0;
-            }
-            textureRender.draw(currSprite);
-            textureRender.display();
-        }
-    sf::Texture renderedTexture = textureRender.getTexture();
-    sf::Sprite renderedSprite;
-    renderedSprite.setTexture(renderedTexture);
-
-    const std::map<std::wstring, std::vector<sf::Texture>>* textures = &Global::TexturesContext::GetTextures();
-
     sf::Clock loadingClock;
     
-    while (window.isOpen())
+    while (window.isOpen() and Global::playing)
     {
-        sf::Event event;
-        while (window.pollEvent(event))
+        switch (Global::room)
         {
-            if (event.type == sf::Event::Closed)
-                window.close();
-            if (event.type == sf::Event::KeyPressed)
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-                {
-                    std::wcout << L"Выход из игры" << std::endl;
-                    window.close();
-                }
-                    
+            case Global::MENU:
+            {
+                MainMenu(window);
+                SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_BLUE);
+                system("pause");
+                SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_DEFAULT);
+                break;
+            }
+            case Global::NEW_GAME:
+            {
+
+                break;
+            }
+            default:
+                Global::playing = false;
+                break;
         }
-
-        window.clear();
-        window.draw(renderedSprite);
-        window.display();
     }
-
     system("pause");
     return 0;
 }
+
