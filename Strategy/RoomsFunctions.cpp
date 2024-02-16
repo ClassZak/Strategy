@@ -5,7 +5,6 @@
 
 int MainMenu(sf::RenderWindow& window)
 {
-	sf::Clock clock;
 	sf::Vector2f buttonDimensions(200, 40);
 	std::vector<Button>MainButtons = CreateMainButtons
 	(
@@ -13,7 +12,6 @@ int MainMenu(sf::RenderWindow& window)
 		(std::vector<sf::String>&)Global::Localizator::GetLocalization().find(L"buttonLabels")->second
 	);
 
-	float frame = Global::MAX_FRAME;
 	sf::Event event;
 	sf::Vector2f mouse_pos;
 	while (window.isOpen() and Global::playing and Global::room == Global::MENU)
@@ -53,17 +51,11 @@ int MainMenu(sf::RenderWindow& window)
 
 
 
-		frame += clock.getElapsedTime().asSeconds() / Global::MAX_FRAME;
-		
-		if (frame >= 1.)
-		{
-			window.clear(MENU_BACKGROUND_COLOR);
-			for (unsigned short i = 0; i < Global::MAIN_BUTTONS; ++i)
-				MainButtons[i].Draw(window);
-			frame = 0;
-			clock.restart();
-			window.display();
-		}
+
+		window.clear(MENU_BACKGROUND_COLOR);
+		for (unsigned short i = 0; i < Global::MAIN_BUTTONS; ++i)
+			MainButtons[i].Draw(window);
+		window.display();
 		
 	}
 	return 0;
@@ -222,7 +214,7 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>* objects)
 		CheckInGameButtons(&GUIObjects);
 
 
-		double frame = Global::MAX_FRAME;
+		double frame = Global::FPS;
 		double time = (double)clock.getElapsedTime().asMicroseconds() / 100000;
 		frame += time;
 
@@ -230,7 +222,7 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>* objects)
 
 
 		window.clear();
-		if (frame >= Global::MAX_FRAME)
+		if (frame >= Global::FPS)
 		{
 			globalMousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
@@ -344,14 +336,14 @@ int SettingsMenu(sf::RenderWindow& window)
 		//CheckSettingsButtons(GUIObjects);
 		CheckSettingsButtons(buttonsList);
 
-		double frame = Global::MAX_FRAME;
+		double frame = Global::FPS;
 		double time = (double)clock.getElapsedTime().asMicroseconds() / 1000000;
 		frame += time;
 
 
 
 		window.clear(BACKGROUND_COLOR);
-		if (frame >= Global::MAX_FRAME)
+		if (frame >= Global::FPS)
 		{
 			Drawing(window, GUIObjects);
 			frame = 0;

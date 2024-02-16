@@ -72,7 +72,7 @@ sf::Font Global::font = []()->sf::Font {sf::Font font; font.loadFromFile("resour
 UINT16 Global::WINDOW_WIDTH=600;
 UINT16 Global::WINDOW_HEIGHT=480;
 
-UINT16 Global::MAX_FRAME = 60;
+UINT16 Global::FPS = 60;
 double Global::zoom = 0.7;
 double Global::viewDelta = 1.2;
 
@@ -90,7 +90,7 @@ INT Global::ContentLoading()
 		Global::WINDOW_WIDTH = (UINT16)Global::SettinsContext::GetGlobalVariables().find(L"WINDOW_WIDTH")->second;
 		Global::WINDOW_HEIGHT = (UINT16)Global::SettinsContext::GetGlobalVariables().find(L"WINDOW_HEIGHT")->second;
 
-		Global::MAX_FRAME = (UINT16)Global::SettinsContext::GetGlobalVariables().find(L"MAX_FRAME")->second;
+		Global::FPS = (UINT16)Global::SettinsContext::GetGlobalVariables().find(L"FPS")->second;
 		Global::zoom = Global::SettinsContext::GetGlobalVariables().find(L"zoom")->second;
 		Global::viewDelta = Global::SettinsContext::GetGlobalVariables().find(L"viewDelta")->second;
 

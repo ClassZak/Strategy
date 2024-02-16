@@ -302,7 +302,7 @@ struct Global
 
 	static UINT16 WINDOW_WIDTH;
 	static UINT16 WINDOW_HEIGHT;
-	static UINT16 MAX_FRAME;
+	static UINT16 FPS;
 	static const unsigned short MAIN_BUTTONS;
 
 	static const unsigned short LEFT_EDGE_LENGTH;

@@ -46,6 +46,7 @@ int main()
             L"Стратегия",
             sf::Style::Titlebar | sf::Style::Close
         );
+        window.setFramerateLimit(Global::FPS);
         sf::Clock loadingClock;
     
         
