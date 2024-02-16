@@ -13,6 +13,9 @@ const std::wstring Global::ObjectContext::ObjectClasses[Global::ObjectContext::C
 
 void Global::ObjectContext::LoadObjects(std::list<Object*>* objectList, const char* filename)
 {
+	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_YELLOW);
+	std::wcout << L"Object loading" << std::endl;
+	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_GREEN);
 	std::vector<std::wstring> lines;
 	{
 		std::wstring fullText = ReadUtf8File(filename);
@@ -49,7 +52,9 @@ void Global::ObjectContext::LoadObjects(std::list<Object*>* objectList, const ch
 
 			if (objectType == Global::ObjectContext::UNKNOWN)
 			{
-				std::wcout << L"This types is not in correct list" << std::endl << L"curr=" << *it << std::endl;
+				SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_RED);
+				std::wcout << L"This types is not in correct list" << std::endl << 
+					L"curr=" << *it << std::endl;
 				throw std::runtime_error("Failed to find correct type index");
 				return;
 			}
@@ -64,11 +69,12 @@ void Global::ObjectContext::LoadObjects(std::list<Object*>* objectList, const ch
 				case Global::ObjectContext::STANDARTSOLDIER:
 				{
 					sf::Texture* rTexture=
-						&Global::TexturesContext::GetTextures().find(L"StandartSoldier")->second.at(numberParams[2]);
+					&Global::TexturesContext::GetTextures()
+						.find(L"StandartSoldier")->second.at((std::size_t)numberParams[2]);
 					StandartSoldier* s = new StandartSoldier
 					(
-						numberParams[0] + Global::LEFT_EDGE_LENGTH,
-						numberParams[1],
+						(int)numberParams[0] + Global::LEFT_EDGE_LENGTH,
+						(int)numberParams[1],
 						rTexture->getSize().x,
 						rTexture->getSize().y,
 						rTexture
@@ -76,15 +82,21 @@ void Global::ObjectContext::LoadObjects(std::list<Object*>* objectList, const ch
 					
 					if (numberParams.size() == 4)
 					{
-						s->SetHp(numberParams[3]);
+						s->SetHp((unsigned)numberParams[3]);
 					}
 					if (numberParams.size() == 5)
 					{
-						s->SetMaxHp(numberParams[3]);
-						s->SetHp(numberParams[4]);
+						s->SetMaxHp((unsigned)numberParams[3]);
+						s->SetHp((unsigned)numberParams[4]);
 					}
 
 					objectList->push_back((Object*)s);
+					std::wcout << L"New object of " << 
+					Global::ObjectContext::ObjectClasses[Global::ObjectContext::STANDARTSOLDIER] << 
+					std::endl;
+					std::wcout << L"x:" << s->GetCoordinates().x << L"\ty:" << s->GetCoordinates().y <<
+						L"\thp:" << s->GetHp() << L"\tmax hp:" << s->GetMaxHp() << std::endl;;
+
 					break;
 				}
 				default:

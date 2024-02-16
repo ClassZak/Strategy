@@ -13,10 +13,12 @@ int MainMenu(sf::RenderWindow& window)
 		(std::vector<sf::String>&)Global::Localizator::GetLocalization().find(L"buttonLabels")->second
 	);
 
+	float frame = Global::MAX_FRAME;
+	sf::Event event;
+	sf::Vector2f mouse_pos;
 	while (window.isOpen() and Global::playing and Global::room == Global::MENU)
 	{
-		sf::Event event;
-		sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+		mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
 
 		while (window.pollEvent(event))
@@ -24,7 +26,7 @@ int MainMenu(sf::RenderWindow& window)
 			if (event.type == sf::Event::Closed)
 			{
 				window.close();
-				break;
+				return 0;
 			}
 
 
@@ -49,18 +51,20 @@ int MainMenu(sf::RenderWindow& window)
 		}
 		CheckMainButtons(MainButtons);
 
-		double frame = Global::MAX_FRAME;
-		double time = (double)clock.getElapsedTime().asMicroseconds() / 1000000;
-		frame += time;
 
-		window.clear(MENU_BACKGROUND_COLOR);
-		if (frame >= Global::MAX_FRAME)
+
+		frame += clock.getElapsedTime().asSeconds() / Global::MAX_FRAME;
+		
+		if (frame >= 1.)
 		{
+			window.clear(MENU_BACKGROUND_COLOR);
 			for (unsigned short i = 0; i < Global::MAIN_BUTTONS; ++i)
 				MainButtons[i].Draw(window);
 			frame = 0;
+			clock.restart();
+			window.display();
 		}
-		window.display();
+		
 	}
 	return 0;
 }

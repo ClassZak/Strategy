@@ -72,7 +72,7 @@ sf::Font Global::font = []()->sf::Font {sf::Font font; font.loadFromFile("resour
 UINT16 Global::WINDOW_WIDTH=600;
 UINT16 Global::WINDOW_HEIGHT=480;
 
-UINT16 Global::MAX_FRAME = 1;
+UINT16 Global::MAX_FRAME = 60;
 double Global::zoom = 0.7;
 double Global::viewDelta = 1.2;
 
