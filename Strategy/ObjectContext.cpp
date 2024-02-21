@@ -11,7 +11,7 @@ const std::wstring Global::ObjectContext::ObjectClasses[Global::ObjectContext::C
 };
 
 
-void Global::ObjectContext::LoadObjects(std::list<Object*>* objectList, const char* filename)
+void Global::ObjectContext::LoadObjects(std::list<GameObject*>* objectList, const char* filename)
 {
 	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_YELLOW);
 	std::wcout << L"Object loading" << std::endl;
@@ -90,7 +90,7 @@ void Global::ObjectContext::LoadObjects(std::list<Object*>* objectList, const ch
 						s->SetHp((unsigned)numberParams[4]);
 					}
 
-					objectList->push_back((Object*)s);
+					objectList->push_back((GameObject*)s);
 					std::wcout << L"New object of " << 
 					Global::ObjectContext::ObjectClasses[Global::ObjectContext::STANDARTSOLDIER] << 
 					std::endl;
@@ -156,7 +156,7 @@ void Global::ObjectContext::LoadObjects(std::list<Object*>* objectList, const ch
 		}
 	}
 }
-void Global::ObjectContext::SaveObjects(std::list<Object*>* objectList, const char* filename)
+void Global::ObjectContext::SaveObjects(std::list<GameObject*>* objectList, const char* filename)
 {
 
 }

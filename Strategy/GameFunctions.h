@@ -104,7 +104,7 @@ void ObjectUpdate(sf::RenderWindow& window,std::list<GameObject*>& objects);
 void CheckMainButtons(std::vector<Button>& MainButtons);
 void CheckInGameButtons(std::list<GUIObject*>* GUIObjects);
 int MainMenu(sf::RenderWindow& window);
-int GameField(sf::RenderWindow& window,std::list<GameObject*>& objects);
+int GameField(sf::RenderWindow& window,std::list<GameObject*>* objects);
 int SettingsMenu(sf::RenderWindow& window);
 template<typename T>
 int SaveObjects(std::list<T*,std::allocator<T*>>& objects)

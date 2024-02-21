@@ -5,51 +5,29 @@
 
 void CheckMainButtons(std::vector<Button>& MainButtons)
 {
-	for(std::size_t i=0;i<MainButtons.size();++i)
+	if (MainButtons[0].IsClicked())
 	{
-		if(MainButtons[i].IsClicked())
-		{
-			switch(i)
-			{
-				case 0:
-				{
-					Global::room=Global::NEW_GAME;
-					Global::view=Global::standartView;
-					break;
-				}
-				case 1:
-				{
-					if(Global::gameStarted)
-					Global::room=Global::CONTINUE;
-					break;
-				}
-				case 2:
-				{
-					Global::room=Global::LOADING;
-					Global::view=Global::standartView;
-					Global::scrolledDownTimes=0;
-					Global::scrolledUpTimes=0;
-					break;
-				}
-				case 3:
-				{
-					Global::room=Global::SAVING;
-					break;
-				}
-				case 4:
-				{
-					Global::room=Global::SETTINGS;
-					break;
-				}
-				case 5:
-				{
-					Global::playing=false;
-					break;
-				}
-			}
-			break;
-		}
+		Global::room = Global::NEW_GAME;
+		Global::view = Global::standartView;
 	}
+	if (MainButtons[1].IsClicked())
+	{
+		if (Global::gameStarted)
+			Global::room = Global::CONTINUE;
+	}
+	if (MainButtons[2].IsClicked())
+	{
+		Global::room = Global::LOADING;
+		Global::view = Global::standartView;
+		Global::scrolledDownTimes = 0;
+		Global::scrolledUpTimes = 0;
+	}
+	if (MainButtons[3].IsClicked())
+		Global::room = Global::SAVING;
+	if (MainButtons[4].IsClicked())
+		Global::room = Global::SETTINGS;
+	if (MainButtons[5].IsClicked())
+		Global::playing = false;
 }
 
 
@@ -73,6 +51,7 @@ void CheckInGameButtons(std::list<GUIObject*>* GUIObjects)
 					}
 					case 1:
 					{
+						Global::fromMenu = bool(Global::room == Global::MENU);
 						Global::room=Global::SETTINGS;
 						break;
 					}
@@ -104,7 +83,7 @@ void CheckSettingsButtons(std::list<Object*>& buttons)
 				}
 				case 1:
 				{
-					(Global::fromMenu) ? Global::room=Global::MENU : Global::room=Global::GAME_FIELD;
+					Global::room=Global::CONTINUE;
 					break;
 				}
 				default:
@@ -170,7 +149,7 @@ void CheckSettingsButtons(std::list<Button*>& buttonsList)
 				}
 				case 1:
 				{
-					(Global::fromMenu) ? Global::room=Global::MENU : Global::room=Global::GAME_FIELD;
+					Global::room = (Global::fromMenu) ? Global::MENU : Global::CONTINUE;
 					break;
 				}
 				default:

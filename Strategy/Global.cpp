@@ -53,17 +53,8 @@ bool Global::ReleasedKeys::Released[Global::ReleasedKeys::KeyCount] =
 	0,0,0,0,0,0,0,0,0,0,0
 };
 
-sf::View Global::view = sf::View
-(
-	sf::Vector2f(Global::WINDOW_WIDTH / 2, Global::WINDOW_HEIGHT / 2),
-	sf::Vector2f(Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT)
-);
-
-sf::View Global::standartView = sf::View
-(
-	sf::Vector2f(Global::WINDOW_WIDTH / 2, Global::WINDOW_HEIGHT / 2),
-	sf::Vector2f(Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT)
-);
+sf::View Global::view = sf::View();
+sf::View Global::standartView = sf::View();
 
 
 sf::Font Global::font = []()->sf::Font {sf::Font font; font.loadFromFile("resources/Fonts/ARIALUNI.TTF"); return font; }();
@@ -93,6 +84,19 @@ INT Global::ContentLoading()
 		Global::FPS = (UINT16)Global::SettinsContext::GetGlobalVariables().find(L"FPS")->second;
 		Global::zoom = Global::SettinsContext::GetGlobalVariables().find(L"zoom")->second;
 		Global::viewDelta = Global::SettinsContext::GetGlobalVariables().find(L"viewDelta")->second;
+
+
+
+		Global::view = sf::View
+		(
+			sf::Vector2f(Global::WINDOW_WIDTH / 2, Global::WINDOW_HEIGHT / 2),
+			sf::Vector2f(Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT)
+		);
+		Global::standartView = sf::View
+		(
+			sf::Vector2f(Global::WINDOW_WIDTH / 2, Global::WINDOW_HEIGHT / 2),
+			sf::Vector2f(Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT)
+		);
 
 		return EXIT_SUCCESS;
 	}

@@ -64,8 +64,8 @@ struct Global
 		};
 
 		static ObjectType FindTypeIndex(const std::wstring& str);
-		static void LoadObjects(std::list<Object*>* objectList, const char* filename = OBJECTS_PATH);
-		static void SaveObjects(std::list<Object*>* objectList, const char* filename = OBJECTS_PATH);
+		static void LoadObjects(std::list<GameObject*>* objectList, const char* filename = OBJECTS_PATH);
+		static void SaveObjects(std::list<GameObject*>* objectList, const char* filename = OBJECTS_PATH);
 		static const std::wstring ObjectClasses[ObjectContext::ObjectType::Count];
 	};
 	//Settings

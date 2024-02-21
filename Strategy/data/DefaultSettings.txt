@@ -3,5 +3,5 @@ WINDOW_HEIGHT=	540
 FPS=30
 
 
-viewDelta=	0.75
+viewDelta=	7
 zoom=		0.95

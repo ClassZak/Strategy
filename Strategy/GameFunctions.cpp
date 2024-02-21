@@ -7,8 +7,8 @@ void ShowMousePosition
 (sf::RenderWindow& window,const sf::Vector2f& mousePos,const sf::Vector2f& coordinates,sf::Font& font)
 {
 	sf::String stext[2]={"x=","y="};
-	stext[0]+=std::to_string(coordinates.x);
-	stext[1]+=std::to_string(coordinates.y);
+	stext[0]+=std::to_string((INT32)coordinates.x);
+	stext[1]+=std::to_string((INT32)coordinates.y);
 	
 	sf::Text position[2]={sf::Text(stext[0],font),sf::Text(stext[1],font)};
 	for(unsigned short i=0;i<2;++i)

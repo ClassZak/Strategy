@@ -29,7 +29,7 @@ int main()
     try
     {
         setlocale(LC_ALL, "Russian");
-        std::list<Object*>* objects = new std::list<Object*>;
+        std::list<GameObject*>* objects = new std::list<GameObject*>;
 
 
         if (!SUCCEEDED(Global::ContentLoading()))
@@ -37,6 +37,7 @@ int main()
             system("pause");
             return EXIT_FAILURE;
         }
+
     
 
 
@@ -57,12 +58,25 @@ int main()
                 case Global::MENU:
                 {
                     MainMenu(window);
+                    Global::fromMenu = true;
+                    break;
+                }
+                case Global::SETTINGS:
+                {
+                    SettingsMenu(window);
                     break;
                 }
                 case Global::NEW_GAME:
                 {
                     Global::ObjectContext::LoadObjects(objects);
-                    Global::playing = false;
+                    GameField(window, objects);
+                    Global::fromMenu = false;
+                    break;
+                }
+                case Global::CONTINUE:
+                {
+                    GameField(window, objects);
+                    Global::fromMenu = false;
                     break;
                 }
                 default:
@@ -70,6 +84,7 @@ int main()
                     break;
             }
         }
+        delete objects;
         return 0;
     }
     catch (const std::exception& ex)

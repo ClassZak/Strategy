@@ -66,7 +66,7 @@ int MainMenu(sf::RenderWindow& window)
 int GameField(sf::RenderWindow& window, std::list<GameObject*>* objects)
 {
 	//Start settings
-	sf::Clock clock;
+	Global::room = Global::GAME_FIELD;
 	sf::Texture backgroundTexture;
 	backgroundTexture.loadFromFile(std::string("resources/Backgrounds/FieldBackground.png"));
 
@@ -89,14 +89,14 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>* objects)
 	else
 	{
 		pBackgroundTexture = new sf::Texture;
-		*pBackgroundTexture = backgroundTexture;
+		pBackgroundTexture = &backgroundTexture;
 	}
 	background.setOrigin((float)(background.getTextureRect().width / 2), (float)(background.getTextureRect().height / 2));
 
 	//GUI objects and interface
 	const sf::Vector2f buttonSizes(32, 32);
 
-
+	
 
 	std::list<GUIObject*> GUIObjects;
 
@@ -147,6 +147,8 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>* objects)
 
 	Selector selector;
 	//Set rendering
+
+
 	if (!Global::gameStarted)
 		Global::gameStarted = true;
 	if (!Global::gameStarted)
@@ -214,48 +216,38 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>* objects)
 		CheckInGameButtons(&GUIObjects);
 
 
-		double frame = Global::FPS;
-		double time = (double)clock.getElapsedTime().asMicroseconds() / 100000;
-		frame += time;
-
-
 
 
 		window.clear();
-		if (frame >= Global::FPS)
-		{
-			globalMousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+		globalMousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
-			background.setPosition
-			(
-				(double)(long long)(Global::view.getCenter().x / backgroundTexture.getSize().x) *
-				backgroundTexture.getSize().x,
-				(double)(long long)(Global::view.getCenter().y / backgroundTexture.getSize().y) *
-				backgroundTexture.getSize().y
-			);
+		background.setPosition
+		(
+			(double)(long long)(Global::view.getCenter().x / backgroundTexture.getSize().x) *
+			backgroundTexture.getSize().x,
+			(double)(long long)(Global::view.getCenter().y / backgroundTexture.getSize().y) *
+			backgroundTexture.getSize().y
+		);
 
-			window.draw(background);
+		window.draw(background);
 
 
-			Global::ReleasedKeys::CheckKeys();
-			if (Global::focus)
-				MoveView(Global::view, window, event, GUIObjects);
+		Global::ReleasedKeys::CheckKeys();
+		if (Global::focus)
+			MoveView(Global::view, window, event, GUIObjects);
 
-			ObjectUpdate(window, *objects);
-			Drawing(window, *objects);
-			selector.draw(window);
+		ObjectUpdate(window, *objects);
+		Drawing(window, *objects);
+		selector.draw(window);
 
 
-			window.setView(Global::standartView);
-			sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-			DrawPoint(window, mousePos);
-			ShowMousePosition(window, mousePos, globalMousePos, Global::font);
+		window.setView(Global::standartView);
+		sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+		DrawPoint(window, mousePos);
+		ShowMousePosition(window, mousePos, globalMousePos, Global::font);
 
-			Drawing(window, GUIObjects);
-			window.setView(Global::view);
-
-			frame = 0;
-		}
+		Drawing(window, GUIObjects);
+		window.setView(Global::view);
 		window.display();
 	}
 	window.setView(Global::standartView);
@@ -267,7 +259,6 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>* objects)
 
 int SettingsMenu(sf::RenderWindow& window)
 {
-	sf::Clock clock;
 	std::list<Object*> GUIObjects;/////////////ïåðåäåëàòü íà ñïèñîê óêàçàòåëåé
 	std::list<Button*> buttonsList;
 
@@ -336,18 +327,11 @@ int SettingsMenu(sf::RenderWindow& window)
 		//CheckSettingsButtons(GUIObjects);
 		CheckSettingsButtons(buttonsList);
 
-		double frame = Global::FPS;
-		double time = (double)clock.getElapsedTime().asMicroseconds() / 1000000;
-		frame += time;
 
 
 
 		window.clear(BACKGROUND_COLOR);
-		if (frame >= Global::FPS)
-		{
-			Drawing(window, GUIObjects);
-			frame = 0;
-		}
+		Drawing(window, GUIObjects);
 		window.display();
 	}
 	buttonsList.clear();
