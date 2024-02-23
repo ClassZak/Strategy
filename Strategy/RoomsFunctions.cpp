@@ -243,8 +243,12 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>* objects)
 
 		window.setView(Global::standartView);
 		sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-		DrawPoint(window, mousePos);
-		ShowMousePosition(window, mousePos, globalMousePos, Global::font);
+		if (Global::focus)
+		{
+			DrawPoint(window, mousePos);
+			ShowMousePosition(window, mousePos, globalMousePos, Global::font);
+		}
+		
 
 		Drawing(window, GUIObjects);
 		window.setView(Global::view);

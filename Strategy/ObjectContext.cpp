@@ -198,9 +198,9 @@ void Global::ObjectContext::SaveObjects(std::list<GameObject*>* objectList, cons
 			}
 
 			file << L"StandartSoldier" << std::endl << s->GetCoordinates().x << L'\t' << s->GetCoordinates().y << 
-			L'\t' << textureNumber << L'\t' << s->GetHp() << '\t' << s->GetMaxHp()<< std::endl;
+			L'\t' << textureNumber << L'\t' << s->GetMaxHp() << '\t' << s->GetHp()<< std::endl;
 			std::wcout<< L"StandartSoldier" << std::endl << s->GetCoordinates().x << L'\t' << s->GetCoordinates().y <<
-			L'\t' << textureNumber << L'\t' << s->GetHp() << '\t' << s->GetMaxHp() << std::endl;
+			L'\t' << textureNumber << L'\t' << s->GetMaxHp() << '\t' << s->GetHp() << std::endl;
 		}
 	}
 	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_DEFAULT);
