@@ -323,9 +323,7 @@ int SettingsMenu(sf::RenderWindow& window)
 					continue;
 				}
 			if (event.type == sf::Event::KeyPressed)
-			{
 				Global::ReleasedKeys::CheckKeys();
-			}
 		}
 
 		//CheckSettingsButtons(GUIObjects);
