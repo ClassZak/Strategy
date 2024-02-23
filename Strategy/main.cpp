@@ -66,15 +66,44 @@ int main()
                     SettingsMenu(window);
                     break;
                 }
+                case Global::SAVING:
+                {
+                    Global::ObjectContext::SaveObjects(objects, SAVED_OBJECTS_PATH);
+                    Global::room = Global::MENU;
+                    break;
+                }
                 case Global::NEW_GAME:
                 {
-                    Global::ObjectContext::LoadObjects(objects);
+                    objects->clear();
+                    Global::ObjectContext::LoadObjects(objects, OBJECTS_PATH);
+                    Global::scrolledDownTimes = 0;
+                    Global::scrolledUpTimes = 0;
+                    Global::view = Global::standartView;
+                    Global::view.move(sf::Vector2f(-Global::LEFT_EDGE_LENGTH, 0));
                     GameField(window, objects);
                     Global::fromMenu = false;
+                    Global::gameStarted = true;
                     break;
                 }
                 case Global::CONTINUE:
                 {
+                    if (Global::gameStarted)
+                    {
+                        GameField(window, objects);
+                        Global::fromMenu = false;
+                    }
+                    else
+                        Global::room = Global::MENU;
+                    break;
+                }
+                case Global::LOADING :
+                {
+                    objects->clear();
+                    Global::ObjectContext::LoadObjects(objects, SAVED_OBJECTS_PATH);
+                    Global::scrolledDownTimes = 0;
+                    Global::scrolledUpTimes = 0;
+                    Global::view = Global::standartView;
+                    Global::view.move(sf::Vector2f(-Global::LEFT_EDGE_LENGTH, 0));
                     GameField(window, objects);
                     Global::fromMenu = false;
                     break;

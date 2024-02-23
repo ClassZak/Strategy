@@ -8,20 +8,13 @@ void CheckMainButtons(std::vector<Button>& MainButtons)
 	if (MainButtons[0].IsClicked())
 	{
 		Global::room = Global::NEW_GAME;
-		Global::view = Global::standartView;
 	}
 	if (MainButtons[1].IsClicked())
 	{
-		if (Global::gameStarted)
-			Global::room = Global::CONTINUE;
+		Global::room = Global::CONTINUE;
 	}
 	if (MainButtons[2].IsClicked())
-	{
 		Global::room = Global::LOADING;
-		Global::view = Global::standartView;
-		Global::scrolledDownTimes = 0;
-		Global::scrolledUpTimes = 0;
-	}
 	if (MainButtons[3].IsClicked())
 		Global::room = Global::SAVING;
 	if (MainButtons[4].IsClicked())

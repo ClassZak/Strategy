@@ -15,6 +15,8 @@ void Global::ObjectContext::LoadObjects(std::list<GameObject*>* objectList, cons
 {
 	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_YELLOW);
 	std::wcout << L"Object loading" << std::endl;
+	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_INTENSITY);
+	std::cout << "Loading file:" << filename << std::endl;
 	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_GREEN);
 	std::vector<std::wstring> lines;
 	{
@@ -73,7 +75,7 @@ void Global::ObjectContext::LoadObjects(std::list<GameObject*>* objectList, cons
 						.find(L"StandartSoldier")->second.at((std::size_t)numberParams[2]);
 					StandartSoldier* s = new StandartSoldier
 					(
-						(int)numberParams[0] + Global::LEFT_EDGE_LENGTH,
+						(int)numberParams[0],
 						(int)numberParams[1],
 						rTexture->getSize().x,
 						rTexture->getSize().y,
@@ -158,7 +160,50 @@ void Global::ObjectContext::LoadObjects(std::list<GameObject*>* objectList, cons
 }
 void Global::ObjectContext::SaveObjects(std::list<GameObject*>* objectList, const char* filename)
 {
+	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_YELLOW);
+	std::wcout << L"Saving objects" << std::endl;
+	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_INTENSITY);
+	std::cout << "path:" << filename << std::endl;
+	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_DEFAULT);
 
+	if (objectList->empty())
+	{
+		SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_YELLOW);
+		std::cout << "Warning! List of objects is empty!" << std::endl;
+		SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_DEFAULT);
+		return;
+	}
+
+	std::wofstream file(filename);
+	file << L"Амогус";
+	if (file.bad())
+		file.clear();
+	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_GREEN);
+
+	for (std::list<GameObject*>::iterator it = objectList->begin(); it != objectList->end(); ++it)
+	{
+		if (StandartSoldier* s = dynamic_cast<StandartSoldier*>(*it))
+		{
+			//x, y, number of texture, max hp, hp
+			UINT64 textureNumber = 0;
+			for
+			(
+				auto it = (*Global::TexturesContext::GetTextures().find(L"StandartSoldier")).second.begin();
+				it != (*Global::TexturesContext::GetTextures().find(L"StandartSoldier")).second.end(); 
+				++it,++textureNumber
+			)
+			{
+				if (s->GetTexture()==&(*it))
+					break;
+			}
+
+			file << L"StandartSoldier" << std::endl << s->GetCoordinates().x << L'\t' << s->GetCoordinates().y << 
+			L'\t' << textureNumber << L'\t' << s->GetHp() << '\t' << s->GetMaxHp()<< std::endl;
+			std::wcout<< L"StandartSoldier" << std::endl << s->GetCoordinates().x << L'\t' << s->GetCoordinates().y <<
+			L'\t' << textureNumber << L'\t' << s->GetHp() << '\t' << s->GetMaxHp() << std::endl;
+		}
+	}
+	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_DEFAULT);
 }
 
 
