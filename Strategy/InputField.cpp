@@ -156,19 +156,13 @@ void InputField::charInput(const sf::Event& event)
 	if (keyCode == 8)
 	{
 		//Backspace
-		if (textString.length()-1)
+		if (textString.length())
 		{
-			bool deleteLineSep = (textString[cursorPos - 2] == L'\n');
+			textString.erase(textString.length() - 1);
+			if(textString[textString.length()-1]==L'\n')
+				textString.erase(textString.length() - 1);
 
-			this->textString =
-			textString.substr(0, cursorPos - 2- deleteLineSep) +
-			textString.substr(cursorPos - 1);
-
-			this->text.setString(textString);
-			if (cursorPos > 1)
-				--cursorPos;
-			if(deleteLineSep)
-				--cursorPos;
+			this->text.setString(sf::String(this->textString));
 		}
 		return;
 	}
@@ -177,34 +171,23 @@ void InputField::charInput(const sf::Event& event)
 		this->inputs = false;//Enter and Esc
 		return;
 	}
-
-	if (textString.length())
-	{
-		std::wstring tempString=textString.substr(0,cursorPos-1)+ textString.substr(cursorPos);
-		textString = tempString.substr(0, cursorPos-1) + (wchar_t)keyCode + L'|' + tempString.substr(cursorPos-1);
-	}
-	else
-	{
-		textString += (wchar_t)keyCode;
-		textString += L'|';
-	}
-	
-	++cursorPos;
+	textString += (wchar_t)keyCode;
 	
 	this->text.setString(sf::String(this->textString));
 	lineBreak();
 }
 void InputField::lineBreak()
 {
-	if (this->text.getGlobalBounds().width > this->w)
+	if (this->text.getGlobalBounds().width > this->w - this->text.getCharacterSize()/2)
 	{
-		textString = textString.substr(0, textString.length() - 1) + L'\n' + textString[textString.length() - 1];
+		textString.insert(textString.length() - 1, L"\n");
 		this->text.setString(sf::String(textString));
 		++cursorPos;
 	}
-	if (this->text.getGlobalBounds().height > this->h)
+	if (this->text.getGlobalBounds().height > this->h - this->text.getCharacterSize() / 2)
 	{
-		textString = textString.substr(0, textString.length() - 2);
+		textString.erase(textString.length() - 1);
+		textString.erase(textString.length() - 1);
 		this->text.setString(sf::String(textString));
 	}
 }
