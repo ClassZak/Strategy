@@ -26,45 +26,34 @@ InputField::~InputField()
 //Settings methods
 void InputField::setTextString(const std::wstring& textString)
 {
-	this->bottomText.setString(sf::String(textString));
+	this->text.setString(sf::String(textString));
 }
 void InputField::setText(const sf::Text& text)
 {
-	this->bottomText=text;
+	this->text=text;
 }
 void InputField::setTextParametres(const sf::Font& font,unsigned int charSize)
 {
-	this->bottomText.setFont(font);
 	this->text.setFont(font);
-	this->bottomText.setCharacterSize(charSize);
 	this->text.setCharacterSize(charSize);
 }
 void InputField::setTextParametres(const std::wstring& textString,const sf::Font& font,unsigned int charSize)
 {
-	this->bottomText.setString(sf::String(textString));
+	this->text.setString(sf::String(textString));
 	this->setTextParametres(font,charSize);
 }
 //Gettings methods
 const sf::Font* InputField::getFont()const
 {
-	return this->bottomText.getFont();
+	return this->text.getFont();
 }
 sf::Text InputField::getText()
 {
-	sf::Text result;
-	result.setCharacterSize(this->bottomText.getCharacterSize());
-	result.setFillColor(this->bottomText.getFillColor());
-	result.setFont(*this->bottomText.getFont());
-	result.setString(this->bottomText.getString()+this->bottomText.getString());
-	return result;
+	return this->text;
 }
 std::wstring InputField::getTextString()const
 {
-	std::wstring cuttedStr;
-	cuttedStr=text.getString().toWideString();
-	cuttedStr+=bottomText.getString().toWideString();
-	
-	return (getStringExceptSymbols(cuttedStr,L'\n'));
+	return (getStringExceptSymbols(this->textString,L'\n'));
 }
 bool InputField::isInputing()const
 {
@@ -92,7 +81,6 @@ void InputField::Draw(sf::RenderWindow& window)
 	
 	if(!this->inputs)
 	{
-		this->bottomText.setFillColor(sf::Color(128,128,128));
 		this->text.setFillColor(sf::Color(128,128,128));
 		borders[0].color=sf::Color(171,173,179);
 		borders[1].color=sf::Color(171,173,179);
@@ -102,7 +90,6 @@ void InputField::Draw(sf::RenderWindow& window)
 	}
 	else
 	{
-		this->bottomText.setFillColor(sf::Color::Black);
 		this->text.setFillColor(sf::Color::Black);
 		borders[0].color=sf::Color(61,123,173);
 		borders[1].color=sf::Color(61,123,173);
@@ -118,12 +105,15 @@ void InputField::Draw(sf::RenderWindow& window)
 	rect.setPosition(GetCoordinates());
 	
 	
-	this->text.setOrigin(0,0);
 	this->text.setString(sf::String(this->textString));
 
 	window.draw(rect);
 	window.draw(borders);
 	window.draw(this->text);
+	sf::RectangleShape cursor(sf::Vector2f(1, text.getCharacterSize()));
+	cursor.setPosition(cursorRect.getPosition());
+	cursor.setFillColor(sf::Color::Black);
+	window.draw(cursor);
 }
 
 
@@ -146,6 +136,9 @@ void InputField::PollEvent(const sf::Event& event, const sf::RenderWindow& windo
 	if(this->inputs)
 	if(event.type==sf::Event::TextEntered)
 	this->charInput(event);
+	cursorRect = text.getGlobalBounds();
+	cursorRect.top = this->y-h/2;
+	cursorRect.left += cursorRect.width;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //												Protected

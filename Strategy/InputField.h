@@ -28,7 +28,8 @@ public:
 	
 	bool isInputing()const;
 protected:
-	sf::Text text,bottomText;
+	sf::Text text;
+	sf::FloatRect cursorRect;
 	std::wstring textString;
 	UINT64 cursorPos=1;
 	bool inputs;
