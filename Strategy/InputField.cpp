@@ -8,15 +8,14 @@
 InputField::InputField(int x,int y,int w,int h) : PlacedGUIObject::PlacedGUIObject(x,y,w,h)
 {
 	this->inputs=false;
-	this->bottomText.setPosition(x-w/2,y);
+	this->text.setPosition(x-w/2,y-h/2);
 }
 
 InputField::InputField(int x,int y,int w,int h,const std::wstring& textString) :
 InputField::InputField(x,y,w,h)
 {
 	this->textString = textString;
-	this->bottomText.setString(sf::String(textString));
-	this->bottomText.setPosition(x-w/2,y);
+	this->text.setString(sf::String(textString));
 	cursorPos = textString.length();
 }
 
@@ -120,41 +119,11 @@ void InputField::Draw(sf::RenderWindow& window)
 	
 	
 	this->text.setOrigin(0,0);
-	this->bottomText.setOrigin(0,0);
-	this->text.setPosition(GetCoordinates().x-this->w/2,GetCoordinates().y-this->h/2);
-	this->bottomText.setPosition
-	(
-		GetCoordinates().x-this->w/2,
-		(this->text.getString().getSize()) ? 
-		GetCoordinates().y-this->h/2+(long int)(Global::font.getLineSpacing(this->text.getCharacterSize())/2.f)
-		+this->text.getGlobalBounds().height
-		:
-		GetCoordinates().y-this->h/2
-	);
-	
+	this->text.setString(sf::String(this->textString));
+
 	window.draw(rect);
 	window.draw(borders);
-	window.draw(this->bottomText);
 	window.draw(this->text);
-	
-	if(this->inputs)
-	{
-		sf::Text cursor;
-		cursor.setString(sf::String("_"));
-		cursor.setFont(*this->bottomText.getFont());
-		cursor.setCharacterSize(this->text.getCharacterSize());
-		cursor.setPosition
-		(
-			this->bottomText.getGlobalBounds().width+this->bottomText.getPosition().x+2.f,
-			this->bottomText.getPosition().y
-		);
-		
-		cursor.setOrigin(0,cursor.getGlobalBounds().height);
-		
-		cursor.setFillColor(this->bottomText.getFillColor());
-		
-		window.draw(cursor);
-	}
 }
 
 
@@ -183,106 +152,60 @@ void InputField::PollEvent(const sf::Event& event, const sf::RenderWindow& windo
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void InputField::charInput(const sf::Event& event)
 {
-	sf::Uint32 keyCode=event.text.unicode;
-	if(keyCode==8)
+	sf::Uint32 keyCode = event.text.unicode;
+	if (keyCode == 8)
 	{
 		//Backspace
-		if(this->bottomText.getString().getSize())
+		if (textString.length()-1)
 		{
-			this->bottomText.setString
-			(this->bottomText.getString().substring(0,this->bottomText.getString().getSize()-1));
-		}
-		if(!this->bottomText.getString().getSize())
-		{
-			if(!this->text.getString().getSize())
-			return;
-			
-			std::size_t separatePos=getLastLinePos(this->text.getString().toWideString());
-			this->bottomText.setString
-			(
-				this->text.getString().substring
-				(separatePos,sf::String::InvalidPos)
-			);
-			if(this->text.getString().find(L'\n')==sf::String::InvalidPos)
-			this->text.setString(sf::String(L""));
-			else
-			this->text.setString
-			(
-				this->text.getString().substring
-				(0,separatePos-1)
-			);
+			bool deleteLineSep = (textString[cursorPos - 2] == L'\n');
+
+			this->textString =
+			textString.substr(0, cursorPos - 2- deleteLineSep) +
+			textString.substr(cursorPos - 1);
+
+			this->text.setString(textString);
+			if (cursorPos > 1)
+				--cursorPos;
+			if(deleteLineSep)
+				--cursorPos;
 		}
 		return;
 	}
-	if(keyCode==13 or keyCode==27)
+	if (keyCode == 13 or keyCode == 27)
 	{
-		this->inputs=false;
+		this->inputs = false;//Enter and Esc
 		return;
 	}
-	
-	bool correctHeight,correctWidth;
-	correctHeight=bool
-	(
-		this->bottomText.getGlobalBounds().height+
-		this->text.getGlobalBounds().height+
-		(long int)(Global::font.getLineSpacing(this->text.getCharacterSize()))*2
-		>
-		this->h
-	);
-	correctWidth=bool
-	(
-		this->bottomText.getGlobalBounds().width+
-		(long int)(Global::font.getLineSpacing(this->text.getCharacterSize()))*1.2
-		<=
-		this->w
-	);
-	if(!correctHeight)
+
+	if (textString.length())
 	{
-		if
-		(
-			this->bottomText.getGlobalBounds().width
-			<=
-			this->w
-		)
-		this->bottomText.setString(this->bottomText.getString()+keyCode);	
+		std::wstring tempString=textString.substr(0,cursorPos-1)+ textString.substr(cursorPos);
+		textString = tempString.substr(0, cursorPos-1) + (wchar_t)keyCode + L'|' + tempString.substr(cursorPos-1);
 	}
 	else
 	{
-		if(correctWidth)
-		this->bottomText.setString(this->bottomText.getString()+keyCode);
+		textString += (wchar_t)keyCode;
+		textString += L'|';
 	}
-	this->lineBreak();
+	
+	++cursorPos;
+	
+	this->text.setString(sf::String(this->textString));
+	lineBreak();
 }
-
-
 void InputField::lineBreak()
 {
-	if
-	(
-		this->bottomText.getGlobalBounds().height+
-		this->text.getGlobalBounds().height+
-		(long int)(Global::font.getLineSpacing(this->text.getCharacterSize())*2)
-		<
-		this->h
-	)
-	if
-	(
-		this->bottomText.getGlobalBounds().width+
-		(long int)(Global::font.getLineSpacing(this->text.getCharacterSize()))
-		>
-		this->w
-	)
+	if (this->text.getGlobalBounds().width > this->w)
 	{
-		if(this->text.getString().getSize())
-		this->text.setString(this->text.getString()+L'\n');
-		this->text.setString
-		(
-			this->text.getString()+
-			this->bottomText.getString().substring(0,this->bottomText.getString().getSize()-1)
-		);
-		this->text.setString(this->text.getString());
-		this->bottomText.setString
-		(sf::String(this->bottomText.getString()[this->bottomText.getString().getSize()-1]));
+		textString = textString.substr(0, textString.length() - 1) + L'\n' + textString[textString.length() - 1];
+		this->text.setString(sf::String(textString));
+		++cursorPos;
+	}
+	if (this->text.getGlobalBounds().height > this->h)
+	{
+		textString = textString.substr(0, textString.length() - 2);
+		this->text.setString(sf::String(textString));
 	}
 }
 #endif

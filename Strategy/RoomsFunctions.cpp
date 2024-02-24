@@ -284,7 +284,7 @@ int SettingsMenu(sf::RenderWindow& window)
 	buttonsList.push_back((&settingsButton));
 
 
-	InputField inputField(32 + 256, 128, 256, 64);
+	InputField inputField(32 + 256, 128, 64, 72);
 	inputField.setTextParametres(Global::font, 14u);
 	GUIObjects.push_back((&inputField));
 
