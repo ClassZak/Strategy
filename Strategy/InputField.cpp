@@ -11,11 +11,13 @@ InputField::InputField(int x,int y,int w,int h) : PlacedGUIObject::PlacedGUIObje
 	this->bottomText.setPosition(x-w/2,y);
 }
 
-InputField::InputField(int x,int y,int w,int h,const sf::String& textString) :
+InputField::InputField(int x,int y,int w,int h,const std::wstring& textString) :
 InputField::InputField(x,y,w,h)
 {
-	this->bottomText.setString(textString);
+	this->textString = textString;
+	this->bottomText.setString(sf::String(textString));
 	this->bottomText.setPosition(x-w/2,y);
+	cursorPos = textString.length();
 }
 
 InputField::~InputField()
@@ -23,9 +25,9 @@ InputField::~InputField()
 }
 
 //Settings methods
-void InputField::setTextString(const sf::String& textString)
+void InputField::setTextString(const std::wstring& textString)
 {
-	this->bottomText.setString(textString);
+	this->bottomText.setString(sf::String(textString));
 }
 void InputField::setText(const sf::Text& text)
 {
@@ -38,9 +40,9 @@ void InputField::setTextParametres(const sf::Font& font,unsigned int charSize)
 	this->bottomText.setCharacterSize(charSize);
 	this->text.setCharacterSize(charSize);
 }
-void InputField::setTextParametres(const sf::String& textString,const sf::Font& font,unsigned int charSize)
+void InputField::setTextParametres(const std::wstring& textString,const sf::Font& font,unsigned int charSize)
 {
-	this->bottomText.setString(textString);
+	this->bottomText.setString(sf::String(textString));
 	this->setTextParametres(font,charSize);
 }
 //Gettings methods
@@ -57,13 +59,13 @@ sf::Text InputField::getText()
 	result.setString(this->bottomText.getString()+this->bottomText.getString());
 	return result;
 }
-sf::String InputField::getTextString()const
+std::wstring InputField::getTextString()const
 {
 	std::wstring cuttedStr;
 	cuttedStr=text.getString().toWideString();
 	cuttedStr+=bottomText.getString().toWideString();
 	
-	return sf::String(getStringExceptSymbols(cuttedStr,L'\n'));
+	return (getStringExceptSymbols(cuttedStr,L'\n'));
 }
 bool InputField::isInputing()const
 {

@@ -9,7 +9,7 @@ class InputField : public PlacedGUIObject
 private:
 	InputField();
 public:
-	InputField(int x,int y,int w,int h,const sf::String& textString);
+	InputField(int x,int y,int w,int h,const std::wstring& textString);
 	InputField(int x,int y,int w,int h);
 	~InputField()override;
 	void Draw(sf::RenderWindow& window)override;
@@ -17,18 +17,20 @@ public:
 	
 	void PollEvent(const sf::Event& event,const sf::RenderWindow& window,const sf::Vector2f& pos);
 	
-	void setTextString(const sf::String& textString);
+	void setTextString(const std::wstring& textString);
 	void setText(const sf::Text& text);
 	void setTextParametres(const sf::Font& font,unsigned int charSize=16u);
-	void setTextParametres(const sf::String& textString,const sf::Font& font,unsigned int charSize=16u);
+	void setTextParametres(const std::wstring& textString,const sf::Font& font,unsigned int charSize=16u);
 	
 	sf::Text getText();
-	sf::String getTextString()const;
+	std::wstring getTextString()const;
 	const sf::Font* getFont()const;
 	
 	bool isInputing()const;
 protected:
 	sf::Text text,bottomText;
+	std::wstring textString;
+	UINT64 cursorPos=1;
 	bool inputs;
 	
 	virtual void charInput(const sf::Event& event);
