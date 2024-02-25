@@ -328,4 +328,6 @@ struct Global
 
 	static sf::Font font;
 	static HANDLE consoleOutHandle;
+	static WNDCLASS* windowClass;
+	static HWND* window;
 };

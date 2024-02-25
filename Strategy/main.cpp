@@ -24,21 +24,100 @@
 
 
 
+LRESULT CALLBACK onEvent(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    switch (message)
+    {
+        // Quit when we close the main window
+
+    case WM_DESTROY:
+    {
+        DestroyWindow(*Global::window);
+        break;
+    }
+    case WM_CLOSE:
+    {
+        PostQuitMessage(0);
+        return WM_DESTROY;
+        break;
+    }
+
+    }
+
+    return DefWindowProc(handle, message, wParam, lParam);
+}
+
+
 int main()
 {
     try
     {
         setlocale(LC_ALL, "Russian");
-        std::list<GameObject*>* objects = new std::list<GameObject*>;
-
-
         if (!SUCCEEDED(Global::ContentLoading()))
         {
             system("pause");
             return EXIT_FAILURE;
         }
+        HINSTANCE instance = GetModuleHandle(NULL);
 
-    
+        // Define a class for our main window
+        WNDCLASS windowClass;
+        windowClass.style = 0;
+        windowClass.lpfnWndProc = &onEvent;
+        windowClass.cbClsExtra = 0;
+        windowClass.cbWndExtra = 0;
+        windowClass.hInstance = instance;
+        windowClass.hIcon = NULL;
+        windowClass.hCursor = 0;
+        windowClass.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_BACKGROUND);
+        windowClass.lpszMenuName = NULL;
+        windowClass.lpszClassName = TEXT("SFML App");
+        RegisterClass(&windowClass);
+
+        // Let's create the main window
+        HWND windowMain = CreateWindow(TEXT("SFML App"), TEXT("Стратегия"), WS_SYSMENU | WS_VISIBLE | WS_OVERLAPPEDWINDOW, 200, 200, 660, 520, NULL, NULL, instance, NULL);
+
+        Global::windowClass = &windowClass;
+        HWND view1 = CreateWindow(TEXT("STATIC"), NULL, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS, 20, 20, 300, 400, windowMain, NULL, instance, NULL);
+        Global::window = &windowMain;
+        
+        sf::RenderWindow window2(view1);
+        window2.setFramerateLimit(Global::FPS);
+
+        sf::Clock clock;
+        MSG message;
+        message.message = static_cast<UINT>(~WM_QUIT);
+        sf::Text timeText;
+        timeText.setFont(Global::font);
+        
+        timeText.setPosition(sf::Vector2f((300 - 20) / 2, (400 - 20) / 2));
+        
+
+        while (message.message != WM_QUIT and message.message!=WM_CLOSE)
+        {
+            if (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
+            {
+                TranslateMessage(&message);
+                DispatchMessage(&message);
+            }
+            else
+            {
+                timeText.setString
+                (sf::String(std::wstring(L"Time:") + std::to_wstring((UINT)clock.getElapsedTime().asSeconds())));
+                timeText.setOrigin(timeText.getGlobalBounds().width / 2, timeText.getGlobalBounds().height / 2);
+
+
+
+                window2.clear();
+                window2.draw(timeText);
+                window2.display();
+            }
+        }
+
+        /*
+
+
+        std::list<GameObject*>* objects = new std::list<GameObject*>;
 
 
         sf::RenderWindow window
@@ -47,10 +126,9 @@ int main()
             L"Стратегия",
             sf::Style::Titlebar | sf::Style::Close
         );
+
         window.setFramerateLimit(Global::FPS);
         sf::Clock loadingClock;
-    
-        
         while (window.isOpen() and Global::playing)
         {
             switch (Global::room)
@@ -114,7 +192,8 @@ int main()
             }
         }
         delete objects;
-        return 0;
+        secondWindowRendering.join();
+        return 0;*/
     }
     catch (const std::exception& ex)
     {

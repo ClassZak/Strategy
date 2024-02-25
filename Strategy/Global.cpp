@@ -2,6 +2,8 @@
 #include "Global.h"
 
 HANDLE Global::consoleOutHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+WNDCLASS* Global::windowClass = nullptr;
+HWND* Global::window = nullptr;
 bool Global::focus = true;
 bool Global::focusLost = false;
 bool Global::playing = true;
