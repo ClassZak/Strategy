@@ -75,10 +75,30 @@ int main()
         RegisterClass(&windowClass);
 
         // Let's create the main window
-        HWND windowMain = CreateWindow(TEXT("SFML App"), TEXT("Стратегия"), WS_SYSMENU | WS_VISIBLE | WS_OVERLAPPEDWINDOW, 200, 200, 660, 520, NULL, NULL, instance, NULL);
+        HWND windowMain = 
+        CreateWindowExW
+        (
+            0L,
+            TEXT("SFML App"), 
+            TEXT("Стратегия"),
+            WS_SYSMENU | WS_VISIBLE | WS_MINIMIZEBOX, 
+            CW_USEDEFAULT, CW_USEDEFAULT, 
+            Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT, 
+            NULL, NULL, instance, NULL
+        );
 
         Global::windowClass = &windowClass;
-        HWND view1 = CreateWindow(TEXT("STATIC"), NULL, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS, 20, 20, 300, 400, windowMain, NULL, instance, NULL);
+        HWND view1 =
+        CreateWindowExW
+        (
+            0L,
+            TEXT("STATIC"),
+            NULL,
+            WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS,
+            0, 0, 
+            Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT,
+            windowMain, NULL, instance, NULL
+        );
         Global::window = &windowMain;
         
         sf::RenderWindow window2(view1);
@@ -95,7 +115,7 @@ int main()
 
         while (message.message != WM_QUIT and message.message!=WM_CLOSE)
         {
-            if (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
+            if (PeekMessageW(&message, *Global::window, 0, 0, PM_REMOVE))
             {
                 TranslateMessage(&message);
                 DispatchMessage(&message);
