@@ -1,274 +1,143 @@
-#include <SFML/Graphics.hpp>
-#include <windows.h>
+﻿#include <SFML/Graphics.hpp>
+#include <Windows.h>
+#include <locale>
 #include <iostream>
-#include <thread>
-#include <sstream>
-#include <vector>
-#include <list>
-#include <iterator>
-#include <string>
-#include <malloc.h>
-#include <cstdio>
-#include <locale>
 
+// Глобальные переменные
+HWND hwnd; // Дескриптор окна
+sf::RenderWindow* renderWindow; // Указатель на SFML окно
+sf::Clock clock_; // Таймер для отслеживания времени выполнения
+sf::Font font; // Шрифт для текста
+sf::Text text;
 
-#include "Global.h" 
-#include "Functions.h"
-#include "GameFunctions.h"
+sf::Text arrowKeyText;
+sf::Text fKeyText;
 
+// Функция для инициализации текстовых объектов
+void initializeTextObjects() {
+    // Инициализация текста для клавиш стрелок
+    arrowKeyText.setFont(font);
+    arrowKeyText.setCharacterSize(24);
+    arrowKeyText.setFillColor(sf::Color::White);
+    arrowKeyText.setPosition(10, 50); // Позиция чуть ниже основного текста
 
-#include <locale>
-#include <codecvt>
-#include <fstream>
-#include <string>
+    // Инициализация текста для клавиши 'Ф'
+    fKeyText.setFont(font);
+    fKeyText.setCharacterSize(24);
+    fKeyText.setFillColor(sf::Color::White);
+    fKeyText.setPosition(10, 80); // Позиция еще ниже
+}
 
-
-
-LRESULT CALLBACK onEvent(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    switch (message)
-    {
-        // Quit when we close the main window
-
-    case WM_DESTROY:
-    {
-        DestroyWindow(*Global::window);
-        break;
-    }
+// Обработчик сообщений для окна
+LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+    switch (uMsg) {
     case WM_CLOSE:
-    {
         PostQuitMessage(0);
-        return WM_DESTROY;
         break;
+    case WM_DESTROY:
+        return 0;
+    case WM_PAINT:
+        ValidateRect(hwnd, NULL); // Обновляем клиентскую область окна
+        break;
+    default:
+        return DefWindowProc(hwnd, uMsg, wParam, lParam);
     }
-
-    }
-
-    return DefWindowProc(handle, message, wParam, lParam);
+    return 0;
 }
 
-
-int main()
-{
-    try
-    {
-        setlocale(LC_ALL, "Russian");
-        if (!SUCCEEDED(Global::ContentLoading()))
-        {
-            system("pause");
-            return EXIT_FAILURE;
-        }
-        HINSTANCE instance = GetModuleHandle(NULL);
-
-        // Define a class for our main window
-        WNDCLASS windowClass;
-        windowClass.style = 0;
-        windowClass.lpfnWndProc = &onEvent;
-        windowClass.cbClsExtra = 0;
-        windowClass.cbWndExtra = 0;
-        windowClass.hInstance = instance;
-        windowClass.hIcon = NULL;
-        windowClass.hCursor = 0;
-        windowClass.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_BACKGROUND);
-        windowClass.lpszMenuName = NULL;
-        windowClass.lpszClassName = TEXT("SFML App");
-        RegisterClass(&windowClass);
-
-        // Let's create the main window
-        HWND windowMain = 
-        CreateWindowExW
-        (
-            0L,
-            TEXT("SFML App"), 
-            TEXT("���������"),
-            WS_SYSMENU | WS_VISIBLE | WS_MINIMIZEBOX, 
-            CW_USEDEFAULT, CW_USEDEFAULT, 
-            Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT, 
-            NULL, NULL, instance, NULL
-        );
-
-        Global::windowClass = &windowClass;
-        HWND view1 =
-        CreateWindowExW
-        (
-            0L,
-            TEXT("STATIC"),
-            NULL,
-            WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS,
-            0, 0, 
-            Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT,
-            windowMain, NULL, instance, NULL
-        );
-        Global::window = &windowMain;
-        
-        sf::RenderWindow window2(view1);
-        window2.setFramerateLimit(Global::FPS);
-
-        sf::Clock clock;
-        MSG message;
-        message.message = static_cast<UINT>(~WM_QUIT);
-        sf::Text timeText;
-        timeText.setFont(Global::font);
-        
-        timeText.setPosition(sf::Vector2f((300 - 20) / 2, (400 - 20) / 2));
-        
-
-        while (message.message != WM_QUIT and message.message!=WM_CLOSE)
-        {
-            if (PeekMessageW(&message, *Global::window, 0, 0, PM_REMOVE))
-            {
-                TranslateMessage(&message);
-                DispatchMessage(&message);
-            }
-            else
-            {
-                timeText.setString
-                (sf::String(std::wstring(L"Time:") + std::to_wstring((UINT)clock.getElapsedTime().asSeconds())));
-                timeText.setOrigin(timeText.getGlobalBounds().width / 2, timeText.getGlobalBounds().height / 2);
-
-
-
-                window2.clear();
-                window2.draw(timeText);
-                window2.display();
-            }
-        }
-
-        /*
-
-
-        std::list<GameObject*>* objects = new std::list<GameObject*>;
-
-
-        sf::RenderWindow window
-        (
-            sf::VideoMode(Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT),
-            L"���������",
-            sf::Style::Titlebar | sf::Style::Close
-        );
-
-        window.setFramerateLimit(Global::FPS);
-        sf::Clock loadingClock;
-        while (window.isOpen() and Global::playing)
-        {
-            switch (Global::room)
-            {
-                case Global::MENU:
-                {
-                    MainMenu(window);
-                    Global::fromMenu = true;
-                    break;
-                }
-                case Global::SETTINGS:
-                {
-                    SettingsMenu(window);
-                    break;
-                }
-                case Global::SAVING:
-                {
-                    Global::ObjectContext::SaveObjects(objects, SAVED_OBJECTS_PATH);
-                    Global::room = Global::MENU;
-                    break;
-                }
-                case Global::NEW_GAME:
-                {
-                    objects->clear();
-                    Global::ObjectContext::LoadObjects(objects, OBJECTS_PATH);
-                    Global::scrolledDownTimes = 0;
-                    Global::scrolledUpTimes = 0;
-                    Global::view = Global::standartView;
-                    Global::view.move(sf::Vector2f(-Global::LEFT_EDGE_LENGTH, 0));
-                    GameField(window, objects);
-                    Global::fromMenu = false;
-                    Global::gameStarted = true;
-                    break;
-                }
-                case Global::CONTINUE:
-                {
-                    if (Global::gameStarted)
-                    {
-                        GameField(window, objects);
-                        Global::fromMenu = false;
-                    }
-                    else
-                        Global::room = Global::MENU;
-                    break;
-                }
-                case Global::LOADING :
-                {
-                    objects->clear();
-                    Global::ObjectContext::LoadObjects(objects, SAVED_OBJECTS_PATH);
-                    Global::scrolledDownTimes = 0;
-                    Global::scrolledUpTimes = 0;
-                    Global::view = Global::standartView;
-                    Global::view.move(sf::Vector2f(-Global::LEFT_EDGE_LENGTH, 0));
-                    GameField(window, objects);
-                    Global::fromMenu = false;
-                    break;
-                }
-                default:
-                    Global::playing = false;
-                    break;
-            }
-        }
-        delete objects;
-        secondWindowRendering.join();
-        return 0;*/
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+    
+    setlocale(LC_ALL, "Russian");
+    // Создание консоли для вывода
+    if (AllocConsole()) {
+        FILE* stream;
+        freopen_s(&stream, "CONOUT$", "w", stdout);
+        freopen_s(&stream, "CONOUT$", "w", stderr);
+        // Теперь std::cout и std::cerr будут выводиться в консоль
     }
-    catch (const std::exception& ex)
-    {
-        SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_RED);
-        std::cout << "Unhandled exception in main function!" << std::endl;
-        std::cout << "Exception massege:" << std::endl;
-        std::cerr << ex.what() << std::endl;
-        SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_INTENSITY);
-        std::cout << "Write console log in file data/Console log.txt" << std::endl;
-        std::ofstream errLog("data/Console log.txt");
+    SetConsoleCP(5001);
+
+    std::wcout << L"Засос!" << std::endl;
+    if (!font.loadFromFile("resources/Fonts/consola.ttf"))
+        throw std::runtime_error("font not found");
+    text.setFont(font);
+    text.setCharacterSize(24); // Установка размера шрифта
+    text.setFillColor(sf::Color::White);
+    initializeTextObjects();
 
 
+    WNDCLASS wc = {};// Регистрация класса окна
+    wc.lpfnWndProc = WindowProc;
+    wc.hInstance = hInstance;
+    wc.lpszClassName = L"SFML App";
+    RegisterClass(&wc);
 
+    // Создание окна
+    hwnd = CreateWindowEx(
+        0,
+        L"SFML App",
+        L"SFML Integration",
+        WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX, // Окно без возможности изменения размера
+        CW_USEDEFAULT, CW_USEDEFAULT, 800, 600,
+        NULL, NULL, hInstance, NULL
+    );
 
-        CONSOLE_SCREEN_BUFFER_INFO csbi{};
-        if (!GetConsoleScreenBufferInfo(Global::consoleOutHandle, &csbi))
-        {
-            std::cerr << "Error during loading console buffer info" << std::endl;
-            SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_DEFAULT);
-            system("pause");
-            return 2;
-        }
-        short int width = csbi.dwSize.X;
-        short int height = csbi.dwSize.Y;
-        CHAR_INFO* buffer = new CHAR_INFO[width * height];
-
-        // �������� ������ �� ������ ������ ������� � ����� ����������
-        COORD bufferSize = { width, height };
-        COORD bufferCoord = { 0, 0 };
-        SMALL_RECT readRegion{ 0,0,width,height };
-        if (!ReadConsoleOutput(Global::consoleOutHandle, buffer, bufferSize, bufferCoord, &readRegion))
-        {
-            std::cerr << "Error during loading console buffer" << std::endl;
-            SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_DEFAULT);
-            delete[] buffer;
-            system("pause");
-            return 2;
-        }
-
-        // ������� ����� ������� �� �����
-        for (int i = 0; i < width * height; i++)
-        {
-            errLog << buffer[i].Char.AsciiChar;
-            if (errLog.bad())
-                errLog.clear();
-            if ((i + 1) % width == 0)
-                errLog << std::endl;
-        }
-        SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_DEFAULT);
-        errLog.close();
-
-        // ����������� ������
-        delete[] buffer;
-        system("pause");
-        return -1;
+    if (hwnd == NULL) {
+        return 0;
     }
+
+    ShowWindow(hwnd, nCmdShow);
+    UpdateWindow(hwnd);
+
+    // Создание SFML окна
+    sf::RenderWindow window(sf::VideoMode(800, 600), "", sf::Style::None);
+
+    renderWindow = &window;
+    window.setPosition(sf::Vector2i(0, 0)); // Позиция окна SFML
+    window.setFramerateLimit(30);
+    // Связываем SFML окно с HWND
+    HWND sfmlHandle = window.getSystemHandle();
+    SetParent(sfmlHandle, hwnd); // Делаем SFML окно дочерним по отношению к HWND
+
+    // Цикл сообщений
+    MSG msg = {};
+    while (msg.message != WM_QUIT) {
+        if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
+        else {
+
+            if (window.hasFocus())
+            {
+                UINT arrowKeysPressed=0;
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+                    arrowKeysPressed = sf::Keyboard::Left;
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+                    arrowKeysPressed = sf::Keyboard::Right;
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+                    arrowKeysPressed = sf::Keyboard::Up;
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+                    arrowKeysPressed = sf::Keyboard::Down;
+                
+                arrowKeyText.setString(L"Нажатые клавиши стрелок: " + std::to_wstring(arrowKeysPressed));
+
+                // Обработка клавиши 'Ф'
+                std::wstring fKeyPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::F) ? L"Да" : L"Нет";
+                fKeyText.setString(L"Клавиша 'Ф' нажата: " + fKeyPressed);
+            }
+
+            sf::Time elapsed = clock_.getElapsedTime();
+            text.setString(L"Время выполнения: " + std::to_wstring(elapsed.asSeconds()) + L" секунд");
+            // Обновление и рендеринг SFML
+            window.clear(sf::Color::Blue);
+            window.draw(text);
+            window.draw(arrowKeyText);
+            window.draw(fKeyText);
+            // Здесь можно добавить рисование с помощью SFML
+            window.display();
+        }
+    }
+
+    return 0;
 }
-
