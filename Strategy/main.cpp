@@ -26,25 +26,23 @@
 
 LRESULT CALLBACK onEvent(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    switch (message)
-    {
-        // Quit when we close the main window
-
-    case WM_DESTROY:
-    {
-        DestroyWindow(*Global::window);
-        break;
-    }
+    switch (message) {
     case WM_CLOSE:
-    {
         PostQuitMessage(0);
-        return WM_DESTROY;
         break;
+    case WM_DESTROY:
+        return 0;
+/*   case WM_SETCURSOR:
+        SetCursor(HCURSOR(ICM_ON));
+        break;*/
+    case WM_PAINT:
+        ValidateRect(handle, NULL); // Обновляем клиентскую область окна
+        break;
+    default:
+        ValidateRect(handle, NULL);
+        return DefWindowProc(handle, message, wParam, lParam);
     }
-
-    }
-
-    return DefWindowProc(handle, message, wParam, lParam);
+    return 0;
 }
 
 
@@ -75,13 +73,13 @@ int main()
         RegisterClass(&windowClass);
 
         // Let's create the main window
-        HWND windowMain = 
-        CreateWindowExW
-        (
-            0L,
-            TEXT("SFML App"), 
-            TEXT("Стратегия"),
-            WS_SYSMENU | WS_VISIBLE | WS_MINIMIZEBOX, 
+        HWND windowMain =
+            CreateWindowExW
+            (
+                0L,
+                TEXT("SFML App"),
+                TEXT("Стратегия"),
+                WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_VISIBLE,
             CW_USEDEFAULT, CW_USEDEFAULT, 
             Global::WINDOW_WIDTH, Global::WINDOW_HEIGHT, 
             NULL, NULL, instance, NULL
@@ -112,16 +110,26 @@ int main()
         
         timeText.setPosition(sf::Vector2f((300 - 20) / 2, (400 - 20) / 2));
         
-
-        while (message.message != WM_QUIT and message.message!=WM_CLOSE)
+        sf::Text aPressed;
+        aPressed.setFont(Global::font);
+        aPressed.setPosition(sf::Vector2f(Global::WINDOW_WIDTH/2, Global::WINDOW_HEIGHT/2));
+        aPressed.setString(sf::String(L"sss"));
+        
+        while (message.message != WM_QUIT)
         {
-            if (PeekMessageW(&message, *Global::window, 0, 0, PM_REMOVE))
+            if (PeekMessageW(&message, NULL, 0, 0, PM_REMOVE))
             {
                 TranslateMessage(&message);
                 DispatchMessage(&message);
             }
             else
             {
+                
+                aPressed.setString(sf::String(std::to_wstring((INT)sf::Keyboard::isKeyPressed(sf::Keyboard::A))));
+                aPressed.setOrigin(aPressed.getGlobalBounds().width / 2, aPressed.getGlobalBounds().height / 2);
+                    
+                    
+
                 timeText.setString
                 (sf::String(std::wstring(L"Time:") + std::to_wstring((UINT)clock.getElapsedTime().asSeconds())));
                 timeText.setOrigin(timeText.getGlobalBounds().width / 2, timeText.getGlobalBounds().height / 2);
@@ -130,6 +138,7 @@ int main()
 
                 window2.clear();
                 window2.draw(timeText);
+                window2.draw(aPressed);
                 window2.display();
             }
         }

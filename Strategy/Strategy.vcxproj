@@ -175,6 +175,7 @@
     <ClInclude Include="Functions.h" />
     <ClInclude Include="GameFunctions.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="Header.h" />
     <ClInclude Include="InputField.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="Object.h" />
