@@ -293,7 +293,7 @@ int SettingsMenu(sf::RenderWindow& window)
 			t.setFont(Global::monoFont);
 			t.setCharacterSize(14u);
 			return (INT)(t.getCharacterSize() / 2 + t.getLetterSpacing());
-		}() * 3, 50
+		}() * 4, 50
 	);
 	inputField.setTextParametres(Global::monoFont, 14u);
 	GUIObjects.push_back((&inputField));

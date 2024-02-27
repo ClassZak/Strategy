@@ -143,9 +143,9 @@ void InputField::Draw(sf::RenderWindow& window)
 			{
 				charRect.setPosition(x, y);
 				charRect.setFillColor((currCharRect++ & 1) ? sf::Color(266,133,133) : sf::Color(137,219,119));
-				window.draw(charRect);
+				//window.draw(charRect);
 			}
-			//if (!(symbolBoxSize.x & 1))
+			if (!(symbolBoxSize.x & 1))
 				++currCharRect;
 		}
 		
@@ -232,7 +232,7 @@ void InputField::charInput(const sf::Event& event)
 		}
 		return;
 	}
-	if (keyCode == 13 or keyCode == 27)
+	if (keyCode == 13 or keyCode == 27 or ((wchar_t)keyCode==L'\t'))
 	{
 		this->inputs = false;//Enter and Esc
 		return;
@@ -249,6 +249,7 @@ void InputField::charInput(const sf::Event& event)
 	
 	lineBreak(delta);
 	correctCursorPos();
+	std::cout << std::endl;
 }
 void InputField::lineBreak(const float widthDelta)
 {
@@ -257,15 +258,15 @@ void InputField::lineBreak(const float widthDelta)
 		textString.insert(textString.length() - 1, L"\n");
 		this->text.setString(sf::String(textString));
 		++cursorPos.x;
+		correctCursorPos();
 	}
 	if (this->text.getGlobalBounds().width > this->w)
 		throw std::runtime_error("input field failed");
-	if (this->text.getGlobalBounds().height >= this->h - this->text.getCharacterSize()/2)
+	if (this->text.getGlobalBounds().height >= this->h + this->text.getLineSpacing())
 	{
 		textString.erase(textString.length() - 1);
 		textString.erase(textString.length() - 1);
 		this->text.setString(sf::String(textString));
-		--cursorPos.x;
 	}
 }
 void InputField::correctCursorPos()
