@@ -1,5 +1,3 @@
-#ifndef INPUT_FIELD_CPP
-#define INPUT_FIELD_CPP
 #include "InputField.h"
 #include "Global.h"
 #include "Functions.h"
@@ -9,6 +7,7 @@ InputField::InputField(int x,int y,int w,int h) : PlacedGUIObject::PlacedGUIObje
 {
 	this->inputs=false;
 	this->text.setPosition(x-w/2,y-h/2);
+	cursorPos = sf::Vector2i(0, 1);
 }
 
 InputField::InputField(int x,int y,int w,int h,const std::wstring& textString) :
@@ -16,7 +15,10 @@ InputField::InputField(x,y,w,h)
 {
 	this->textString = textString;
 	this->text.setString(sf::String(textString));
-	cursorPos = textString.length();
+	lineBreak(0);
+	std::size_t symbolStringLenght = getStringExceptSymbols(this->textString, L'\n').length();
+	cursorPos.y = (UINT)(symbolStringLenght / symbolBoxSize.x);
+	cursorPos.x = (UINT)(symbolStringLenght % symbolBoxSize.x);
 }
 
 InputField::~InputField()
@@ -36,6 +38,16 @@ void InputField::setTextParametres(const sf::Font& font,unsigned int charSize)
 {
 	this->text.setFont(font);
 	this->text.setCharacterSize(charSize);
+	symbolSize = sf::Vector2f
+	(
+		text.getCharacterSize() / 2 + text.getLetterSpacing(),
+		text.getCharacterSize() + text.getLineSpacing() * 2
+	);
+	symbolBoxSize = sf::Vector2i
+	(
+		(INT)round((w - (text.getCharacterSize() / 2 + text.getLetterSpacing()) + 2) / symbolSize.x),
+		(INT)round((h - this->text.getCharacterSize() / 2) / symbolSize.y)
+	);
 }
 void InputField::setTextParametres(const std::wstring& textString,const sf::Font& font,unsigned int charSize)
 {
@@ -108,12 +120,46 @@ void InputField::Draw(sf::RenderWindow& window)
 	this->text.setString(sf::String(this->textString));
 
 	window.draw(rect);
+	{
+		UINT currCharRect = 1;
+		sf::RectangleShape charRect
+		(
+			sf::Vector2f
+			(text.getCharacterSize()/2 + text.getLetterSpacing(), text.getCharacterSize()+text.getLineSpacing()*2)
+		);
+		for
+			(
+				float y = this->y - h / 2;
+				y < (this->y + h / 2) - (text.getCharacterSize() + text.getLineSpacing() * 2);
+				y += text.getCharacterSize() + text.getLineSpacing() * 2
+				)
+		{
+			for
+			(
+				float x = this->x - w / 2;
+				x < (this->x + w / 2)-(text.getCharacterSize() / 2 + text.getLetterSpacing());
+				x += text.getCharacterSize()/2 + text.getLetterSpacing()
+			)
+			{
+				charRect.setPosition(x, y);
+				charRect.setFillColor((currCharRect++ & 1) ? sf::Color(266,133,133) : sf::Color(137,219,119));
+				window.draw(charRect);
+			}
+			//if (!(symbolBoxSize.x & 1))
+				++currCharRect;
+		}
+		
+	}
 	window.draw(borders);
 	window.draw(this->text);
-	sf::RectangleShape cursor(sf::Vector2f(1, text.getCharacterSize()));
-	cursor.setPosition(cursorRect.getPosition());
-	cursor.setFillColor(sf::Color::Black);
-	window.draw(cursor);
+
+	if (inputs)
+	{
+		sf::RectangleShape cursor(sf::Vector2f(1, text.getCharacterSize() + text.getLineSpacing() * 2));
+		cursor.setPosition(cursorPos.x*symbolSize.x+x-w/2, (cursorPos.y-1) * symbolSize.y+y-h/2);
+		cursor.setFillColor(sf::Color::Black);
+		window.draw(cursor);
+	}
 }
 
 
@@ -129,15 +175,29 @@ void InputField::PollEvent(const sf::Event& event, const sf::RenderWindow& windo
 		if( (((this->x-w/2)<pos.x) and (pos.x<(this->x+w/2)))
 			and
 			(((this->y-h/2)<pos.y) and (pos.y<(this->y+h/2))))
-		this->inputs=!this->inputs;
+		this->inputs=true;
 		else
 		this->inputs=false;
 	}
 	if(this->inputs)
 	if(event.type==sf::Event::TextEntered)
 	this->charInput(event);
-	cursorRect = text.getGlobalBounds();
-	cursorRect.top = this->y-h/2;
+	else
+	if (event.type == sf::Event::KeyPressed)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			--cursorPos.x;
+		correctCursorPos();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			++cursorPos.x;
+		correctCursorPos();
+	}
+
+	cursorRect.left = this->x - w/2 + cursorPos.x * (text.getCharacterSize()/2 + text.getLetterSpacing());
+	cursorRect.top = this->y - h / 2;
+	cursorRect.width = 2;
+	cursorRect.height = text.getCharacterSize();
+
 	cursorRect.left += cursorRect.width;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -151,11 +211,24 @@ void InputField::charInput(const sf::Event& event)
 		//Backspace
 		if (textString.length())
 		{
-			textString.erase(textString.length() - 1);
-			if(textString[textString.length()-1]==L'\n')
+			--cursorPos.x;
+			if (textString.length() == 1)
+			{
+				textString.clear();
+				this->text.setString(sf::String(textString));
+			}
+			else
+			{
 				textString.erase(textString.length() - 1);
-
-			this->text.setString(sf::String(this->textString));
+				if (textString[textString.length() - 1] == L'\n')
+				{
+					textString.erase(textString.length() - 1);
+					--cursorPos.x;
+				}
+				this->text.setString(sf::String(this->textString));
+			}
+			correctCursorPos();
+			return;
 		}
 		return;
 	}
@@ -165,23 +238,71 @@ void InputField::charInput(const sf::Event& event)
 		return;
 	}
 	textString += (wchar_t)keyCode;
+	++cursorPos.x;
+	correctCursorPos();
+	float delta = text.getGlobalBounds().width;
+	text.setString(sf::String(this->textString));
+	delta -= text.getGlobalBounds().width;
 	
-	this->text.setString(sf::String(this->textString));
-	lineBreak();
+	if(text.getGlobalBounds().width)
+	
+	
+	lineBreak(delta);
+	correctCursorPos();
 }
-void InputField::lineBreak()
+void InputField::lineBreak(const float widthDelta)
 {
-	if (this->text.getGlobalBounds().width > this->w - this->text.getCharacterSize()/2)
+	if (this->text.getGlobalBounds().width > this->w - this->text.getCharacterSize() / 2)
 	{
 		textString.insert(textString.length() - 1, L"\n");
 		this->text.setString(sf::String(textString));
-		++cursorPos;
+		++cursorPos.x;
 	}
-	if (this->text.getGlobalBounds().height > this->h - this->text.getCharacterSize() / 2)
+	if (this->text.getGlobalBounds().width > this->w)
+		throw std::runtime_error("input field failed");
+	if (this->text.getGlobalBounds().height >= this->h - this->text.getCharacterSize()/2)
 	{
 		textString.erase(textString.length() - 1);
 		textString.erase(textString.length() - 1);
 		this->text.setString(sf::String(textString));
+		--cursorPos.x;
 	}
 }
-#endif
+void InputField::correctCursorPos()
+{
+	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_INTENSITY);
+	std::cout << "cPos:\tx:\t" << cursorPos.x << "\ty:\t" << cursorPos.y << std::endl;
+	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_DEFAULT);
+	if (cursorPos.x < 0)
+	{
+		if (cursorPos.y > 1)
+		{
+			--cursorPos.y;
+			cursorPos.x = symbolBoxSize.x;
+		}
+		else
+			cursorPos.x = 0;
+	}
+	if (cursorPos.x > symbolBoxSize.x)
+	{
+		if (cursorPos.y < symbolBoxSize.y)
+		{
+			++cursorPos.y;
+			cursorPos.x = 0;
+		}
+		else
+			cursorPos.x = symbolBoxSize.x;
+	}
+
+
+	if (cursorPos.y < 1)
+	{
+		cursorPos.y = 1;
+		cursorPos.x = 0;
+	}
+	if (cursorPos.y > symbolBoxSize.y)
+	{
+		cursorPos.y = symbolBoxSize.y;
+		cursorPos.x = symbolBoxSize.x;
+	}
+}

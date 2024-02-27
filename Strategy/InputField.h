@@ -1,10 +1,8 @@
-#ifndef INPUT_FIELD_H
-#define INPUT_FIELD_H
-
+#pragma once
 #include "Object.h"
 #include <basetsd.h>
 
-class InputField : public PlacedGUIObject
+class InputField : public PlacedGUIObject//field suuport only monowidth font
 {
 private:
 	InputField();
@@ -31,14 +29,17 @@ protected:
 	sf::Text text;
 	sf::FloatRect cursorRect;
 	std::wstring textString;
-	UINT64 cursorPos=1;
+	
 	bool inputs;
 	
 	virtual void charInput(const sf::Event& event);
-	void lineBreak();
+	sf::Vector2i cursorPos;
+	sf::Vector2i symbolBoxSize;
+	sf::Vector2f symbolSize;
+	void lineBreak(const float widthDelta);
+	void correctCursorPos();
 	
 	
 	/*friend template<typename T>
 	void ObjectPollEvent(sf::RenderWindow& window,sf::Event& event,std::list<T*,std::allocator<T*>> &objects);*/
 };
-#endif

@@ -327,5 +327,6 @@ struct Global
 	static double viewDelta;
 
 	static sf::Font font;
+	static sf::Font monoFont;
 	static HANDLE consoleOutHandle;
 };

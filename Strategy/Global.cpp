@@ -57,7 +57,10 @@ sf::View Global::view = sf::View();
 sf::View Global::standartView = sf::View();
 
 
-sf::Font Global::font = []()->sf::Font {sf::Font font; font.loadFromFile("resources/Fonts/ARIALUNI.TTF"); return font; }();
+sf::Font Global::font =
+[]()->sf::Font {sf::Font font; font.loadFromFile("resources/Fonts/ARIALUNI.TTF"); return font; }();
+sf::Font Global::monoFont = 
+[]()->sf::Font {sf::Font font; font.loadFromFile("resources/Fonts/consola.TTF"); return font; }();
 
 
 UINT16 Global::WINDOW_WIDTH=600;
