@@ -140,7 +140,7 @@ void InputField::Draw(sf::RenderWindow& window)
 			{
 				charRect.setPosition(x, y);
 				charRect.setFillColor((currCharRect++ & 1) ? sf::Color(266,133,133) : sf::Color(137,219,119));
-				window.draw(charRect);
+				//window.draw(charRect);
 			}
 			if (!(symbolBoxSize.x & 1))
 				++currCharRect;
@@ -193,6 +193,20 @@ void InputField::PollEvent(const sf::Event& event, const sf::RenderWindow& windo
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 			--cursorPos.y;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			std::size_t s = textString.length();
+
+
+			if (symbolBoxSize.x * (cursorPos.y) + cursorPos.x + cursorPos.y < s)
+				++cursorPos.y;
+			else
+			{
+				cursorPos.x = s % (symbolBoxSize.x + 1);
+				if (symbolBoxSize.x * (cursorPos.y - 1) + cursorPos.x + cursorPos.y-1 != s)
+					++cursorPos.y;
+			}
+		}
 			
 		CorrectCursorPos();
 	}
