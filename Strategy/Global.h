@@ -326,7 +326,12 @@ struct Global
 	static double zoom;
 	static double viewDelta;
 
+
+
 	static sf::Font font;
 	static sf::Font monoFont;
 	static HANDLE consoleOutHandle;
+
+	static sf::Vector2i DPI;
+	static sf::Vector2f PixelSizes;
 };

@@ -2,6 +2,22 @@
 #include "Global.h"
 
 HANDLE Global::consoleOutHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+sf::Vector2i Global::DPI = []() -> sf::Vector2i
+{
+	SetProcessDPIAware();
+	HDC screen = GetDC(NULL);
+	int dpiX = GetDeviceCaps(screen, LOGPIXELSX);
+	int dpiY = GetDeviceCaps(screen, LOGPIXELSY);
+	ReleaseDC(NULL, screen);
+
+	std::cout << "DPI sizes:" << std::endl << "w:" << dpiX << "\th:" << dpiY << std::endl;
+	return sf::Vector2i(dpiX, dpiY);
+}();
+sf::Vector2f Global::PixelSizes = []() -> sf::Vector2f
+{
+	return sf::Vector2f(25.4 / Global::DPI.x, 25.4 / Global::DPI.y);
+}();
+
 bool Global::focus = true;
 bool Global::focusLost = false;
 bool Global::playing = true;

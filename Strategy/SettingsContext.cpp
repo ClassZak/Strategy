@@ -132,6 +132,7 @@ void Global::SettinsContext::LoadGlobalVariables(const char* filename)
 			Global::SettinsContext::Settings[currName] = currnumber;
 			currnumber = 0;
 		}
+		SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_DEFAULT);
 	}
 	catch (const std::exception& ex)
 	{

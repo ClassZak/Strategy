@@ -77,6 +77,7 @@ void Global::TexturesContext::LoadImages(const char* filename)
 			SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_DEFAULT);
 		}
 		Global::TexturesContext::images=images;
+		SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_DEFAULT);
 	}
 	catch(const std::exception& ex)
 	{

@@ -158,6 +158,7 @@ void Global::Localizator::LoadLocaledText(const char* filename)
 			FinalLocaledText[it->first] = Global::Localizator::STLStringsToSF(it->second);
 		}
 		Global::Localizator::Localization = FinalLocaledText;
+		SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_DEFAULT);
 	}
 	catch (const std::exception& ex)
 	{

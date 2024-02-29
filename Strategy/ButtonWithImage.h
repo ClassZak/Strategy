@@ -1,6 +1,7 @@
 #ifndef B_H
 #define B_H
 #include "Button.h"
+#include "Global.h"
 class ButtonWithImage : public Button
 {
 private:
