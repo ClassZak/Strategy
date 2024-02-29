@@ -157,6 +157,7 @@ void Global::ObjectContext::LoadObjects(std::list<GameObject*>* objectList, cons
 				objectTypeFound = false;
 		}
 	}
+	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_DEFAULT);
 }
 void Global::ObjectContext::SaveObjects(std::list<GameObject*>* objectList, const char* filename)
 {

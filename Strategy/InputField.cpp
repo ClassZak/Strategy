@@ -15,7 +15,7 @@ InputField::InputField(x,y,w,h)
 {
 	this->textString = textString;
 	this->text.setString(sf::String(textString));
-	lineBreak(0);
+	LineBreak(0);
 	std::size_t symbolStringLenght = getStringExceptSymbols(this->textString, L'\n').length();
 	cursorPos.y = (UINT)(symbolStringLenght / symbolBoxSize.x);
 	cursorPos.x = (UINT)(symbolStringLenght % symbolBoxSize.x);
@@ -76,6 +76,9 @@ bool InputField::isInputing()const
 void InputField::Draw(sf::RenderWindow& window)
 {
 	sf::RectangleShape rect(sf::Vector2f(w,h));
+	rect.setOrigin(w / 2, h / 2);
+	rect.setFillColor(sf::Color(255, 255, 255));
+	rect.setPosition(GetCoordinates());
 	
 	sf::VertexArray borders(sf::Lines,8);
 	borders[0].position=(sf::Vector2f(x-w/2-1,y-h/2));
@@ -109,14 +112,8 @@ void InputField::Draw(sf::RenderWindow& window)
 		for(unsigned int i=2;i<8;++i)
 		borders[i].color=sf::Color(181,207,231);
 	}
-	
-	
-	
-	rect.setOrigin(w/2,h/2);
-	rect.setFillColor(sf::Color(255,255,255));
-	rect.setPosition(GetCoordinates());
-	
-	
+
+
 	this->text.setString(sf::String(this->textString));
 
 	window.draw(rect);
@@ -143,7 +140,7 @@ void InputField::Draw(sf::RenderWindow& window)
 			{
 				charRect.setPosition(x, y);
 				charRect.setFillColor((currCharRect++ & 1) ? sf::Color(266,133,133) : sf::Color(137,219,119));
-				//window.draw(charRect);
+				window.draw(charRect);
 			}
 			if (!(symbolBoxSize.x & 1))
 				++currCharRect;
@@ -187,18 +184,18 @@ void InputField::PollEvent(const sf::Event& event, const sf::RenderWindow& windo
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			--cursorPos.x;
-		correctCursorPos();
+		CorrectCursorPos();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-			++cursorPos.x;
-		correctCursorPos();
+		{
+			std::size_t s = textString.length();
+			if(symbolBoxSize.x*(cursorPos.y-1)+cursorPos.x+cursorPos.y-1<s)
+				++cursorPos.x;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			--cursorPos.y;
+			
+		CorrectCursorPos();
 	}
-
-	cursorRect.left = this->x - w/2 + cursorPos.x * (text.getCharacterSize()/2 + text.getLetterSpacing());
-	cursorRect.top = this->y - h / 2;
-	cursorRect.width = 2;
-	cursorRect.height = text.getCharacterSize();
-
-	cursorRect.left += cursorRect.width;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //												Protected
@@ -227,7 +224,7 @@ void InputField::charInput(const sf::Event& event)
 				}
 				this->text.setString(sf::String(this->textString));
 			}
-			correctCursorPos();
+			CorrectCursorPos();
 			return;
 		}
 		return;
@@ -239,7 +236,7 @@ void InputField::charInput(const sf::Event& event)
 	}
 	textString += (wchar_t)keyCode;
 	++cursorPos.x;
-	correctCursorPos();
+	CorrectCursorPos();
 	float delta = text.getGlobalBounds().width;
 	text.setString(sf::String(this->textString));
 	delta -= text.getGlobalBounds().width;
@@ -247,29 +244,31 @@ void InputField::charInput(const sf::Event& event)
 	if(text.getGlobalBounds().width)
 	
 	
-	lineBreak(delta);
-	correctCursorPos();
+		LineBreak(delta);
+	CorrectCursorPos();
 	std::cout << std::endl;
 }
-void InputField::lineBreak(const float widthDelta)
+void InputField::LineBreak(const float widthDelta)
 {
 	if (this->text.getGlobalBounds().width > this->w - this->text.getCharacterSize() / 2)
 	{
 		textString.insert(textString.length() - 1, L"\n");
 		this->text.setString(sf::String(textString));
 		++cursorPos.x;
-		correctCursorPos();
+		CorrectCursorPos();
 	}
-	if (this->text.getGlobalBounds().width > this->w)
-		throw std::runtime_error("input field failed");
-	if (this->text.getGlobalBounds().height >= this->h + this->text.getLineSpacing())
+	if (this->text.getGlobalBounds().width >= this->w)
+		throw std::runtime_error("input field width failed");
+	if (textString.length()>symbolBoxSize.y*symbolBoxSize.x+ symbolBoxSize.y)
 	{
 		textString.erase(textString.length() - 1);
 		textString.erase(textString.length() - 1);
 		this->text.setString(sf::String(textString));
 	}
+	if (text.getGlobalBounds().height >= this->h)
+		throw std::runtime_error("input field height failed");
 }
-void InputField::correctCursorPos()
+void InputField::CorrectCursorPos()
 {
 	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_INTENSITY);
 	std::cout << "cPos:\tx:\t" << cursorPos.x << "\ty:\t" << cursorPos.y << std::endl;

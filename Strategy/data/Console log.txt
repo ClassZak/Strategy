@@ -28,151 +28,151 @@ WINDOW_HEIGHT   540
 FPS     30                                                                                                              
 viewDelta       7                                                                                                       
 zoom    0.95                                                                                                            
+cPos:   x:      0       y:      1                                                                                       
+cPos:   x:      0       y:      1                                                                                       
+cPos:   x:      1       y:      1                                                                                       
+cPos:   x:      1       y:      1                                                                                       
+                                                                                                                        
+cPos:   x:      1       y:      1                                                                                       
+cPos:   x:      1       y:      1                                                                                       
+cPos:   x:      2       y:      1                                                                                       
+cPos:   x:      2       y:      1                                                                                       
+                                                                                                                        
+cPos:   x:      2       y:      1                                                                                       
+cPos:   x:      2       y:      1                                                                                       
+cPos:   x:      3       y:      1                                                                                       
+cPos:   x:      3       y:      1                                                                                       
+                                                                                                                        
+cPos:   x:      3       y:      1                                                                                       
+cPos:   x:      3       y:      1                                                                                       
+cPos:   x:      4       y:      1                                                                                       
+cPos:   x:      4       y:      1                                                                                       
+                                                                                                                        
+cPos:   x:      4       y:      1                                                                                       
+cPos:   x:      4       y:      1                                                                                       
+cPos:   x:      5       y:      1                                                                                       
+cPos:   x:      5       y:      1                                                                                       
+                                                                                                                        
+cPos:   x:      5       y:      1                                                                                       
+cPos:   x:      5       y:      1                                                                                       
+cPos:   x:      6       y:      1                                                                                       
+cPos:   x:      6       y:      1                                                                                       
+                                                                                                                        
+cPos:   x:      6       y:      1                                                                                       
+cPos:   x:      6       y:      1                                                                                       
+cPos:   x:      7       y:      1                                                                                       
+cPos:   x:      7       y:      1                                                                                       
+                                                                                                                        
+cPos:   x:      7       y:      1                                                                                       
+cPos:   x:      7       y:      1                                                                                       
+cPos:   x:      8       y:      1                                                                                       
+cPos:   x:      8       y:      1                                                                                       
+                                                                                                                        
+cPos:   x:      8       y:      1                                                                                       
+cPos:   x:      8       y:      1                                                                                       
+cPos:   x:      9       y:      1                                                                                       
+cPos:   x:      9       y:      1                                                                                       
+                                                                                                                        
+cPos:   x:      9       y:      1                                                                                       
+cPos:   x:      9       y:      1                                                                                       
+cPos:   x:      10      y:      1                                                                                       
+cPos:   x:      1       y:      2                                                                                       
+cPos:   x:      1       y:      2                                                                                       
+                                                                                                                        
+cPos:   x:      1       y:      2                                                                                       
+cPos:   x:      1       y:      2                                                                                       
+cPos:   x:      2       y:      2                                                                                       
+cPos:   x:      2       y:      2                                                                                       
+                                                                                                                        
+cPos:   x:      2       y:      2                                                                                       
+cPos:   x:      2       y:      2                                                                                       
+cPos:   x:      3       y:      2                                                                                       
+cPos:   x:      3       y:      2                                                                                       
+                                                                                                                        
+cPos:   x:      3       y:      2                                                                                       
+cPos:   x:      3       y:      2                                                                                       
+cPos:   x:      4       y:      2                                                                                       
+cPos:   x:      4       y:      2                                                                                       
+                                                                                                                        
+cPos:   x:      4       y:      2                                                                                       
+cPos:   x:      4       y:      2                                                                                       
+cPos:   x:      5       y:      2                                                                                       
+cPos:   x:      5       y:      2                                                                                       
+                                                                                                                        
+cPos:   x:      5       y:      2                                                                                       
+cPos:   x:      5       y:      2                                                                                       
+cPos:   x:      6       y:      2                                                                                       
+cPos:   x:      6       y:      2                                                                                       
+                                                                                                                        
+cPos:   x:      6       y:      2                                                                                       
+cPos:   x:      6       y:      2                                                                                       
+cPos:   x:      7       y:      2                                                                                       
+cPos:   x:      7       y:      2                                                                                       
+                                                                                                                        
+cPos:   x:      7       y:      2                                                                                       
+cPos:   x:      7       y:      2                                                                                       
+cPos:   x:      8       y:      2                                                                                       
+cPos:   x:      8       y:      2                                                                                       
+                                                                                                                        
+cPos:   x:      8       y:      2                                                                                       
+cPos:   x:      8       y:      2                                                                                       
+cPos:   x:      9       y:      2                                                                                       
+cPos:   x:      9       y:      2                                                                                       
+                                                                                                                        
+cPos:   x:      9       y:      2                                                                                       
+cPos:   x:      9       y:      2                                                                                       
+cPos:   x:      10      y:      2                                                                                       
+cPos:   x:      1       y:      3                                                                                       
+cPos:   x:      1       y:      3                                                                                       
+                                                                                                                        
+cPos:   x:      1       y:      3                                                                                       
+cPos:   x:      1       y:      3                                                                                       
+cPos:   x:      2       y:      3                                                                                       
+cPos:   x:      2       y:      3                                                                                       
+                                                                                                                        
+cPos:   x:      2       y:      3                                                                                       
+cPos:   x:      2       y:      3                                                                                       
+cPos:   x:      3       y:      3                                                                                       
+cPos:   x:      3       y:      3                                                                                       
+                                                                                                                        
+cPos:   x:      3       y:      3                                                                                       
+cPos:   x:      3       y:      3                                                                                       
+cPos:   x:      4       y:      3                                                                                       
+cPos:   x:      4       y:      3                                                                                       
+                                                                                                                        
+cPos:   x:      4       y:      3                                                                                       
+cPos:   x:      4       y:      3                                                                                       
+cPos:   x:      5       y:      3                                                                                       
+cPos:   x:      5       y:      3                                                                                       
+                                                                                                                        
+cPos:   x:      5       y:      3                                                                                       
+cPos:   x:      5       y:      3                                                                                       
+cPos:   x:      6       y:      3                                                                                       
+cPos:   x:      6       y:      3                                                                                       
+                                                                                                                        
+cPos:   x:      6       y:      3                                                                                       
+cPos:   x:      6       y:      3                                                                                       
+cPos:   x:      7       y:      3                                                                                       
+cPos:   x:      7       y:      3                                                                                       
+                                                                                                                        
+cPos:   x:      7       y:      3                                                                                       
+cPos:   x:      7       y:      3                                                                                       
+cPos:   x:      8       y:      3                                                                                       
+cPos:   x:      8       y:      3                                                                                       
+                                                                                                                        
+cPos:   x:      8       y:      3                                                                                       
+cPos:   x:      8       y:      3                                                                                       
+cPos:   x:      9       y:      3                                                                                       
+cPos:   x:      9       y:      3                                                                                       
+                                                                                                                        
+cPos:   x:      9       y:      3                                                                                       
+cPos:   x:      9       y:      3                                                                                       
+cPos:   x:      10      y:      3                                                                                       
+cPos:   x:      1       y:      4                                                                                       
 Unhandled exception in main function!                                                                                   
 Exception massege:                                                                                                      
-invalid string position                                                                                                 
+input field height failed                                                                                               
 Write console log in file data/Console log.txt                                                                          
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
                                                                                                                         
                                                                                                                         
                                                                                                                         

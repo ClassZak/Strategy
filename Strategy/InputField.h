@@ -27,7 +27,6 @@ public:
 	bool isInputing()const;
 protected:
 	sf::Text text;
-	sf::FloatRect cursorRect;
 	std::wstring textString;
 	
 	bool inputs;
@@ -36,8 +35,8 @@ protected:
 	sf::Vector2i cursorPos;
 	sf::Vector2i symbolBoxSize;
 	sf::Vector2f symbolSize;
-	void lineBreak(const float widthDelta);
-	void correctCursorPos();
+	void LineBreak(const float widthDelta);
+	void CorrectCursorPos();
 	
 	
 	/*friend template<typename T>
