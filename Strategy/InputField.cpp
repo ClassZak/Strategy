@@ -45,8 +45,8 @@ void InputField::setTextParametres(const sf::Font& font,unsigned int charSize)
 	);
 	symbolBoxSize = sf::Vector2i
 	(
-		(INT)round((w - (text.getCharacterSize() / 2 + text.getLetterSpacing()) + 2) / symbolSize.x),
-		(INT)round((h - this->text.getCharacterSize() / 2) / symbolSize.y)
+		(INT)round((w - (text.getCharacterSize() / 2. + text.getLetterSpacing()) + 2) / symbolSize.x),
+		(INT)round((h - this->text.getCharacterSize() / 2.) / symbolSize.y)
 	);
 }
 void InputField::setTextParametres(const std::wstring& textString,const sf::Font& font,unsigned int charSize)
@@ -81,17 +81,17 @@ void InputField::Draw(sf::RenderWindow& window)
 	rect.setPosition(GetCoordinates());
 	
 	sf::VertexArray borders(sf::Lines,8);
-	borders[0].position=(sf::Vector2f(x-w/2-1,y-h/2));
-	borders[1].position=(sf::Vector2f(x+w/2,y-h/2));
+	borders[0].position=(sf::Vector2f(x-w/2.-1,y-h/2.));
+	borders[1].position=(sf::Vector2f(x+w/2.,y-h/2.));
 	
-	borders[2].position=(sf::Vector2f(x+w/2,y-h/2));
-	borders[3].position=(sf::Vector2f(x+w/2,y+h/2));
+	borders[2].position=(sf::Vector2f(x+w/2.,y-h/2.));
+	borders[3].position=(sf::Vector2f(x+w/2.,y+h/2.));
 	
-	borders[4].position=(sf::Vector2f(x+w/2,y+h/2));
-	borders[5].position=(sf::Vector2f(x-w/2,y+h/2));
+	borders[4].position=(sf::Vector2f(x+w/2.,y+h/2.));
+	borders[5].position=(sf::Vector2f(x-w/2.,y+h/2.));
 	
-	borders[6].position=(sf::Vector2f(x-w/2,y+h/2));
-	borders[7].position=(sf::Vector2f(x-w/2,y-h/2));
+	borders[6].position=(sf::Vector2f(x-w/2.,y+h/2.));
+	borders[7].position=(sf::Vector2f(x-w/2.,y-h/2.));
 	
 	
 	if(!this->inputs)
@@ -126,15 +126,15 @@ void InputField::Draw(sf::RenderWindow& window)
 		);
 		for
 			(
-				float y = this->y - h / 2;
-				y < (this->y + h / 2) - (text.getCharacterSize() + text.getLineSpacing() * 2);
+				float y = this->y - h / 2.;
+				y < (this->y + h / 2.) - (text.getCharacterSize() + text.getLineSpacing() * 2);
 				y += text.getCharacterSize() + text.getLineSpacing() * 2
 				)
 		{
 			for
 			(
-				float x = this->x - w / 2;
-				x < (this->x + w / 2)-(text.getCharacterSize() / 2 + text.getLetterSpacing());
+				float x = this->x - w / 2.;
+				x < (this->x + w / 2.)-(text.getCharacterSize() / 2 + text.getLetterSpacing());
 				x += text.getCharacterSize()/2 + text.getLetterSpacing()
 			)
 			{
@@ -153,7 +153,7 @@ void InputField::Draw(sf::RenderWindow& window)
 	if (inputs)
 	{
 		sf::RectangleShape cursor(sf::Vector2f(1, text.getCharacterSize() + text.getLineSpacing() * 2));
-		cursor.setPosition(cursorPos.x*symbolSize.x+x-w/2, (cursorPos.y-1) * symbolSize.y+y-h/2);
+		cursor.setPosition(cursorPos.x*symbolSize.x+x-w/2., (cursorPos.y-1) * symbolSize.y+y-h/2.);
 		cursor.setFillColor(sf::Color::Black);
 		window.draw(cursor);
 	}
@@ -169,9 +169,9 @@ void InputField::PollEvent(const sf::Event& event, const sf::RenderWindow& windo
 	}
 	if(Global::ReleasedMouseButtons::lMouseReleased)
 	{
-		if( (((this->x-w/2)<pos.x) and (pos.x<(this->x+w/2)))
+		if( (((this->x-w/2.)<pos.x) and (pos.x<(this->x+w/2.)))
 			and
-			(((this->y-h/2)<pos.y) and (pos.y<(this->y+h/2))))
+			(((this->y-h/2.)<pos.y) and (pos.y<(this->y+h/2.))))
 		this->inputs=true;
 		else
 		this->inputs=false;
