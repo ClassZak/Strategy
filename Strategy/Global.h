@@ -332,6 +332,7 @@ struct Global
 	static sf::Font monoFont;
 	static HANDLE consoleOutHandle;
 
-	static sf::Vector2i DPI;
+	static INT DPI;
 	static sf::Vector2f PixelSizes;
+	static sf::Vector2f PSizes;
 };

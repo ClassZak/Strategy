@@ -30,6 +30,7 @@ int main()
     {
         setlocale(LC_ALL, "Russian");
         std::list<GameObject*>* objects = new std::list<GameObject*>;
+        
 
 
         if (!SUCCEEDED(Global::ContentLoading()))
@@ -47,6 +48,18 @@ int main()
             L"Стратегия",
             sf::Style::Titlebar | sf::Style::Close
         );
+        Global::DPI = GetDpiForWindow(window.getSystemHandle());
+        Global::PSizes =
+        sf::Vector2f
+        (
+            ((Global::DPI * Global::PixelSizes.x) / 96.) / 96.,
+            ((Global::DPI * Global::PixelSizes.y) / 96.) / 96.
+        );
+
+
+
+
+
         window.setFramerateLimit(Global::FPS);
         sf::Clock loadingClock;
     
