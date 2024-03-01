@@ -1,66 +1,65 @@
 #pragma once
 #include "Global.h"
-#include "Button.h"
-Button::Button() : PlacedGUIObject::PlacedGUIObject()
+#include "ButtonI.h"
+ButtonI::ButtonI() : PlacedGUIObject::PlacedGUIObject()
 {
-	pressed=released=clicked=false;
+	pressed = released = clicked = false;
 }
-Button::Button(int x,int y,int w,int h) : PlacedGUIObject::PlacedGUIObject(x,y,w,h)
+ButtonI::ButtonI(int x, int y, int w, int h) : PlacedGUIObject::PlacedGUIObject(x, y, w, h)
 {
-	pressed=released=clicked=false;
+	pressed = released = clicked = false;
 }
-Button::~Button()
+ButtonI::~ButtonI()
 {
-	
+
 }
 
 
-Button& Button::operator=(const Button& other)
+ButtonI& ButtonI::operator=(const ButtonI& other)
 {
-	this->x=other.x;
-	this->y=other.y;
-	this->w=other.w;
-	this->h=other.h;
-	this->text=other.text;
-	this->pressed=other.pressed;
-	this->released=other.released;
-	this->clicked=other.clicked;
-	
+	this->x = other.x;
+	this->y = other.y;
+	this->w = other.w;
+	this->h = other.h;
+	this->text = other.text;
+	this->pressed = other.pressed;
+	this->released = other.released;
+	this->clicked = other.clicked;
+
 	return *this;
 }
 
 
-void Button::PollEvent(const sf::Event& event, const sf::RenderWindow& window, const sf::Vector2f& pos)
+void ButtonI::PollEvent(const sf::Event& event, const sf::RenderWindow& window, const sf::Vector2f& pos)
 {
-	if(clicked)
-	clicked=false;
-	
-	if(event.type==sf::Event::MouseButtonPressed and event.key.code==sf::Mouse::Left)
+	if (clicked)
+		clicked = false;
+
+	if (event.type == sf::Event::MouseButtonPressed and event.key.code == sf::Mouse::Left)
 	{
-		if(((pos.x>=x-w/2)and(pos.x<=x+w/2)) and ((pos.y>=y-h/2)and(pos.y<=y+h/2)))
-		pressed=true;
+		if (((pos.x >= x - w / 2) and (pos.x <= x + w / 2)) and ((pos.y >= y - h / 2) and (pos.y <= y + h / 2)))
+			pressed = true;
 	}
-	if(event.type==sf::Event::MouseButtonReleased and event.key.code==sf::Mouse::Left)
+	if (event.type == sf::Event::MouseButtonReleased and event.key.code == sf::Mouse::Left)
 	{
-		if((((pos.x>=x-w/2)and(pos.x<=x+w/2)) and ((pos.y>=y-h/2)and(pos.y<=y+h/2)))and(pressed))
-		released=true;
+		if ((((pos.x >= x - w / 2) and (pos.x <= x + w / 2)) and ((pos.y >= y - h / 2) and (pos.y <= y + h / 2))) and (pressed))
+			released = true;
 		else
-		released=false;
-		
-		pressed=false;
+			released = false;
+
+		pressed = false;
 	}
-	if(released)
+	if (released)
 	{
-		released=false;
-		clicked=true;
+		released = false;
+		clicked = true;
 	}
 }
 
 
-void Button::Draw(sf::RenderWindow& window)
+void ButtonI::DrawBorder(sf::RenderWindow& window)
 {
 	sf::VertexArray line(sf::Lines, 16);
-	//line[0].texCoords
 	if (!pressed)
 	{
 		line[0].position = sf::Vector2f(x - w / 2, y + h / 2);
@@ -167,120 +166,103 @@ void Button::Draw(sf::RenderWindow& window)
 		line[14].color = sf::Color::Color(255, 255, 255);
 		line[15].color = sf::Color::Color(255, 255, 255);
 	}
-
-	
-	
-	sf::RectangleShape rect(sf::Vector2f(w,h));
-	rect.setOrigin(w/2,h/2);
-	rect.setFillColor(sf::Color::Color(241,241,241));
-	rect.setPosition(GetCoordinates());
-	
-	
-	window.draw(rect);
 	window.draw(line);
-	window.draw(text);
+}
+void ButtonI::DrawBackground(sf::RenderWindow& window)
+{
+	sf::RectangleShape rect(sf::Vector2f(w, h));
+	rect.setOrigin(w / 2, h / 2);
+	rect.setFillColor(sf::Color::Color(241, 241, 241));
+	rect.setPosition(GetCoordinates());
+
+
+	window.draw(rect);
 }
 
-
-void Button::SetFont(const sf::Font& font)
+void ButtonI::SetFont(const sf::Font& font)
 {
 	text.setFont(font);
 }
-void Button::SetText(const sf::Text& text)
+void ButtonI::SetText(const sf::Text& text)
 {
-	this->text=text;
+	this->text = text;
 	this->text.setPosition(text.getPosition());
-	this->text.setOrigin((unsigned int)text.getGlobalBounds().width/2,(unsigned int)text.getGlobalBounds().height);
+	this->text.setOrigin((unsigned int)text.getGlobalBounds().width / 2, (unsigned int)text.getGlobalBounds().height);
 	this->text.setFillColor(sf::Color::Black);
 }
-void Button::SetTextString(const sf::String& string)
+void ButtonI::SetTextString(const sf::String& string)
 {
 	text.setString(string);
-	text.setPosition(x,y);
-	text.setOrigin((unsigned int)text.getGlobalBounds().width/2,(unsigned int)text.getGlobalBounds().height);
+	text.setPosition(x, y);
+	text.setOrigin((unsigned int)text.getGlobalBounds().width / 2, (unsigned int)text.getGlobalBounds().height);
 	text.setFillColor(sf::Color::Black);
 }
-void Button::SetTextSize(const unsigned int size)
+void ButtonI::SetTextSize(const unsigned int size)
 {
 	text.setCharacterSize(size);
 }
 
 
-const sf::String& Button::GetTextString()const
+const sf::String& ButtonI::GetTextString()const
 {
 	return text.getString();
 }
-const sf::Text& Button::GetText()const
+const sf::Text& ButtonI::GetText()const
 {
 	return text;
 }
-const sf::Font* Button::GetFont()const
+const sf::Font* ButtonI::GetFont()const
 {
 	return text.getFont();
 }
 
 
-bool Button::IsPressed()
+bool ButtonI::IsPressed()
 {
 	return pressed;
 }
-bool Button::IsReleased()
+bool ButtonI::IsReleased()
 {
 	return released;
 }
 
 
-void Button::MakeUnclick()
+void ButtonI::MakeUnclick()
 {
-	clicked=false;
+	clicked = false;
 }
-void Button::Reset()
+void ButtonI::Reset()
 {
-	clicked=false;
-	pressed=false;
-	released=false;
+	clicked = false;
+	pressed = false;
+	released = false;
 }
-bool Button::IsClicked()
+bool ButtonI::IsClicked()
 {
 	return clicked;
 }
 
 
-void Button::SetCoordinates(const sf::Vector2f& pos)
+void ButtonI::SetCoordinates(const sf::Vector2f& pos)
 {
 	PlacedGUIObject::SetCoordinates(pos);
 }
-sf::Vector2f Button::GetCoordinates()const
+sf::Vector2f ButtonI::GetCoordinates()const
 {
 	return PlacedGUIObject::GetCoordinates();
 }
-void Button::SetSize(const sf::Vector2f& size)
+void ButtonI::SetSize(const sf::Vector2f& size)
 {
 	PlacedGUIObject::SetSize(size);
 }
-sf::Vector2f Button::GetSize()const
+sf::Vector2f ButtonI::GetSize()const
 {
 	return PlacedGUIObject::GetSize();
 }
-void Button::Move(const sf::Vector2f& offset)
+void ButtonI::Move(const sf::Vector2f& offset)
 {
-	this->x+=offset.x;
-	this->y+=offset.y;
-	
-	this->text.setPosition(x,y);
-}
+	this->x += offset.x;
+	this->y += offset.y;
 
-
-std::istream& operator>>(std::istream& in,Button& ob)
-{
-	std::string stext;
-	in>>ob.x>>ob.y>>ob.w>>ob.h>>stext;
-	ob.text.setString(sf::String(stext));
-	return in;
-}
-std::ostream& operator<<(std::ostream& out,const Button& ob)
-{
-	std::string stext=ob.text.getString().toAnsiString();
-	out<<ob.x<<' '<<ob.y<<' '<<ob.w<<' '<<ob.h<<' '<<stext;
-	return out;
+	this->text.setPosition(x, y);
 }

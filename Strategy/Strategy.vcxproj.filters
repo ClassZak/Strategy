@@ -75,6 +75,9 @@
     <ClCompile Include="SettingsContext.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="ButtonI.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Global.h">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="Unit.h">
       <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonI.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
