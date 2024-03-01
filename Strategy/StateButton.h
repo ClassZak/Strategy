@@ -1,6 +1,6 @@
 #ifndef STATE_BUTTON_H
 #define STATE_BUTTON_H
-#include "ButtonWithImage.h"
+#include "Button.h"
 class StateButton : public Button
 {
 public:

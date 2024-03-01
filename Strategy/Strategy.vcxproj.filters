@@ -13,120 +13,147 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\Global">
+      <UniqueIdentifier>{fe6e7110-690a-4e26-a322-05f9de070329}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\GlobalFunctions">
+      <UniqueIdentifier>{4eb79cb7-0b24-4377-9b40-dbde04de0408}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Objects">
+      <UniqueIdentifier>{715651f1-d78b-4c1a-a6ab-4f7a6a6d2425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Objects\GameObjects">
+      <UniqueIdentifier>{8bd608f8-f2c7-4379-ab2c-bd013600331d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Objects\Interface">
+      <UniqueIdentifier>{827ae4dd-b769-4142-b0e7-83cb71e97798}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Objects\Interface\Buttons">
+      <UniqueIdentifier>{0b76c5ff-3e5a-48dd-bdc7-3942c51d8790}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Objects">
+      <UniqueIdentifier>{2a6c76fd-87e2-4723-b57c-ccd63168346a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\GlobalFunctions">
+      <UniqueIdentifier>{5f0e3e1f-5088-4b97-b3de-2924a1703d6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Objects\Interface">
+      <UniqueIdentifier>{7fbcbfd5-2cf7-4836-982e-99b36ef3e752}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Objects\Interface\Buttons">
+      <UniqueIdentifier>{384feec9-88a1-423c-8da4-98a0e78c1ff2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Objects\GameObjects">
+      <UniqueIdentifier>{f4669438-a5eb-4d55-adc2-430bfbbea6de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Global.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectContext.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Functions.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Localizator.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="RoomsFunctions.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Objects\Interface\Buttons</Filter>
     </ClCompile>
     <ClCompile Include="ButtonFunctions.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="ButtonWithImage.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="GameFunctions.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="InputField.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="OverlayPanel.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Selector.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="StandartSoldier.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="StateButton.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="TexturesContext.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Unit.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="ViewFunctions.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="SettingsContext.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Objects\Interface\Buttons</Filter>
     </ClCompile>
     <ClCompile Include="ButtonI.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Objects\Interface\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonWithImage.cpp">
+      <Filter>Исходные файлы\Objects\Interface\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="Global.cpp">
+      <Filter>Исходные файлы\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="Localizator.cpp">
+      <Filter>Исходные файлы\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectContext.cpp">
+      <Filter>Исходные файлы\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsContext.cpp">
+      <Filter>Исходные файлы\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="GameFunctions.cpp">
+      <Filter>Исходные файлы\GlobalFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="Functions.cpp">
+      <Filter>Исходные файлы\GlobalFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomsFunctions.cpp">
+      <Filter>Исходные файлы\GlobalFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturesContext.cpp">
+      <Filter>Исходные файлы\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы\GlobalFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="StateButton.cpp">
+      <Filter>Исходные файлы\Objects\Interface\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewFunctions.cpp">
+      <Filter>Исходные файлы\GlobalFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="InputField.cpp">
+      <Filter>Исходные файлы\Objects\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="OverlayPanel.cpp">
+      <Filter>Исходные файлы\Objects\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Selector.cpp">
+      <Filter>Исходные файлы\Objects\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Исходные файлы\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="StandartSoldier.cpp">
+      <Filter>Исходные файлы\Objects\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>Исходные файлы\Objects\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Global.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
     <ClInclude Include="Functions.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="ButtonWithImage.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовков\GlobalFunctions</Filter>
     </ClInclude>
     <ClInclude Include="GameFunctions.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="InputField.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Loader.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="OverlayPanel.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Saver.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Selector.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="StandartSoldier.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="StateButton.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Unit.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовков\GlobalFunctions</Filter>
     </ClInclude>
     <ClInclude Include="ButtonI.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Objects\Interface\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Файлы заголовков\Objects\Interface\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonWithImage.h">
+      <Filter>Файлы заголовков\Objects\Interface\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="InputField.h">
+      <Filter>Файлы заголовков\Objects\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="OverlayPanel.h">
+      <Filter>Файлы заголовков\Objects\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Selector.h">
+      <Filter>Файлы заголовков\Objects\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="StateButton.h">
+      <Filter>Файлы заголовков\Objects\Interface\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="StandartSoldier.h">
+      <Filter>Файлы заголовков\Objects\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Файлы заголовков\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>Файлы заголовков\Objects\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

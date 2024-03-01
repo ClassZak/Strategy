@@ -178,11 +178,9 @@
     <ClInclude Include="GameFunctions.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="InputField.h" />
-    <ClInclude Include="Loader.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="OverlayPanel.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Saver.h" />
     <ClInclude Include="Selector.h" />
     <ClInclude Include="StandartSoldier.h" />
     <ClInclude Include="StateButton.h" />

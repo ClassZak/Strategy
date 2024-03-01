@@ -42,125 +42,9 @@ sf::Vector2f ButtonWithImage::GetSize()const
 
 void ButtonWithImage::Draw(sf::RenderWindow& window)
 {
-	sf::VertexArray line(sf::Lines,16);
-	//line[0].texCoords
-	if(!pressed)
-	{
-		line[0].position=sf::Vector2f(x-w/2, y+h/2);
-		line[1].position=sf::Vector2f(x+w/2, y+h/2);
-		line[0].color=sf::Color::Color(103,103,103);
-		line[1].color=sf::Color::Color(103,103,103);
-		
-		line[2].position=sf::Vector2f(x-w/2+ Global::PSizes.x, y+h/2- Global::PSizes.y);
-		line[3].position=sf::Vector2f(x+w/2- Global::PSizes.x, y+h/2- Global::PSizes.y);
-		line[2].color=sf::Color::Color(159,159,159);
-		line[3].color=sf::Color::Color(159,159,159);
-		
-		
-		line[4].position=sf::Vector2f(x+w/2, y-h/2);
-		line[5].position=sf::Vector2f(x+w/2, y+h/2- Global::PSizes.y);
-		line[4].color=sf::Color::Color(103,103,103);
-		line[5].color=sf::Color::Color(103,103,103);
-		
-		line[6].position=sf::Vector2f(x+w/2- Global::PSizes.x, y-h/2+ Global::PSizes.y);
-		line[7].position=sf::Vector2f(x+w/2- Global::PSizes.x, y+h/2- Global::PSizes.y *2);
-		line[6].color=sf::Color::Color(159,159,159);
-		line[7].color=sf::Color::Color(159,159,159);
-		
-		
-		
-		line[8].position=sf::Vector2f(x-w/2,  y-h/2+ Global::PSizes.y);
-		line[9].position=sf::Vector2f(x+w/2- Global::PSizes.x,y-h/2+ Global::PSizes.y);
-		line[8].color=sf::Color::Color(254,254,254);
-		line[9].color=sf::Color::Color(254,254,254);
-		
-		line[10].position=sf::Vector2f(x-w/2+ Global::PSizes.x,y-h/2+ Global::PSizes.y);
-		line[11].position=sf::Vector2f(x-w/2+ Global::PSizes.x,y+h/2- Global::PSizes.y);
-		line[10].color=sf::Color::Color(254,254,254);
-		line[11].color=sf::Color::Color(254,254,254);
-		
-		
-		
-		line[12].position=sf::Vector2f(x-w/2+ Global::PSizes.x *2,y-h/2+ Global::PSizes.y);
-		line[13].position=sf::Vector2f(x-w/2+ Global::PSizes.x *2,y+h/2- Global::PSizes.y *2);
-		line[12].color=sf::Color::Color(225,225,225);
-		line[13].color=sf::Color::Color(225,225,225);
-		
-		line[14].position=sf::Vector2f(x-w/2,y-h/2+ Global::PSizes.y);
-		line[15].position=sf::Vector2f(x+w/2- Global::PSizes.x,y-h/2+ Global::PSizes.y);
-		line[14].color=sf::Color::Color(255,255,255);
-		line[15].color=sf::Color::Color(255,255,255);
-	}
-	else
-	if(pressed)
-	{
-		line[0].position=sf::Vector2f(x-w/2, y+h/2);
-		line[1].position=sf::Vector2f(x+w/2, y+h/2);
-		line[0].color=sf::Color::Color(254,254,254);
-		line[1].color=sf::Color::Color(254,254,254);
-		
-		line[2].position=sf::Vector2f(x-w/2+ Global::PSizes.x, y+h/2- Global::PSizes.y);
-		line[3].position=sf::Vector2f(x+w/2- Global::PSizes.x, y+h/2- Global::PSizes.y);
-		line[2].color=sf::Color::Color(225,225,225);
-		line[3].color=sf::Color::Color(225,225,225);
-		
-		
-		line[4].position=sf::Vector2f(x+w/2, y-h/2);
-		line[5].position=sf::Vector2f(x+w/2, y+h/2- Global::PSizes.y);
-		line[4].color=sf::Color::Color(254,254,254);
-		line[5].color=sf::Color::Color(254,254,254);
-		
-		line[6].position=sf::Vector2f(x+w/2- Global::PSizes.x, y-h/2+ Global::PSizes.y);
-		line[7].position=sf::Vector2f(x+w/2- Global::PSizes.x, y+h/2- Global::PSizes.y *2);
-		line[6].color=sf::Color::Color(225,225,225);
-		line[7].color=sf::Color::Color(225,225,225);
-		
-		
-		
-		line[8].position=sf::Vector2f(x-w/2,  y-h/2+ Global::PSizes.y);
-		line[9].position=sf::Vector2f(x+w/2- Global::PSizes.x,y-h/2+ Global::PSizes.y);
-		line[8].color=sf::Color::Color(103,103,103);
-		line[9].color=sf::Color::Color(103,103,103);
-		
-		line[8].position=sf::Vector2f(x-w/2+ Global::PSizes.x,y-h/2+ Global::PSizes.y *2);
-		line[9].position=sf::Vector2f(x+w/2- Global::PSizes.x *2,y-h/2+ Global::PSizes.y *2);
-		line[8].color=sf::Color::Color(159,159,159);
-		line[9].color=sf::Color::Color(159,159,159);
-		
-		
-		line[10].position=sf::Vector2f(x-w/2+ Global::PSizes.x,y-h/2+ Global::PSizes.y);
-		line[11].position=sf::Vector2f(x-w/2+ Global::PSizes.x,y+h/2- Global::PSizes.y);
-		line[10].color=sf::Color::Color(103,103,103);
-		line[11].color=sf::Color::Color(103,103,103);
-		
-		line[10].position=sf::Vector2f(x-w/2+ Global::PSizes.x *2,y-h/2+ Global::PSizes.y);
-		line[11].position=sf::Vector2f(x-w/2+ Global::PSizes.x *2,y+h/2- Global::PSizes.y *2);
-		line[10].color=sf::Color::Color(159,159,159);
-		line[11].color=sf::Color::Color(159,159,159);
-		
-		
-		
-		line[12].position=sf::Vector2f(x-w/2,y-h/2+ Global::PSizes.y);
-		line[13].position=sf::Vector2f(x+w/2- Global::PSizes.x,y-h/2+ Global::PSizes.y);
-		line[12].color=sf::Color::Color(255,255,255);
-		line[13].color=sf::Color::Color(255,255,255);
-		
-		line[14].position=sf::Vector2f(x-w/2+ Global::PSizes.x,y-h/2+ Global::PSizes.y);
-		line[15].position=sf::Vector2f(x-w/2+ Global::PSizes.x,y+h/2);
-		line[14].color=sf::Color::Color(255,255,255);
-		line[15].color=sf::Color::Color(255,255,255);
-	}
-	sf::RectangleShape rect(sf::Vector2f(w,h));
-	rect.setOrigin(w/2,h/2);
-	rect.setFillColor(sf::Color::Color(241,241,241));
-	
-	rect.setPosition(GetCoordinates());
-	
-	window.draw(rect);
-	
+	DrawBackground(window);
 	window.draw(this->sprite);
-	
-	window.draw(line);
+	DrawBorder(window);
 	window.draw(text);
 }
 void ButtonWithImage::PollEvent(const sf::Event& event, const sf::RenderWindow& window,const sf::Vector2f& pos)
@@ -317,11 +201,4 @@ void ButtonWithImage::Move(const sf::Vector2f& offset)
 	this->text.move(offset);
 	this->sprite.move(offset);
 }
-
-
-
-
-
-
-
 #endif

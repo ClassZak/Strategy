@@ -1,13 +1,11 @@
-#ifndef B_H
-#define B_H
+#pragma once
 #include "Button.h"
 #include "Global.h"
 class ButtonWithImage : public Button
 {
 private:
-friend void MoveView(sf::View& view,sf::RenderWindow& window,const sf::Event& event,std::list<GUIObject*>&GUI);
-friend std::istream& operator>>(std::istream& in,ButtonWithImage& ob);
-friend std::ostream& operator<<(std::ostream& out,const ButtonWithImage& ob);
+friend void MoveView
+(sf::View& view,sf::RenderWindow& window,const sf::Event& event,std::list<GUIObject*>&GUI);
 
 public:
 	ButtonWithImage();
@@ -75,4 +73,3 @@ protected:
 	bool ImageVisible;
 	bool TextVisible;
 };
-#endif
