@@ -10,7 +10,6 @@ class ButtonI : public PlacedGUIObject
 public:
 	ButtonI();
 	ButtonI(int x, int y, int w, int h);
-	~ButtonI()override;
 
 
 	void SetCoordinates(const sf::Vector2f& pos);
@@ -21,9 +20,6 @@ public:
 
 	bool IsPressed();
 	bool IsReleased();
-
-	void PollEvent(const sf::Event& event, const sf::RenderWindow& window, const sf::Vector2f& pos);
-
 
 	void SetFont(const sf::Font& font);
 	void SetText(const sf::Text& text);

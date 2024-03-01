@@ -1,12 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Object.h"
-class Button : public PlacedGUIObject
+#include "ButtonI.h"
+class Button : public ButtonI
 {
 friend void MoveView(sf::View& view,sf::RenderWindow& window,const sf::Event& event,std::list<GUIObject*>&GUI);
-friend std::istream& operator>>(std::istream& in,Button& ob);
-friend std::ostream& operator<<(std::ostream& out,const Button& ob);
 
 public:
 	Button();
@@ -44,10 +42,4 @@ public:
 	bool IsClicked();
 	
 	void Move(const sf::Vector2f& offset);
-protected:
-	bool pressed;
-	bool released;
-	bool clicked;
-	
-	sf::Text text;
 };
