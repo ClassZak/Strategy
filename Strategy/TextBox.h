@@ -2,14 +2,14 @@
 #include "Object.h"
 #include <basetsd.h>
 
-class InputField : public PlacedGUIObject//field suuport only monowidth font
+class TextBox : public PlacedGUIObject//field suuport only monowidth font
 {
 private:
-	InputField();
+	TextBox();
 public:
-	InputField(int x,int y,int w,int h,const std::wstring& textString);
-	InputField(int x,int y,int w,int h);
-	~InputField()override;
+	TextBox(int x,int y,int w,int h,const std::wstring& textString);
+	TextBox(int x,int y,int w,int h);
+	~TextBox()override;
 	void Draw(sf::RenderWindow& window)override;
 	
 	

@@ -155,7 +155,7 @@
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="GameFunctions.cpp" />
     <ClCompile Include="Global.cpp" />
-    <ClCompile Include="InputField.cpp" />
+    <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="Localizator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -177,7 +177,7 @@
     <ClInclude Include="Functions.h" />
     <ClInclude Include="GameFunctions.h" />
     <ClInclude Include="Global.h" />
-    <ClInclude Include="InputField.h" />
+    <ClInclude Include="TextBox.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="OverlayPanel.h" />
     <ClInclude Include="resource.h" />

@@ -1,17 +1,17 @@
-#include "InputField.h"
+#include "TextBox.h"
 #include "Global.h"
 #include "Functions.h"
 
 //Public constructors
-InputField::InputField(int x,int y,int w,int h) : PlacedGUIObject::PlacedGUIObject(x,y,w,h)
+TextBox::TextBox(int x,int y,int w,int h) : PlacedGUIObject::PlacedGUIObject(x,y,w,h)
 {
 	this->inputs=false;
 	this->text.setPosition(x-w/2,y-h/2);
 	cursorPos = sf::Vector2i(0, 1);
 }
 
-InputField::InputField(int x,int y,int w,int h,const std::wstring& textString) :
-InputField::InputField(x,y,w,h)
+TextBox::TextBox(int x,int y,int w,int h,const std::wstring& textString) :
+TextBox::TextBox(x,y,w,h)
 {
 	this->textString = textString;
 	this->text.setString(sf::String(textString));
@@ -21,20 +21,20 @@ InputField::InputField(x,y,w,h)
 	cursorPos.x = (UINT)(symbolStringLenght % symbolBoxSize.x);
 }
 
-InputField::~InputField()
+TextBox::~TextBox()
 {
 }
 
 //Settings methods
-void InputField::setTextString(const std::wstring& textString)
+void TextBox::setTextString(const std::wstring& textString)
 {
 	this->text.setString(sf::String(textString));
 }
-void InputField::setText(const sf::Text& text)
+void TextBox::setText(const sf::Text& text)
 {
 	this->text=text;
 }
-void InputField::setTextParametres(const sf::Font& font,unsigned int charSize)
+void TextBox::setTextParametres(const sf::Font& font,unsigned int charSize)
 {
 	this->text.setFont(font);
 	this->text.setCharacterSize(charSize);
@@ -49,31 +49,31 @@ void InputField::setTextParametres(const sf::Font& font,unsigned int charSize)
 		(INT)round((h - this->text.getCharacterSize() / 2.) / symbolSize.y)
 	);
 }
-void InputField::setTextParametres(const std::wstring& textString,const sf::Font& font,unsigned int charSize)
+void TextBox::setTextParametres(const std::wstring& textString,const sf::Font& font,unsigned int charSize)
 {
 	this->text.setString(sf::String(textString));
 	this->setTextParametres(font,charSize);
 }
 //Gettings methods
-const sf::Font* InputField::getFont()const
+const sf::Font* TextBox::getFont()const
 {
 	return this->text.getFont();
 }
-sf::Text InputField::getText()
+sf::Text TextBox::getText()
 {
 	return this->text;
 }
-std::wstring InputField::getTextString()const
+std::wstring TextBox::getTextString()const
 {
 	return (getStringExceptSymbols(this->textString,L'\n'));
 }
-bool InputField::isInputing()const
+bool TextBox::isInputing()const
 {
 	return this->inputs;
 }
 
 //Drawing and poll event
-void InputField::Draw(sf::RenderWindow& window)
+void TextBox::Draw(sf::RenderWindow& window)
 {
 	sf::RectangleShape rect(sf::Vector2f(w,h));
 	rect.setOrigin(w / 2, h / 2);
@@ -160,7 +160,7 @@ void InputField::Draw(sf::RenderWindow& window)
 }
 
 
-void InputField::PollEvent(const sf::Event& event, const sf::RenderWindow& window,const sf::Vector2f& pos)
+void TextBox::PollEvent(const sf::Event& event, const sf::RenderWindow& window,const sf::Vector2f& pos)
 {
 	if(!Global::focus)
 	{
@@ -214,7 +214,7 @@ void InputField::PollEvent(const sf::Event& event, const sf::RenderWindow& windo
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //												Protected
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void InputField::charInput(const sf::Event& event)
+void TextBox::charInput(const sf::Event& event)
 {
 	sf::Uint32 keyCode = event.text.unicode;
 	if (keyCode == 8)
@@ -262,7 +262,7 @@ void InputField::charInput(const sf::Event& event)
 	CorrectCursorPos();
 	std::cout << std::endl;
 }
-void InputField::LineBreak(const float widthDelta)
+void TextBox::LineBreak(const float widthDelta)
 {
 	if (this->text.getGlobalBounds().width > this->w - this->text.getCharacterSize() / 2)
 	{
@@ -282,7 +282,7 @@ void InputField::LineBreak(const float widthDelta)
 	if (text.getGlobalBounds().height >= this->h)
 		throw std::runtime_error("input field height failed");
 }
-void InputField::CorrectCursorPos()
+void TextBox::CorrectCursorPos()
 {
 	SetConsoleTextAttribute(Global::consoleOutHandle, FOREGROUND_INTENSITY);
 	std::cout << "cPos:\tx:\t" << cursorPos.x << "\ty:\t" << cursorPos.y << std::endl;

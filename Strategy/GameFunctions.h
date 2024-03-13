@@ -26,7 +26,7 @@
 #include "Global.h"
 
 #include "Selector.h"
-#include "InputField.h"
+#include "TextBox.h"
 
 
 //#define MENU_BACKGROUND_COLOR sf::Color(170,170,170)
@@ -65,7 +65,7 @@ void Drawing(sf::RenderWindow& window,std::list<T*,std::allocator<T*>> &objects)
         s->Draw(window);
         else if(OverlayPanel* p=dynamic_cast<OverlayPanel*>(*it))
         p->Draw(window);
-        else if(InputField* iF=dynamic_cast<InputField*>(*it))
+        else if(TextBox* iF=dynamic_cast<TextBox*>(*it))
         iF->Draw(window);
     }
 }
@@ -91,7 +91,7 @@ void ObjectPollEvent(sf::RenderWindow& window,sf::Event& event,std::list<T*,std:
 			soldier->AddHp(1);
 		}
 		else
-		if(InputField* field=dynamic_cast<InputField*>(*it))
+		if(TextBox* field=dynamic_cast<TextBox*>(*it))
 		{
 			field->PollEvent(event,window,mouse_pos);
 		}
@@ -182,7 +182,7 @@ void ObjectPollEvent
 			soldier->AddHp(1);
 		}
 		else
-		if(InputField* field=dynamic_cast<InputField*>(it->get()))
+		if(TextBox* field=dynamic_cast<TextBox*>(it->get()))
 		{
 			field->PollEvent(event,window,mouse_pos);
 		}
@@ -202,7 +202,7 @@ void Drawing(sf::RenderWindow& window,std::list<std::auto_ptr<T>,std::allocator<
         s->Draw(window);
         else if(OverlayPanel* p=dynamic_cast<OverlayPanel*>(it->get()))
         p->Draw(window);
-        else if(InputField* iF=dynamic_cast<InputField*>(it->get()))
+        else if(TextBox* iF=dynamic_cast<TextBox*>(it->get()))
         iF->Draw(window);
     }
 }

@@ -284,7 +284,7 @@ int SettingsMenu(sf::RenderWindow& window)
 	buttonsList.push_back((&settingsButton));
 
 
-	InputField inputField
+	TextBox TextBox
 	(
 		32 + 256, 128,
 		[&]() -> int 
@@ -295,8 +295,8 @@ int SettingsMenu(sf::RenderWindow& window)
 			return (INT)(t.getCharacterSize() / 2 + t.getLetterSpacing());
 		}() * 10, 70
 	);
-	inputField.setTextParametres(Global::monoFont, 14u);
-	GUIObjects.push_back((&inputField));
+	TextBox.setTextParametres(Global::monoFont, 14u);
+	GUIObjects.push_back((&TextBox));
 
 
 	while (window.isOpen() and Global::playing and Global::room == Global::SETTINGS)

@@ -93,7 +93,7 @@
     <ClCompile Include="ViewFunctions.cpp">
       <Filter>Исходные файлы\GlobalFunctions</Filter>
     </ClCompile>
-    <ClCompile Include="InputField.cpp">
+    <ClCompile Include="TextBox.cpp">
       <Filter>Исходные файлы\Objects\Interface</Filter>
     </ClCompile>
     <ClCompile Include="OverlayPanel.cpp">
@@ -134,7 +134,7 @@
     <ClInclude Include="ButtonWithImage.h">
       <Filter>Файлы заголовков\Objects\Interface\Buttons</Filter>
     </ClInclude>
-    <ClInclude Include="InputField.h">
+    <ClInclude Include="TextBox.h">
       <Filter>Файлы заголовков\Objects\Interface</Filter>
     </ClInclude>
     <ClInclude Include="OverlayPanel.h">
