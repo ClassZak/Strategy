@@ -34,16 +34,6 @@ void ButtonWithImage::Draw(sf::RenderWindow& window)
 
 
 
-
-
-
-
-
-
-
-
-
-
 ButtonWithImage::ButtonWithImage()
 {
 	this->Set();
@@ -124,7 +114,7 @@ const sf::Vector2f& ButtonWithImage::GetImagePos()const
 }
 void ButtonWithImage::Move(const sf::Vector2f& offset)
 {
-	this->text.move(offset);
+	BaseButton::Move(offset);
 	this->sprite.move(offset);
 }
 #endif

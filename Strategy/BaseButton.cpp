@@ -213,22 +213,7 @@ bool BaseButton::IsClicked()
 }
 
 
-void BaseButton::SetCoordinates(const sf::Vector2f& pos)
-{
-	PlacedGUIObject::SetCoordinates(pos);
-}
-sf::Vector2f BaseButton::GetCoordinates()const
-{
-	return PlacedGUIObject::GetCoordinates();
-}
-void BaseButton::SetSize(const sf::Vector2f& size)
-{
-	PlacedGUIObject::SetSize(size);
-}
-sf::Vector2f BaseButton::GetSize()const
-{
-	return PlacedGUIObject::GetSize();
-}
+
 void BaseButton::Move(const sf::Vector2f& offset)
 {
 	this->x += offset.x;

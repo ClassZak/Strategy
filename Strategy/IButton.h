@@ -3,12 +3,6 @@
 class IButton
 {
 public:
-	virtual void SetCoordinates(const sf::Vector2f& pos)=0;
-	virtual sf::Vector2f GetCoordinates()const=0;
-	virtual void SetSize(const sf::Vector2f& size)=0;
-	virtual sf::Vector2f GetSize()const=0;
-
-
 	virtual bool IsPressed()=0;
 	virtual bool IsReleased()=0;
 

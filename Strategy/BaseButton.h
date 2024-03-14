@@ -13,12 +13,6 @@ public:
 	BaseButton(int x, int y, int w, int h);
 
 
-	void SetCoordinates(const sf::Vector2f& pos)override;
-	sf::Vector2f GetCoordinates()const override;
-	void SetSize(const sf::Vector2f& size) override;
-	sf::Vector2f GetSize()const override;
-
-
 	bool IsPressed() override;
 	bool IsReleased() override;
 
