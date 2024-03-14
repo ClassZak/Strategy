@@ -17,39 +17,13 @@ public:
 	
 	
 //Object interface
-	void SetCoordinates(const sf::Vector2f& pos);
 	void SetTexture(const sf::Texture& texture);
 	void SetSprite(const sf::Sprite& sprite);
-	sf::Vector2f GetCoordinates()const;
 	const sf::Sprite& GetSprite()const;
 	const sf::Texture& GetTexture()const;
 	
-	
-	
 //Button interface
 	void Draw(sf::RenderWindow& window);
-	
-	
-	bool IsPressed();
-	bool IsReleased();
-	
-	void PollEvent(const sf::Event& event, const sf::RenderWindow& window, const sf::Vector2f& pos);
-	
-	
-	void SetFont(const sf::Font& font);
-	void SetText(const sf::Text& text);
-	void SetTextString(const sf::String& string);
-	void SetTextSize(const unsigned int size);
-	void SetSize(const sf::Vector2f& size);
-	sf::Vector2f GetSize()const;
-	const sf::String& GetTextString()const;
-	const sf::Text& GetText()const;
-	const sf::Font* GetFont()const;
-	
-	
-	void MakeUnclick();
-	void Reset();
-	bool IsClicked();
 	
 //Image and text settings
 	void SetTextPos(const sf::Vector2f& pos);

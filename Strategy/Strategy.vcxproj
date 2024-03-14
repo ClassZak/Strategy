@@ -150,7 +150,7 @@
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonFunctions.cpp" />
-    <ClCompile Include="ButtonI.cpp" />
+    <ClCompile Include="BaseButton.cpp" />
     <ClCompile Include="ButtonWithImage.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="GameFunctions.cpp" />
@@ -172,11 +172,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
-    <ClInclude Include="ButtonI.h" />
+    <ClInclude Include="BaseButton.h" />
     <ClInclude Include="ButtonWithImage.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="GameFunctions.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="IButton.h" />
     <ClInclude Include="TextBox.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="OverlayPanel.h" />

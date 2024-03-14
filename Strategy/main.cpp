@@ -119,13 +119,13 @@ int main()
                     Global::view.move(sf::Vector2f(-Global::LEFT_EDGE_LENGTH, 0));
                     GameField(window, objects);
                     Global::fromMenu = false;
-                    break;
+                    break; 
                 }
                 default:
                     Global::playing = false;
                     break;
             }
-        }
+        }  
         delete objects;
         return 0;
     }

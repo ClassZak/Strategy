@@ -1,17 +1,17 @@
 #pragma once
 #include "Global.h"
-#include "ButtonI.h"
-ButtonI::ButtonI() : PlacedGUIObject::PlacedGUIObject()
+#include "BaseButton.h"
+BaseButton::BaseButton() : PlacedGUIObject::PlacedGUIObject()
 {
 	pressed = released = clicked = false;
 }
-ButtonI::ButtonI(int x, int y, int w, int h) : PlacedGUIObject::PlacedGUIObject(x, y, w, h)
+BaseButton::BaseButton(int x, int y, int w, int h) : PlacedGUIObject::PlacedGUIObject(x, y, w, h)
 {
 	pressed = released = clicked = false;
 }
 
 
-ButtonI& ButtonI::operator=(const ButtonI& other)
+BaseButton& BaseButton::operator=(const BaseButton& other)
 {
 	this->x = other.x;
 	this->y = other.y;
@@ -26,7 +26,7 @@ ButtonI& ButtonI::operator=(const ButtonI& other)
 }
 
 
-void ButtonI::DrawBorder(sf::RenderWindow& window)
+void BaseButton::DrawBorder(sf::RenderWindow& window) const
 {
 	sf::VertexArray line(sf::Lines, 16);
 	//line[0].texCoords
@@ -138,7 +138,7 @@ void ButtonI::DrawBorder(sf::RenderWindow& window)
 	}
 	window.draw(line);
 }
-void ButtonI::DrawBackground(sf::RenderWindow& window)
+void BaseButton::DrawBackground(sf::RenderWindow& window)
 {
 	sf::RectangleShape rect(sf::Vector2f(w, h));
 	rect.setOrigin(w / 2, h / 2);
@@ -149,87 +149,87 @@ void ButtonI::DrawBackground(sf::RenderWindow& window)
 	window.draw(rect);
 }
 
-void ButtonI::SetFont(const sf::Font& font)
+void BaseButton::SetFont(const sf::Font& font)
 {
 	text.setFont(font);
 }
-void ButtonI::SetText(const sf::Text& text)
+void BaseButton::SetText(const sf::Text& text)
 {
 	this->text = text;
 	this->text.setPosition(text.getPosition());
 	this->text.setOrigin((unsigned int)text.getGlobalBounds().width / 2, (unsigned int)text.getGlobalBounds().height);
 	this->text.setFillColor(sf::Color::Black);
 }
-void ButtonI::SetTextString(const sf::String& string)
+void BaseButton::SetTextString(const sf::String& string)
 {
 	text.setString(string);
 	text.setPosition(x, y);
 	text.setOrigin((unsigned int)text.getGlobalBounds().width / 2, (unsigned int)text.getGlobalBounds().height);
 	text.setFillColor(sf::Color::Black);
 }
-void ButtonI::SetTextSize(const unsigned int size)
+void BaseButton::SetTextSize(const unsigned int size)
 {
 	text.setCharacterSize(size);
 }
 
 
-const sf::String& ButtonI::GetTextString()const
+const sf::String& BaseButton::GetTextString()const
 {
 	return text.getString();
 }
-const sf::Text& ButtonI::GetText()const
+const sf::Text& BaseButton::GetText()const
 {
 	return text;
 }
-const sf::Font* ButtonI::GetFont()const
+const sf::Font* BaseButton::GetFont()const
 {
 	return text.getFont();
 }
 
 
-bool ButtonI::IsPressed()
+bool BaseButton::IsPressed()
 {
 	return pressed;
 }
-bool ButtonI::IsReleased()
+bool BaseButton::IsReleased()
 {
 	return released;
 }
 
 
-void ButtonI::MakeUnclick()
+void BaseButton::MakeUnclick()
 {
 	clicked = false;
 }
-void ButtonI::Reset()
+void BaseButton::Reset()
 {
 	clicked = false;
 	pressed = false;
 	released = false;
 }
-bool ButtonI::IsClicked()
+bool BaseButton::IsClicked()
 {
 	return clicked;
 }
 
 
-void ButtonI::SetCoordinates(const sf::Vector2f& pos)
+void BaseButton::SetCoordinates(const sf::Vector2f& pos)
 {
 	PlacedGUIObject::SetCoordinates(pos);
 }
-sf::Vector2f ButtonI::GetCoordinates()const
+sf::Vector2f BaseButton::GetCoordinates()const
 {
 	return PlacedGUIObject::GetCoordinates();
 }
-void ButtonI::SetSize(const sf::Vector2f& size)
+void BaseButton::SetSize(const sf::Vector2f& size)
 {
 	PlacedGUIObject::SetSize(size);
 }
-sf::Vector2f ButtonI::GetSize()const
+sf::Vector2f BaseButton::GetSize()const
 {
 	return PlacedGUIObject::GetSize();
 }
-void ButtonI::Move(const sf::Vector2f& offset)
+void BaseButton::Move(const sf::Vector2f& offset)
 {
 	this->x += offset.x;
 	this->y += offset.y;

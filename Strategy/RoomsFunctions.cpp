@@ -73,10 +73,10 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>* objects)
 
 
 	unsigned long LINE;
-	LINE = (Global::WINDOW_HEIGHT * std::pow(1.f / Global::zoom, 10)) / backgroundTexture.getSize().y + 3;
+	LINE = UINT32((Global::WINDOW_HEIGHT * std::pow(1.f / Global::zoom, 10)) / backgroundTexture.getSize().y) + 3;
 	if (LINE & 1)++LINE;
 	const std::size_t VERT_BACKGROUND_COUNT = LINE;
-	LINE = (Global::WINDOW_WIDTH * std::pow(1.f / Global::zoom, 10)) / backgroundTexture.getSize().x + 3;
+	LINE = UINT32((Global::WINDOW_WIDTH * std::pow(1.f / Global::zoom, 10)) / backgroundTexture.getSize().x) + 3;
 	if (LINE & 1)++LINE;
 	const std::size_t HOR_BACKGROUND_COUNT = LINE;
 
@@ -85,7 +85,7 @@ int GameField(sf::RenderWindow& window, std::list<GameObject*>* objects)
 	if ((backgroundTexture.getSize().x < (VERT_BACKGROUND_COUNT - 3) * backgroundTexture.getSize().x)
 		and (backgroundTexture.getSize().y < (HOR_BACKGROUND_COUNT - 3) * backgroundTexture.getSize().y))
 		pBackgroundTexture =
-		GetFullBackground(backgroundTexture, background, HOR_BACKGROUND_COUNT, VERT_BACKGROUND_COUNT);
+		GetFullBackground(backgroundTexture, background, (UINT)HOR_BACKGROUND_COUNT, (UINT)VERT_BACKGROUND_COUNT);
 	else
 	{
 		pBackgroundTexture = new sf::Texture;
@@ -292,7 +292,7 @@ int SettingsMenu(sf::RenderWindow& window)
 			sf::Text t;
 			t.setFont(Global::monoFont);
 			t.setCharacterSize(14u);
-			return (INT)(t.getCharacterSize() / 2 + t.getLetterSpacing());
+			return (INT)(t.getCharacterSize() / 2.f + t.getLetterSpacing());
 		}() * 10, 70
 	);
 	TextBox.setTextParametres(Global::monoFont, 14u);

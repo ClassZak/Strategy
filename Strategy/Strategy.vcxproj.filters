@@ -51,10 +51,7 @@
     <ClCompile Include="Button.cpp">
       <Filter>Исходные файлы\Objects\Interface\Buttons</Filter>
     </ClCompile>
-    <ClCompile Include="ButtonFunctions.cpp">
-      <Filter>Исходные файлы\Objects\Interface\Buttons</Filter>
-    </ClCompile>
-    <ClCompile Include="ButtonI.cpp">
+    <ClCompile Include="BaseButton.cpp">
       <Filter>Исходные файлы\Objects\Interface\Buttons</Filter>
     </ClCompile>
     <ClCompile Include="ButtonWithImage.cpp">
@@ -111,6 +108,9 @@
     <ClCompile Include="Unit.cpp">
       <Filter>Исходные файлы\Objects\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="ButtonFunctions.cpp">
+      <Filter>Исходные файлы\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -125,7 +125,7 @@
     <ClInclude Include="GameFunctions.h">
       <Filter>Файлы заголовков\GlobalFunctions</Filter>
     </ClInclude>
-    <ClInclude Include="ButtonI.h">
+    <ClInclude Include="BaseButton.h">
       <Filter>Файлы заголовков\Objects\Interface\Buttons</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
@@ -154,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="Unit.h">
       <Filter>Файлы заголовков\Objects\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="IButton.h">
+      <Filter>Файлы заголовков\Objects\Interface\Buttons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

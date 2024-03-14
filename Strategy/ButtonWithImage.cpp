@@ -1,11 +1,6 @@
 #ifndef BUTTON_WITH_IMAGE_CPP
 #define BUTTON_WITH_IMAGE_CPP
 #include "ButtonWithImage.h"
-void ButtonWithImage::SetCoordinates(const sf::Vector2f& pos)
-{
-	this->x=pos.x;
-	this->y=pos.y;
-}
 void ButtonWithImage::SetSprite(const sf::Sprite& sprite)
 {
 	this->sprite=sprite;
@@ -17,10 +12,6 @@ void ButtonWithImage::SetTexture(const sf::Texture& texture)
 	sprite.setTexture(this->texture,true);
 	sprite.setOrigin(sprite.getGlobalBounds().width/2,sprite.getGlobalBounds().height/2);
 }
-sf::Vector2f ButtonWithImage::GetCoordinates()const
-{
-	return PlacedGUIObject::GetCoordinates();
-}
 const sf::Sprite& ButtonWithImage::GetSprite()const
 {
 	return this->sprite;
@@ -28,14 +19,6 @@ const sf::Sprite& ButtonWithImage::GetSprite()const
 const sf::Texture& ButtonWithImage::GetTexture()const
 {
 	return this->texture;
-}
-void ButtonWithImage::SetSize(const sf::Vector2f& size)
-{
-	PlacedGUIObject::SetSize(size);
-}
-sf::Vector2f ButtonWithImage::GetSize()const
-{
-	return PlacedGUIObject::GetSize();
 }
 
 
@@ -47,34 +30,6 @@ void ButtonWithImage::Draw(sf::RenderWindow& window)
 	DrawBorder(window);
 	window.draw(text);
 }
-void ButtonWithImage::PollEvent(const sf::Event& event, const sf::RenderWindow& window,const sf::Vector2f& pos)
-{
-	Button::PollEvent(event,window,pos);
-}
-
-
-bool ButtonWithImage::IsPressed()
-{
-	return Button::IsPressed();
-}
-bool ButtonWithImage::IsReleased()
-{
-	return Button::IsReleased();
-}
-bool ButtonWithImage::IsClicked()
-{
-	return Button::IsClicked();
-}
-
-
-void ButtonWithImage::MakeUnclick()
-{
-	Button::MakeUnclick();
-}
-void ButtonWithImage::Reset()
-{
-	Button::Reset();
-}
 
 
 
@@ -82,36 +37,7 @@ void ButtonWithImage::Reset()
 
 
 
-void ButtonWithImage::SetFont(const sf::Font& font)
-{
-	Button::SetFont(font);
-}
-void ButtonWithImage::SetText(const sf::Text& text)
-{
-	Button::SetText(text);
-}
-void ButtonWithImage::SetTextString(const sf::String& string)
-{
-	float tx=text.getPosition().x,ty=text.getPosition().y;
-	Button::SetTextString(string);
-	text.setPosition(tx,ty);
-}
-void ButtonWithImage::SetTextSize(const unsigned int size)
-{
-	Button::SetTextSize(size);
-}
-const sf::String& ButtonWithImage::GetTextString()const
-{
-	return Button::GetTextString();
-}
-const sf::Text& ButtonWithImage::GetText()const
-{
-	return Button::GetText();
-}
-const sf::Font* ButtonWithImage::GetFont()const
-{
-	return Button::GetFont();
-}
+
 
 
 

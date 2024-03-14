@@ -13,74 +13,17 @@ StateButton::~StateButton()
 {
 	
 }
-//Button realization
-//Getters and setters
-sf::Vector2f StateButton::GetCoordinates()const
-{
-	return Button::GetCoordinates();
-}
-void StateButton::SetCoordinates(const sf::Vector2f& pos)
-{
-	Button::SetCoordinates(pos);
-}
-
-const sf::Font* StateButton::GetFont()const
-{
-	return Button::GetFont();
-}
-void StateButton::SetFont(const sf::Font& font)
-{
-	Button::SetFont(font);
-}
-
-const sf::Text& StateButton::GetText()const
-{
-	return Button::GetText();
-}
-void StateButton::SetText(const sf::Text& text)
-{
-	Button::SetText(text);
-}
-
-sf::Vector2f StateButton::GetSize()const
-{
-	return Button::GetSize();
-}
-void StateButton::SetSize(const sf::Vector2f& size)
-{
-	Button::SetSize(size);
-}
-
-const sf::String& StateButton::GetTextString()const
-{
-	return Button::GetTextString();
-}
 //Other
 void StateButton::Reset()
 {
 	this->enabled=false;
 	Button::Reset();
 }
-bool StateButton::IsClicked()
-{
-	return Button::IsClicked();
-}
 bool StateButton::IsEnabled()const
 {
 	return this->enabled;
 }
-bool StateButton::IsPressed()
-{
-	return Button::IsPressed();
-}
-bool StateButton::IsReleased()
-{
-	return Button::IsReleased();
-}
-void StateButton::MakeUnclick()
-{
-	Button::MakeUnclick();
-}
+
 
 
 

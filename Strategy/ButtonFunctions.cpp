@@ -188,8 +188,8 @@ std::vector<Button> CreateMainButtons
 				)
 				/2)
 				,
-				buttonDimensions.x,
-				buttonDimensions.y
+				(int)buttonDimensions.x,
+				(int)buttonDimensions.y
 			)
 		);
 		buttons[i].SetTextSize(15);
@@ -271,7 +271,7 @@ std::vector<ButtonWithImage> CreateButtonsWithImage
 
 ButtonWithImage CreateButtonWithImage(sf::Texture& texture,const sf::Vector2f& pos,const sf::Vector2f& imPos)
 {
-	ButtonWithImage b(pos.x,pos.y,texture.getSize().x,texture.getSize().y,texture);
+	ButtonWithImage b((int)pos.x,(int)pos.y,texture.getSize().x,texture.getSize().y,texture);
 	b.SetImagePos(imPos);
 	
 	return b;
@@ -290,7 +290,7 @@ ButtonWithImage CreateButtonWithImage
 	const unsigned int size=15
 )
 {
-	ButtonWithImage b(pos.x,pos.y,texture.getSize().x,texture.getSize().y,texture);
+	ButtonWithImage b((int)pos.x,(int)pos.y,texture.getSize().x,texture.getSize().y,texture);
 	b.SetImagePos(imPos);
 	b.SetFont(font);
 	b.SetTextString(label);

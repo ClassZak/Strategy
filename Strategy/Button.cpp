@@ -1,11 +1,11 @@
 #ifndef BUTTON_CPP
 #define BUTTON_CPP
 #include "Button.h"
-Button::Button() : ButtonI::ButtonI()
+Button::Button() : BaseButton::BaseButton()
 {
 	pressed=released=clicked=false;
 }
-Button::Button(int x,int y,int w,int h) : ButtonI::ButtonI(x,y,w,h)
+Button::Button(int x,int y,int w,int h) : BaseButton::BaseButton(x,y,w,h)
 {
 	pressed=released=clicked=false;
 }

@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "ButtonI.h"
-class Button : public ButtonI
+#include "BaseButton.h"
+class Button : public BaseButton
 {
 friend void MoveView(sf::View& view,sf::RenderWindow& window,const sf::Event& event,std::list<GUIObject*>&GUI);
 
