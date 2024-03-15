@@ -44,7 +44,8 @@ ButtonWithImage::ButtonWithImage(int x,int y,int w,int h):Button::Button(x,y,w,h
 }
 ButtonWithImage::ButtonWithImage(int x,int y,int w,int h,sf::Texture& texture):Button::Button(x,y,w,h)
 {
-	ImageVisible=true;
+	TextVisible = false;
+	ImageVisible = true;
 	this->texture=texture;
 	sprite.setTexture(this->texture,true);
 	sprite.setOrigin(sprite.getGlobalBounds().width/2,sprite.getGlobalBounds().height/2);
