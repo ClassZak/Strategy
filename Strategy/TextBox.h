@@ -27,6 +27,9 @@ public:
 	bool isInputing()const;
 protected:
 	sf::Text text;
+	sf::Font* font;
+	unsigned int charSize;
+	std::list<std::list<sf::Text>> symbols;
 	std::wstring textString;
 	
 	bool inputs;
@@ -37,6 +40,9 @@ protected:
 	sf::Vector2f symbolSize;
 	void LineBreak(const float widthDelta);
 	void CorrectCursorPos();
+	void FillText(std::wstring string, sf::Font* font, unsigned int charSize=12);
+	inline bool NeedLineBreak(std::list<sf::Text>& list);
+	float LineLength(std::list<sf::Text>& list);
 	
 	
 	/*friend template<typename T>

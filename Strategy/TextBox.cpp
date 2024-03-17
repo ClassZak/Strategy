@@ -5,6 +5,7 @@
 //Public constructors
 TextBox::TextBox(int x,int y,int w,int h) : PlacedGUIObject::PlacedGUIObject(x,y,w,h)
 {
+	font = nullptr;
 	this->inputs=false;
 	this->text.setPosition(x-w/2,y-h/2);
 	cursorPos = sf::Vector2i(0, 1);
@@ -51,6 +52,7 @@ void TextBox::setTextParametres(const sf::Font& font,unsigned int charSize)
 }
 void TextBox::setTextParametres(const std::wstring& textString,const sf::Font& font,unsigned int charSize)
 {
+	this->charSize = charSize;
 	this->text.setString(sf::String(textString));
 	this->setTextParametres(font,charSize);
 }
@@ -319,4 +321,49 @@ void TextBox::CorrectCursorPos()
 		cursorPos.y = symbolBoxSize.y;
 		cursorPos.x = symbolBoxSize.x;
 	}
+}
+
+void TextBox::FillText(std::wstring string, sf::Font* font, unsigned int charSize)
+{
+	auto stringIterator = string.begin();
+	sf::Vector2f symbolAbsoluteCoordinates=sf::Vector2f(x-w/2,y-h/2);
+	float currentParametresLinespace = 0;
+	
+	
+	std::list<sf::Text> currentLine;
+	sf::Text t;
+	t.setPosition(x - w / 2, y - h / 2);
+	t.setCharacterSize(this->charSize);
+	t.setFont(*font);
+	for (; stringIterator != string.end(); ++stringIterator)
+	{
+		t.setString(sf::String(*stringIterator + "\0"));
+		currentLine.push_back(t);
+		symbolAbsoluteCoordinates.x += t.getGlobalBounds().width;
+		t.setPosition(symbolAbsoluteCoordinates.x, y - h / 2);
+		if (NeedLineBreak(currentLine))
+		{
+			symbolAbsoluteCoordinates.x = x - w / 2;
+			symbolAbsoluteCoordinates.y += t.getGlobalBounds().height+t.getLineSpacing()*3;
+			currentLine.pop_back();
+			--stringIterator;
+
+			symbols.push_back(currentLine);
+			currentLine.clear();
+		}
+	}
+}
+
+inline bool TextBox::NeedLineBreak(std::list<sf::Text>& list)
+{	
+	return this->LineLength(list) >= w;
+}
+
+float TextBox::LineLength(std::list<sf::Text>& list)
+{
+	float totalWidth = 0;
+	for (auto it = list.begin(); it != list.end(); ++it)
+		totalWidth += it->getGlobalBounds().width + it->getLetterSpacing();
+
+	return totalWidth;
 }
